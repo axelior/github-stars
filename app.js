@@ -1,0 +1,1923 @@
+// Generic GitHub Stars Explorer - static GitHub Pages implementation
+class GitHubStarsGraph {
+    constructor() {
+        this.repositories = [];
+        this.filteredRepositories = [];
+        this.simulation = null;
+        this.svg = null;
+        this.tooltip = null;
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this.dataLastUpdated = null; // ISO timestamp when data was last updated
+        this.dataSource = null; // 'cached' (Actions JSON) | 'live' (API)
+        this.config = {
+            appName: 'GitHub Stars Explorer',
+            defaultUsername: 'axelior',
+            repositoryUrl: 'https://github.com/axelior/github-stars',
+            workflowUrl: 'https://github.com/axelior/github-stars/actions/workflows/update-data.yml',
+            staleHours: 24
+        };
+        
+        // Enhanced category definitions with weighted keyword scoring
+        // Format: { keyword: weight } where higher weight = stronger indicator
+        this.categories = {
+            'ai-ml': {
+                strong: ['tensorflow', 'pytorch', 'huggingface', 'langchain', 'openai', 'anthropic', 'transformers', 'llm', 'gpt', 'chatgpt', 'claude', 'gemini', 'llama', 'bert', 'neural-network', 'deep-learning', 'machine-learning', 'prompt-engineering', 'prompt-optimization', 'agent-framework', 'agentic-ai', 'deepagents', 'dspy', 'reinforcement-learning'],
+                medium: ['ai', 'ml', 'rag', 'embedding', 'model-training', 'inference', 'nlp', 'computer-vision', 'generative', 'diffusion', 'ai-powered', 'ai-agent', 'ai-assistant', 'llm-ops', 'model-context-protocol', 'ai-native'],
+                weak: ['agent', 'semantic', 'vector', 'optimization', 'prompt']
+            },
+            'cloud': {
+                strong: ['aws', 'azure', 'gcp', 'google-cloud', 'cloud-native', 'eks', 'aks', 'gke', 'cloudformation', 'terraform', 'pulumi', 'cdn', 'cloudflare'],
+                medium: ['cloud', 'infrastructure-as-code', 'iac', 'aws-cdk', 'serverless', 'lambda', 'cloud-functions', 'edge-computing', 'esm'],
+                weak: ['infrastructure', 'deployment', 'hosting']
+            },
+            'devops': {
+                strong: ['kubernetes', 'k8s', 'docker', 'helm', 'argocd', 'gitlab-ci', 'github-actions', 'circleci', 'jenkins', 'ansible', 'vagrant', 'backup-automation', 'prometheus-exporter'],
+                medium: ['ci-cd', 'continuous-integration', 'continuous-deployment', 'devops', 'gitops', 'containerization', 'orchestration', 'self-hosted', 'homelab', 'sre', 'site-reliability', 'backup'],
+                weak: ['deployment', 'pipeline', 'automation', 'ops', 'self-hosters']
+            },
+            'web-dev': {
+                strong: ['react', 'nextjs', 'next.js', 'vue', 'vuejs', 'angular', 'svelte', 'remix', 'astro', 'browser-engine', 'web-browser', 'chromium', 'webkit', 'static-site-generator', 'ssg'],
+                medium: ['frontend', 'backend', 'fullstack', 'web-framework', 'express', 'fastify', 'nestjs', 'tailwind', 'css', 'browser', 'web-development', 'obsidian-md', 'markdown-editor', 'nobuild'],
+                weak: ['web', 'html', 'javascript', 'typescript', 'markdown', 'mdx']
+            },
+            'mobile': {
+                strong: ['react-native', 'flutter', 'swift', 'kotlin', 'swiftui', 'jetpack-compose', 'expo'],
+                medium: ['ios', 'android', 'mobile-development', 'mobile-app', 'xamarin', 'ionic'],
+                weak: ['mobile']
+            },
+            'data': {
+                strong: ['postgresql', 'mongodb', 'redis', 'elasticsearch', 'cassandra', 'dynamodb', 'apache-spark', 'apache-kafka', 'apache-airflow', 'gpu-programming', 'cuda-programming', 'gpu-engineering'],
+                medium: ['database', 'data-engineering', 'etl', 'data-pipeline', 'data-warehouse', 'bigquery', 'snowflake', 'kernels', 'gpu', 'cuda'],
+                weak: ['sql', 'nosql', 'analytics', 'data', 'pandas', 'numpy']
+            },
+            'monitoring': {
+                strong: ['prometheus', 'grafana', 'datadog', 'new-relic', 'elasticsearch', 'kibana', 'jaeger', 'zipkin', 'web-analytics', 'google-analytics', 'mixpanel', 'amplitude', 'umami'],
+                medium: ['observability', 'monitoring', 'logging', 'tracing', 'metrics', 'apm', 'alerting', 'analytics', 'product-analytics', 'audience-segmentation', 'cohort-analysis', 'user-journey'],
+                weak: ['logs', 'telemetry', 'statistics', 'tracking']
+            },
+            'testing': {
+                strong: ['jest', 'pytest', 'cypress', 'selenium', 'playwright', 'junit', 'testng', 'mocha'],
+                medium: ['testing', 'test-automation', 'unit-testing', 'integration-testing', 'e2e-testing', 'tdd', 'bdd'],
+                weak: ['test', 'qa', 'quality-assurance']
+            },
+            'python': {
+                strong: ['django', 'flask', 'fastapi', 'pandas', 'numpy', 'scipy', 'scikit-learn'],
+                medium: ['python', 'python3', 'pythonic'],
+                weak: ['py']
+            },
+            'tools': {
+                strong: ['vscode', 'vim', 'neovim', 'cli-tool', 'command-line-tool', 'browser-extension', 'chrome-extension', 'firefox-addon', 'text-editor', 'productivity-tool'],
+                medium: ['cli', 'command-line', 'terminal', 'shell', 'bash', 'developer-tools', 'chrome', 'firefox', 'safari', 'edge', 'opera', 'code-review', 'pull-request-review', 'github-tool', 'self-hosted-tools'],
+                weak: ['tool', 'utility', 'productivity', 'extension', 'addon', 'plugin']
+            },
+            'security': {
+                strong: ['oauth', 'jwt', 'authentication', 'authorization', 'encryption', 'vulnerability-scanner', 'penetration-testing', 'soc2', 'iso27001', 'gdpr', 'hipaa', 'compliance'],
+                medium: ['security', 'cybersecurity', 'infosec', 'secure', 'privacy', 'cryptography', 'grc', 'governance', 'risk-management', 'compliance-automation', 'iso27701', 'iso42001'],
+                weak: ['auth', 'ssl', 'tls', 'audit']
+            },
+            'api': {
+                strong: ['graphql', 'rest-api', 'api-gateway', 'grpc', 'swagger', 'openapi'],
+                medium: ['api', 'restful', 'microservices', 'api-client', 'sdk'],
+                weak: ['endpoint', 'webhook']
+            },
+            'learning': {
+                strong: ['tutorial', 'course', 'learning-resources', 'educational', 'coding-interview', 'examples', 'awesome-list', 'curated-list', 'learning-path', 'study-guide', 'cheat-sheet'],
+                medium: ['learning', 'education', 'guide', 'handbook', 'interview-prep', 'awesome', 'resources', 'list', 'collection', 'curated', 'flashcard', 'spaced-repetition'],
+                weak: ['documentation', 'book', 'study', 'reference']
+            },
+            'ui-ux': {
+                strong: ['design-system', 'ui-components', 'component-library', 'tailwindcss', 'material-ui', 'shadcn', 'gui-framework', 'gpui', 'uikit', 'swiftui', 'jetpack-compose'],
+                medium: ['ui', 'ux', 'design', 'user-interface', 'frontend-framework', 'desktop-application', 'canvas', 'graphics', 'pixel-art', 'isometric'],
+                weak: ['theme', 'icon', 'animation', 'visual']
+            },
+            'blockchain': {
+                strong: ['ethereum', 'solidity', 'web3', 'smart-contract', 'defi', 'nft'],
+                medium: ['blockchain', 'cryptocurrency', 'bitcoin', 'dapp'],
+                weak: ['crypto']
+            },
+            'game-dev': {
+                strong: ['unity', 'unreal', 'godot', 'game-engine'],
+                medium: ['game-development', 'gamedev', 'gaming'],
+                weak: ['game', '3d', 'physics-engine']
+            },
+            'mcp': {
+                strong: ['mcp', 'model-context-protocol', 'claude-desktop'],
+                medium: ['anthropic'],
+                weak: []
+            },
+            'networking': {
+                strong: ['networking', 'network-programming', 'tcp-ip', 'http', 'dns', 'load-balancer'],
+                medium: ['protocol', 'socket', 'websocket', 'network'],
+                weak: []
+            },
+            'system-design': {
+                strong: ['system-design', 'system-architecture', 'distributed-systems', 'distributed-system', 'scalability', 'high-availability', 'microservices-architecture', 'system-design-interview', 'architecture-patterns', 'design-patterns', 'software-architecture'],
+                medium: ['architecture', 'scalable', 'distributed', 'high-performance', 'load-balancing', 'caching', 'message-queue', 'event-driven', 'microservices-pattern', 'architectural'],
+                weak: ['pattern', 'architecture-diagram', 'system']
+            },
+            'other': {}
+        };
+        
+        this.categoryMeta = {
+            'ai-models': { label: 'AI Models', color: '#7c6db2' },
+            'ai-agents': { label: 'AI Agents', color: '#8a5fb0' },
+            'llm-apps': { label: 'LLM Apps', color: '#7161a8' },
+            'rag-search': { label: 'RAG/Search', color: '#5f73a6' },
+            'ai-learning': { label: 'AI Learning', color: '#8f7aaa' },
+            'frontend': { label: 'Frontend', color: '#6d9a85' },
+            'backend-api': { label: 'Backend/API', color: '#5f8f9b' },
+            'full-stack-frameworks': { label: 'Full-stack Frameworks', color: '#74927c' },
+            'developer-tools': { label: 'Developer Tools', color: '#7f8391' },
+            'productivity-apps': { label: 'Productivity Apps', color: '#8b7b8d' },
+            'self-hosted': { label: 'Self-hosted', color: '#7a8f79' },
+            'databases': { label: 'Databases', color: '#597c9d' },
+            'systems-low-level': { label: 'Systems/Low-level', color: '#897b6f' },
+            'career-interview': { label: 'Career/Interview', color: '#8c8870' },
+            'docs-reference': { label: 'Docs/Reference', color: '#879476' },
+            'cloud': { label: 'Cloud', color: '#9d7d5d' },
+            'devops': { label: 'DevOps', color: '#5d8d9d' },
+            'mobile': { label: 'Mobile', color: '#9d6d6d' },
+            'monitoring': { label: 'Monitoring', color: '#9d7d5d' },
+            'testing': { label: 'Testing', color: '#7d9d6d' },
+            'python': { label: 'Python', color: '#9d956d' },
+            'security': { label: 'Security', color: '#8d6d7d' },
+            'ui-ux': { label: 'UI/UX', color: '#9d7d8d' },
+            'blockchain': { label: 'Blockchain', color: '#8d7d6d' },
+            'game-dev': { label: 'Game Dev', color: '#9d8d7d' },
+            'mcp': { label: 'MCP', color: '#7d7d9d' },
+            'networking': { label: 'Networking', color: '#6d8d9d' },
+            'system-design': { label: 'System Design', color: '#7d9d8d' },
+            'other': { label: 'Other', color: '#7d7d8d' }
+        };
+
+        // Backward-compatible palette: old category ids plus the new display taxonomy.
+        this.categoryColors = {
+            'ai-ml': '#6d5d9a',        // Dark purple
+            'cloud': '#9d7d5d',        // Dusty brown
+            'devops': '#5d8d9d',       // Muted teal
+            'web-dev': '#6d8d7d',      // Muted sage
+            'mobile': '#9d6d6d',       // Muted mauve red
+            'data': '#5d7d9d',         // Deep slate
+            'monitoring': '#9d7d5d',   // Warm taupe
+            'testing': '#7d9d6d',      // Muted green
+            'python': '#9d956d',       // Muted olive
+            'tools': '#7d7d8d',        // Cool gray
+            'security': '#8d6d7d',     // Deep plum
+            'api': '#7d6d8d',          // Muted purple
+            'learning': '#7d9d8d',     // Soft teal-green
+            'ui-ux': '#9d7d8d',        // Muted dusty rose
+            'blockchain': '#8d7d6d',   // Warm taupe
+            'game-dev': '#9d8d7d',     // Soft tan
+            'mcp': '#7d7d9d',          // Periwinkle
+            'networking': '#6d8d9d',   // Slate blue
+            'system-design': '#7d9d8d', // Blue-green
+            'other': '#7d7d8d'         // Neutral gray
+        };
+        Object.entries(this.categoryMeta).forEach(([category, meta]) => {
+            this.categoryColors[category] = meta.color;
+        });
+
+        this.currentFilters = {
+            search: '',
+            preset: 'sample',
+            category: 'all',
+            language: 'all',
+            stars: 'all'
+        };
+        this.viewOptions = {
+            showLabels: false,
+            showLinks: false
+        };
+
+        this.init();
+    }
+    
+    async init() {
+        try {
+            this.setupEventListeners();
+            await this.loadRepositories();
+            this.setupGraph();
+            this.setupPresets();
+            this.setupFilters();
+            this.setupLegend();
+            this.applyPreset('sample');
+            this.hideLoading();
+            console.log('GitHub Stars Explorer initialized successfully!');
+        } catch (error) {
+            console.error('Error initializing app:', error);
+            this.showError(`Failed to initialize: ${error.message}`);
+        }
+    }
+    
+    setupEventListeners() {
+        // Search functionality
+        const searchInput = document.getElementById('search');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                this.currentFilters.search = e.target.value.toLowerCase();
+                this.applyFilters();
+            });
+        }
+        
+        // Stars filters
+        document.querySelectorAll('#stars-filters .filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('#stars-filters .filter-btn').forEach(b => b.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                this.currentFilters.stars = e.target.dataset.stars;
+                this.applyFilters();
+            });
+        });
+        
+        // Window resize
+        window.addEventListener('resize', () => {
+            this.handleResize();
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.resetFilters();
+            }
+        });
+
+        // Refresh button -> open GitHub Actions Run Workflow page in a new tab
+        const refreshBtn = document.getElementById('refresh-now');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => {
+                window.open(this.config.workflowUrl, '_blank');
+            });
+        }
+
+        const exportBtn = document.getElementById('export-csv');
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => {
+                this.exportRepositoriesCsv();
+            });
+        }
+
+        // Mobile menu toggles
+        const toggleControls = document.getElementById('toggle-controls');
+        const toggleLegend = document.getElementById('toggle-legend');
+        const closeControls = document.getElementById('close-controls');
+        const closeLegend = document.getElementById('close-legend');
+        const controlsPanel = document.getElementById('controls-panel');
+        const legendPanel = document.getElementById('legend-panel');
+        const backdrop = document.getElementById('panel-backdrop');
+        const toggleFiltersHeader = document.getElementById('toggle-filters-header');
+        const toggleLegendHeader = document.getElementById('toggle-legend-header');
+
+        const openPanel = (panelToOpen, otherPanel, toggleBtn, otherToggleBtn) => {
+            panelToOpen.classList.remove('collapsed');
+            panelToOpen.classList.add('mobile-open');
+            otherPanel.classList.remove('mobile-open');
+            if (backdrop) backdrop.classList.add('visible');
+            if (toggleBtn) {
+                toggleBtn.classList.add('active-toggle');
+                toggleBtn.setAttribute('aria-expanded', 'true');
+            }
+            if (otherToggleBtn) {
+                otherToggleBtn.classList.remove('active-toggle');
+                otherToggleBtn.setAttribute('aria-expanded', 'false');
+            }
+            if (toggleFiltersHeader && panelToOpen === controlsPanel) {
+                toggleFiltersHeader.classList.remove('collapsed');
+                toggleFiltersHeader.setAttribute('aria-expanded', 'true');
+            }
+            if (toggleLegendHeader && panelToOpen === legendPanel) {
+                toggleLegendHeader.classList.remove('collapsed');
+                toggleLegendHeader.setAttribute('aria-expanded', 'true');
+            }
+        };
+
+        const closeAllPanels = () => {
+            controlsPanel.classList.remove('mobile-open');
+            legendPanel.classList.remove('mobile-open');
+            if (backdrop) backdrop.classList.remove('visible');
+            if (toggleControls) {
+                toggleControls.classList.remove('active-toggle');
+                toggleControls.setAttribute('aria-expanded', 'false');
+            }
+            if (toggleLegend) {
+                toggleLegend.classList.remove('active-toggle');
+                toggleLegend.setAttribute('aria-expanded', 'false');
+            }
+            if (toggleFiltersHeader) toggleFiltersHeader.classList.add('collapsed');
+            if (toggleLegendHeader) toggleLegendHeader.classList.add('collapsed');
+            this.hideTooltip();
+        };
+
+        if (toggleControls && controlsPanel) {
+            toggleControls.addEventListener('click', () => {
+                if (controlsPanel.classList.contains('mobile-open')) {
+                    closeAllPanels();
+                } else {
+                    openPanel(controlsPanel, legendPanel, toggleControls, toggleLegend);
+                }
+            });
+        }
+
+        if (toggleLegend && legendPanel) {
+            toggleLegend.addEventListener('click', () => {
+                if (legendPanel.classList.contains('mobile-open')) {
+                    closeAllPanels();
+                } else {
+                    openPanel(legendPanel, controlsPanel, toggleLegend, toggleControls);
+                }
+            });
+        }
+
+        if (closeControls) {
+            closeControls.addEventListener('click', () => {
+                if (window.innerWidth > 767) {
+                    controlsPanel.classList.add('collapsed');
+                    if (toggleFiltersHeader) {
+                        toggleFiltersHeader.classList.add('collapsed');
+                        toggleFiltersHeader.setAttribute('aria-expanded', 'false');
+                    }
+                } else {
+                    closeAllPanels();
+                }
+            });
+        }
+        if (closeLegend) {
+            closeLegend.addEventListener('click', () => {
+                if (window.innerWidth > 767) {
+                    legendPanel.classList.add('collapsed');
+                    if (toggleLegendHeader) {
+                        toggleLegendHeader.classList.add('collapsed');
+                        toggleLegendHeader.setAttribute('aria-expanded', 'false');
+                    }
+                } else {
+                    closeAllPanels();
+                }
+            });
+        }
+        if (backdrop) backdrop.addEventListener('click', closeAllPanels);
+
+        // Header Filters toggle - collapsible on all viewports
+        const filterToggleWrap = document.getElementById('filter-toggle-wrap');
+        const showFiltersFab = document.getElementById('show-filters-fab');
+        const hideFiltersBtn = document.getElementById('hide-filters-btn');
+        const FILTERS_HIDDEN_KEY = 'github-stars-graph-filters-hidden';
+
+        const applyFiltersVisibility = () => {
+            const hidden = localStorage.getItem(FILTERS_HIDDEN_KEY) === 'true';
+            if (filterToggleWrap) filterToggleWrap.classList.toggle('hidden', hidden);
+            if (showFiltersFab) showFiltersFab.classList.toggle('visible', hidden);
+        };
+
+        applyFiltersVisibility();
+
+        if (hideFiltersBtn && filterToggleWrap && showFiltersFab) {
+            hideFiltersBtn.addEventListener('click', () => {
+                localStorage.setItem(FILTERS_HIDDEN_KEY, 'true');
+                filterToggleWrap.classList.add('hidden');
+                showFiltersFab.classList.add('visible');
+                if (window.innerWidth > 767) controlsPanel.classList.add('collapsed');
+                closeAllPanels();
+            });
+        }
+
+        if (showFiltersFab && filterToggleWrap) {
+            showFiltersFab.addEventListener('click', () => {
+                localStorage.setItem(FILTERS_HIDDEN_KEY, 'false');
+                filterToggleWrap.classList.remove('hidden');
+                showFiltersFab.classList.remove('visible');
+            });
+        }
+
+        if (toggleFiltersHeader && controlsPanel) {
+            toggleFiltersHeader.classList.add('collapsed');
+            toggleFiltersHeader.setAttribute('aria-expanded', 'false');
+            toggleFiltersHeader.addEventListener('click', () => {
+                const isMobile = window.innerWidth <= 767;
+                if (isMobile) {
+                    if (controlsPanel.classList.contains('mobile-open')) {
+                        closeAllPanels();
+                    } else {
+                        openPanel(controlsPanel, legendPanel, toggleControls, toggleLegend);
+                    }
+                } else {
+                    controlsPanel.classList.toggle('collapsed');
+                    const collapsed = controlsPanel.classList.contains('collapsed');
+                    toggleFiltersHeader.classList.toggle('collapsed', collapsed);
+                    toggleFiltersHeader.setAttribute('aria-expanded', !collapsed);
+                }
+            });
+        }
+
+        if (toggleLegendHeader && legendPanel) {
+            toggleLegendHeader.classList.add('collapsed');
+            toggleLegendHeader.setAttribute('aria-expanded', 'false');
+            toggleLegendHeader.addEventListener('click', () => {
+                const isMobile = window.innerWidth <= 767;
+                if (isMobile) {
+                    if (legendPanel.classList.contains('mobile-open')) {
+                        closeAllPanels();
+                    } else {
+                        openPanel(legendPanel, controlsPanel, toggleLegend, toggleControls);
+                    }
+                } else {
+                    legendPanel.classList.toggle('collapsed');
+                    const collapsed = legendPanel.classList.contains('collapsed');
+                    toggleLegendHeader.classList.toggle('collapsed', collapsed);
+                    toggleLegendHeader.setAttribute('aria-expanded', !collapsed);
+                }
+            });
+        }
+
+        const labelsBtn = document.getElementById('toggle-labels');
+        if (labelsBtn) {
+            labelsBtn.addEventListener('click', () => {
+                this.viewOptions.showLabels = !this.viewOptions.showLabels;
+                labelsBtn.classList.toggle('active-toggle', this.viewOptions.showLabels);
+                labelsBtn.setAttribute('aria-pressed', String(this.viewOptions.showLabels));
+                this.updateVisualization();
+            });
+        }
+
+        const linesBtn = document.getElementById('toggle-lines');
+        if (linesBtn) {
+            linesBtn.addEventListener('click', () => {
+                this.viewOptions.showLinks = !this.viewOptions.showLinks;
+                linesBtn.classList.toggle('active-toggle', this.viewOptions.showLinks);
+                linesBtn.setAttribute('aria-pressed', String(this.viewOptions.showLinks));
+                this.updateVisualization();
+            });
+        }
+
+        const calmBtn = document.getElementById('calm-view');
+        if (calmBtn) {
+            calmBtn.addEventListener('click', () => {
+                controlsPanel.classList.add('collapsed');
+                controlsPanel.classList.remove('mobile-open');
+                legendPanel.classList.add('collapsed');
+                legendPanel.classList.remove('mobile-open');
+                if (backdrop) backdrop.classList.remove('visible');
+                if (toggleControls) {
+                    toggleControls.classList.remove('active-toggle');
+                    toggleControls.setAttribute('aria-expanded', 'false');
+                }
+                if (toggleLegend) {
+                    toggleLegend.classList.remove('active-toggle');
+                    toggleLegend.setAttribute('aria-expanded', 'false');
+                }
+                if (toggleFiltersHeader) {
+                    toggleFiltersHeader.classList.add('collapsed');
+                    toggleFiltersHeader.setAttribute('aria-expanded', 'false');
+                }
+                if (toggleLegendHeader) {
+                    toggleLegendHeader.classList.add('collapsed');
+                    toggleLegendHeader.setAttribute('aria-expanded', 'false');
+                }
+                this.resetFilters();
+                this.hideTooltip();
+            });
+        }
+
+        // Swipe-down to close bottom sheet panels
+        this.setupSwipeToClose(controlsPanel, closeAllPanels);
+        this.setupSwipeToClose(legendPanel, closeAllPanels);
+
+        // Close panels when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 767) {
+                const isClickInsideControls = controlsPanel.contains(e.target);
+                const isClickInsideLegend = legendPanel.contains(e.target);
+                const isToggleButton = e.target.closest('.mobile-toggle, #toggle-filters-header, #toggle-legend-header, #show-filters-fab');
+                if (!isClickInsideControls && !isClickInsideLegend && !isToggleButton) {
+                    closeAllPanels();
+                }
+            }
+        });
+
+        // Close panels on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAllPanels();
+            }
+        });
+
+        // Search clear button
+        const searchClear = document.getElementById('search-clear');
+        if (searchInput && searchClear) {
+            searchInput.addEventListener('input', () => {
+                searchClear.classList.toggle('visible', searchInput.value.length > 0);
+            });
+            searchClear.addEventListener('click', () => {
+                searchInput.value = '';
+                searchClear.classList.remove('visible');
+                this.currentFilters.search = '';
+                this.applyFilters();
+                searchInput.focus();
+            });
+        }
+
+        // Ripple effect on interactive buttons
+        document.querySelectorAll('.filter-btn, .refresh-btn, .mobile-toggle, .filter-toggle-btn, .hide-filters-btn, .show-filters-fab').forEach(btn => {
+            this.attachRipple(btn);
+        });
+
+        this.updateLayoutMetrics();
+    }
+    
+    async loadRepositories() {
+        const params = new URLSearchParams(window.location.search);
+        const username = params.get('user') || this.config.defaultUsername;
+        
+        try {
+            this.updateProgress('Connecting to data source...');
+            
+            // Try to load from data file first (if GitHub Actions has run)
+            try {
+                const response = await fetch(`./data/repositories.json?v=${Date.now()}`, { cache: 'no-store' });
+                if (response.ok) {
+                    const data = await response.json();
+                    this.repositories = (data.repositories || []).map(repo => this.normalizeRepository(repo));
+                    this.dataLastUpdated = data.lastUpdated || null;
+                    this.dataSource = 'cached';
+                    console.log(`Loaded ${this.repositories.length} repositories from data file`);
+                    this.updateStats();
+                    return;
+                }
+            } catch (e) {
+                console.log('Data file not found, fetching from GitHub API...');
+            }
+            
+            // Fallback: Fetch directly from GitHub API
+            let page = 1;
+            const perPage = 100;
+            this.repositories = [];
+            this.dataSource = 'live';
+            
+            this.updateProgress('Fetching repository data from GitHub API...');
+            
+            while (page <= 8) { // Maximum 8 pages to get ~700+ repos
+                try {
+                    const url = `https://api.github.com/users/${username}/starred?per_page=${perPage}&page=${page}`;
+                    
+                    const response = await fetch(url);
+                    
+                    if (!response.ok) {
+                        if (response.status === 403) {
+                            throw new Error('GitHub API rate limit exceeded. The app will use cached data or try again later.');
+                        }
+                        throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+                    }
+                    
+                    const repos = await response.json();
+                    
+                    if (repos.length === 0) break;
+                    
+                    const processedRepos = repos.map(repo => ({
+                        id: repo.id,
+                        name: repo.name,
+                        owner: repo.owner.login,
+                        fullName: repo.full_name,
+                        description: repo.description || '',
+                        url: repo.html_url,
+                        language: repo.language || 'Unknown',
+                        stars: repo.stargazers_count,
+                        forks: repo.forks_count,
+                        updatedAt: repo.updated_at,
+                        topics: repo.topics || [],
+                        category: this.categorizeRepo(repo)
+                    })).map(repo => this.normalizeRepository(repo));
+                    
+                    this.repositories = this.repositories.concat(processedRepos);
+                    
+                    this.updateProgress(`Loading repositories... ${this.repositories.length} found`);
+                    
+                    page++;
+                    
+                    // Small delay to be nice to GitHub API
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                    
+                } catch (error) {
+                    console.error(`Error fetching page ${page}:`, error);
+                    if (this.repositories.length === 0) {
+                        throw error;
+                    }
+                    break;
+                }
+            }
+            
+            console.log(`Successfully loaded ${this.repositories.length} repositories`);
+            // Mark last updated from live API fetch time if file wasn't used
+            if (!this.dataLastUpdated) {
+                this.dataLastUpdated = new Date().toISOString();
+            }
+            this.updateStats();
+            
+        } catch (error) {
+            console.error('Error loading repositories:', error);
+            
+            // Show error but try to continue with sample data for demo
+            this.showError(`Error loading data: ${error.message}. Please refresh to try again.`);
+            
+            // Set empty repositories to show error state
+            this.repositories = [];
+            this.updateStats();
+        }
+    }
+
+    normalizeRepository(repo) {
+        const secondaryCategories = Array.isArray(repo.secondaryCategories) && repo.secondaryCategories.length > 0
+            ? repo.secondaryCategories
+            : this.deriveSecondaryCategories(repo);
+        const displayCategory = repo.displayCategory || secondaryCategories[0] || this.getDisplayCategory(repo);
+
+        return {
+            ...repo,
+            category: repo.category || 'other',
+            secondaryCategories,
+            displayCategory,
+            categoryScore: Number.isFinite(repo.categoryScore) ? repo.categoryScore : this.estimateCategoryScore(repo),
+            _searchScore: 0
+        };
+    }
+
+    getRepoCategory(repo) {
+        return repo.displayCategory || repo.category || 'other';
+    }
+
+    getCategoryLabel(category) {
+        return this.categoryMeta[category]?.label || String(category || 'other').replace(/-/g, ' ').toUpperCase();
+    }
+
+    getDisplayCategory(repo) {
+        return this.deriveSecondaryCategories(repo)[0] || repo.category || 'other';
+    }
+
+    deriveSecondaryCategories(repo) {
+        const text = `${repo.name || ''} ${repo.fullName || ''} ${repo.description || ''} ${(repo.topics || []).join(' ')} ${repo.language || ''}`.toLowerCase();
+        const primary = repo.category || 'other';
+        const has = (...needles) => needles.some(needle => text.includes(needle));
+        const categories = [];
+        const add = category => {
+            if (category && !categories.includes(category)) categories.push(category);
+        };
+
+        if (has('agent', 'agentic', 'autogen', 'crew', 'swarm') && has('ai', 'llm', 'gpt', 'claude', 'openai')) add('ai-agents');
+        if (has('rag', 'embedding', 'vector', 'similarity search', 'semantic search', 'faiss', 'qdrant', 'chroma', 'weaviate')) add('rag-search');
+        if (primary === 'ai-ml' && has('course', 'tutorial', 'beginner', 'from-scratch', 'cookbook', 'guide', 'awesome', 'lesson', 'learning')) add('ai-learning');
+        if (primary === 'ai-ml' && has('chatbot', 'assistant', 'webui', 'open-webui', 'dify', 'langflow', 'comfyui', 'ollama', 'ui', 'app')) add('llm-apps');
+        if (primary === 'ai-ml') add('ai-models');
+
+        if (has('react', 'vue', 'angular', 'svelte', 'nextjs', 'next.js', 'tailwind', 'css', 'html', 'frontend', 'front-end')) add('frontend');
+        if (has('api', 'graphql', 'rest', 'openapi', 'swagger', 'grpc', 'fastapi', 'flask', 'django', 'express', 'nestjs', 'server')) add('backend-api');
+        if (has('framework', 'fullstack', 'full-stack', 'laravel', 'rails', 'next.js', 'nextjs', 'remix', 'django', 'supabase', 'appwrite', 'firebase')) add('full-stack-frameworks');
+
+        if (has('self-hosted', 'selfhosted', 'homelab', 'hosting', 'docker compose')) add('self-hosted');
+        if (has('postgres', 'postgresql', 'mysql', 'sqlite', 'mongodb', 'redis', 'database', 'dbms', 'elasticsearch')) add('databases');
+        if (has('cli', 'terminal', 'shell', 'vscode', 'neovim', 'developer-tool', 'developer tools', 'code-review', 'extension', 'plugin')) add('developer-tools');
+        if (has('productivity', 'obsidian', 'notes', 'note-taking', 'file-manager', 'resume', 'editor')) add('productivity-apps');
+        if (has('interview', 'career', 'hiring', 'roadmap', 'coding-interview', 'job')) add('career-interview');
+        if (has('awesome', 'documentation', 'docs', 'reference', 'book', 'cheat-sheet', 'cheatsheet', 'resources', 'list', 'collection')) add('docs-reference');
+        if (has('kernel', 'operating-system', 'compiler', 'runtime', 'zig', 'rust', 'c++', 'low-level', 'embedded', 'wasm')) add('systems-low-level');
+
+        const fallbackMap = {
+            'cloud': 'cloud',
+            'devops': 'devops',
+            'mobile': 'mobile',
+            'monitoring': 'monitoring',
+            'testing': 'testing',
+            'python': 'python',
+            'security': 'security',
+            'ui-ux': 'ui-ux',
+            'blockchain': 'blockchain',
+            'game-dev': 'game-dev',
+            'mcp': 'mcp',
+            'networking': 'networking',
+            'system-design': 'system-design',
+            'ai-ml': 'ai-models',
+            'data': 'databases',
+            'api': 'backend-api',
+            'tools': 'developer-tools',
+            'web-dev': 'frontend',
+            'learning': 'docs-reference'
+        };
+        add(fallbackMap[primary] || primary || 'other');
+
+        return categories.slice(0, 4);
+    }
+
+    estimateCategoryScore(repo) {
+        const category = repo.category || 'other';
+        if (category === 'other') return 0;
+        const topics = Array.isArray(repo.topics) ? repo.topics.length : 0;
+        return Math.min(100, 20 + topics * 4 + Math.log10((repo.stars || 0) + 1) * 6);
+    }
+    
+    updateProgress(message) {
+        const progressText = document.getElementById('progress-text');
+        if (progressText) {
+            progressText.textContent = message;
+        }
+    }
+    
+    categorizeRepo(repo) {
+        // Extract and normalize data
+        const name = (repo.name || '').toLowerCase();
+        const description = (repo.description || '').toLowerCase();
+        const topics = (repo.topics || []).map(t => t.toLowerCase());
+        const language = (repo.language || '').toLowerCase();
+
+        // Combine all text for keyword matching
+        const allText = `${name} ${description} ${topics.join(' ')}`;
+
+        // Create word boundary regex for more precise matching
+        const createWordRegex = (keyword) => {
+            // Handle hyphenated keywords and special characters
+            const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            return new RegExp(`\\b${escaped}\\b`, 'i');
+        };
+
+        // Score each category
+        const categoryScores = {};
+
+        for (const [category, keywordGroups] of Object.entries(this.categories)) {
+            if (category === 'other') continue;
+
+            let score = 0;
+
+            // Strong keywords: 10 points
+            if (keywordGroups.strong) {
+                for (const keyword of keywordGroups.strong) {
+                    if (createWordRegex(keyword).test(allText)) {
+                        score += 10;
+                        // Bonus for topic match (topics are curated and more accurate)
+                        if (topics.some(t => t.includes(keyword.toLowerCase()))) {
+                            score += 5;
+                        }
+                    }
+                }
+            }
+
+            // Medium keywords: 5 points
+            if (keywordGroups.medium) {
+                for (const keyword of keywordGroups.medium) {
+                    if (createWordRegex(keyword).test(allText)) {
+                        score += 5;
+                        if (topics.some(t => t.includes(keyword.toLowerCase()))) {
+                            score += 3;
+                        }
+                    }
+                }
+            }
+
+            // Weak keywords: 2 points
+            if (keywordGroups.weak) {
+                for (const keyword of keywordGroups.weak) {
+                    if (createWordRegex(keyword).test(allText)) {
+                        score += 2;
+                    }
+                }
+            }
+
+            categoryScores[category] = score;
+        }
+
+        // Language-based boosts
+        if (language === 'python') {
+            categoryScores['python'] = (categoryScores['python'] || 0) + 8;
+        }
+        if (language === 'javascript' || language === 'typescript') {
+            categoryScores['web-dev'] = (categoryScores['web-dev'] || 0) + 3;
+        }
+        if (language === 'swift' || language === 'kotlin') {
+            categoryScores['mobile'] = (categoryScores['mobile'] || 0) + 8;
+        }
+        if (language === 'go' || language === 'rust') {
+            categoryScores['tools'] = (categoryScores['tools'] || 0) + 3;
+            categoryScores['devops'] = (categoryScores['devops'] || 0) + 3;
+        }
+        if (language === 'hcl' || language === 'terraform') {
+            categoryScores['cloud'] = (categoryScores['cloud'] || 0) + 10;
+        }
+        if (language === 'dockerfile') {
+            categoryScores['devops'] = (categoryScores['devops'] || 0) + 8;
+        }
+
+        // Special case: if repo has "kubernetes" and "example", prefer devops over learning
+        if (allText.includes('kubernetes') && allText.includes('example')) {
+            categoryScores['devops'] = (categoryScores['devops'] || 0) + 10;
+            categoryScores['learning'] = Math.max(0, (categoryScores['learning'] || 0) - 5);
+        }
+
+        // Special case: Backup/automation tools
+        if (allText.includes('backup') && (allText.includes('automation') || allText.includes('self-hosted'))) {
+            categoryScores['devops'] = (categoryScores['devops'] || 0) + 8;
+        }
+
+        // Special case: Browser engines
+        if (allText.includes('browser') && (allText.includes('engine') || allText.includes('chromium') || allText.includes('webkit'))) {
+            categoryScores['web-dev'] = (categoryScores['web-dev'] || 0) + 10;
+        }
+
+        // Special case: AI agent frameworks
+        if ((allText.includes('agent') || allText.includes('agentic')) && (allText.includes('ai') || allText.includes('llm'))) {
+            categoryScores['ai-ml'] = (categoryScores['ai-ml'] || 0) + 8;
+        }
+
+        // Special case: Analytics platforms
+        if (allText.includes('analytics') && (allText.includes('platform') || allText.includes('alternative') || allText.includes('dashboard'))) {
+            categoryScores['monitoring'] = (categoryScores['monitoring'] || 0) + 8;
+        }
+
+        // Special case: Browser extensions
+        if ((allText.includes('browser-extension') || allText.includes('chrome-extension')) ||
+            (allText.includes('chrome') && allText.includes('extension'))) {
+            categoryScores['tools'] = (categoryScores['tools'] || 0) + 10;
+        }
+
+        // Special case: Static site generators
+        if (allText.includes('static-site') || (allText.includes('site') && allText.includes('generator'))) {
+            categoryScores['web-dev'] = (categoryScores['web-dev'] || 0) + 8;
+        }
+
+        // Special case: Compliance/security tools
+        if ((allText.includes('compliance') || allText.includes('soc2') || allText.includes('gdpr')) &&
+            !allText.includes('ai-native')) {
+            categoryScores['security'] = (categoryScores['security'] || 0) + 10;
+        }
+
+        // Special case: Awesome lists and curated resources
+        if ((allText.includes('awesome') && allText.includes('list')) ||
+            (allText.includes('curated') && (allText.includes('list') || allText.includes('collection')))) {
+            categoryScores['learning'] = (categoryScores['learning'] || 0) + 12;
+        }
+
+        // Special case: GUI/Desktop frameworks
+        if ((allText.includes('gui') || allText.includes('desktop-application')) &&
+            (allText.includes('framework') || allText.includes('components'))) {
+            categoryScores['ui-ux'] = (categoryScores['ui-ux'] || 0) + 8;
+        }
+
+        // Special case: System Design resources
+        if ((allText.includes('system-design') || allText.includes('system design')) ||
+            ((allText.includes('distributed') || allText.includes('scalability')) &&
+             (allText.includes('architecture') || allText.includes('interview')))) {
+            categoryScores['system-design'] = (categoryScores['system-design'] || 0) + 12;
+        }
+
+        // Find category with highest score (minimum threshold: 4 points)
+        let bestCategory = 'other';
+        let bestScore = 4;
+
+        for (const [category, score] of Object.entries(categoryScores)) {
+            if (score > bestScore) {
+                bestScore = score;
+                bestCategory = category;
+            }
+        }
+
+        return bestCategory;
+    }
+    
+    setupGraph() {
+        this.svg = d3.select('#graph')
+            .attr('width', this.width)
+            .attr('height', this.height);
+
+        this.tooltip = d3.select('#tooltip');
+
+        // Clear existing content
+        this.svg.selectAll('*').remove();
+
+        // Setup SVG defs (gradients, filters)
+        this.setupSVGDefs();
+
+        // Create zoom behavior
+        const zoom = d3.zoom()
+            .scaleExtent([0.1, 4])
+            .on('zoom', (event) => {
+                this.svg.selectAll('g').attr('transform', event.transform);
+            });
+        
+        this.svg.call(zoom);
+
+        // Fix iOS pinch-to-zoom conflicts
+        document.getElementById('graph').style.touchAction = 'none';
+
+        // Create main container group
+        const g = this.svg.append('g').attr('class', 'main-group');
+        
+        // Responsive force parameters: mobile > tablet > desktop
+        const isMobile = this.isMobileViewport();
+        const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1023;
+        const chargeStrength = isMobile ? -1000 : isTablet ? -600 : -400;
+        const chargeDistMax = isMobile ? 800 : isTablet ? 600 : 450;
+        const collideExtra = isMobile ? 18 : isTablet ? 12 : 8;
+        const collideRadius = d => this.getNodeRadius(d) + collideExtra;
+        const linkDistance = isMobile ? 120 : isTablet ? 140 : 160;
+
+        this.simulation = d3.forceSimulation()
+            .force('link', d3.forceLink().id(d => d.id).distance(linkDistance).strength(0.05))
+            .force('charge', d3.forceManyBody().strength(chargeStrength).distanceMax(chargeDistMax))
+            .force('center', d3.forceCenter(this.width / 2, this.height / 2).strength(0.08))
+            .force('collision', d3.forceCollide().radius(collideRadius).strength(0.95))
+            // Weaker category clustering - don't force too hard
+            .force('x', d3.forceX().x(d => this.getCategoryPosition(this.getRepoCategory(d)).x).strength(0.05))
+            .force('y', d3.forceY().y(d => this.getCategoryPosition(this.getRepoCategory(d)).y).strength(0.05))
+            .alphaDecay(0.04)
+            .velocityDecay(0.48);
+        
+        this.filteredRepositories = [...this.repositories];
+        this.updateVisualization();
+        this.updateStats();
+    }
+    
+    isMobileViewport() {
+        return window.innerWidth <= 767;
+    }
+    
+    getCategoryPosition(category) {
+        // Strategic positioning for better visual clustering
+        const positions = {
+            // Corner positions (major categories)
+            'ai-ml': { x: this.width * 0.15, y: this.height * 0.15 },     // Top-left
+            'ai-models': { x: this.width * 0.15, y: this.height * 0.15 },
+            'ai-agents': { x: this.width * 0.32, y: this.height * 0.2 },
+            'llm-apps': { x: this.width * 0.18, y: this.height * 0.38 },
+            'rag-search': { x: this.width * 0.36, y: this.height * 0.36 },
+            'ai-learning': { x: this.width * 0.48, y: this.height * 0.22 },
+            'web-dev': { x: this.width * 0.85, y: this.height * 0.15 },   // Top-right
+            'frontend': { x: this.width * 0.85, y: this.height * 0.15 },
+            'backend-api': { x: this.width * 0.82, y: this.height * 0.34 },
+            'full-stack-frameworks': { x: this.width * 0.68, y: this.height * 0.2 },
+            'cloud': { x: this.width * 0.15, y: this.height * 0.85 },     // Bottom-left
+            'data': { x: this.width * 0.85, y: this.height * 0.85 },      // Bottom-right
+            'databases': { x: this.width * 0.85, y: this.height * 0.85 },
+
+            // Edge centers (infrastructure & tools)
+            'devops': { x: this.width * 0.5, y: this.height * 0.1 },      // Top-center
+            'mobile': { x: this.width * 0.1, y: this.height * 0.5 },      // Left-center
+            'tools': { x: this.width * 0.9, y: this.height * 0.5 },       // Right-center
+            'developer-tools': { x: this.width * 0.9, y: this.height * 0.5 },
+            'productivity-apps': { x: this.width * 0.74, y: this.height * 0.55 },
+            'self-hosted': { x: this.width * 0.3, y: this.height * 0.82 },
+            'systems-low-level': { x: this.width * 0.62, y: this.height * 0.82 },
+            'career-interview': { x: this.width * 0.5, y: this.height * 0.68 },
+            'docs-reference': { x: this.width * 0.46, y: this.height * 0.52 },
+            'python': { x: this.width * 0.5, y: this.height * 0.9 },      // Bottom-center
+
+            // Inner ring (specialized categories)
+            'monitoring': { x: this.width * 0.25, y: this.height * 0.25 },
+            'testing': { x: this.width * 0.75, y: this.height * 0.25 },
+            'security': { x: this.width * 0.25, y: this.height * 0.75 },
+            'ui-ux': { x: this.width * 0.75, y: this.height * 0.75 },
+
+            // Mid positions
+            'api': { x: this.width * 0.35, y: this.height * 0.35 },
+            'learning': { x: this.width * 0.65, y: this.height * 0.35 },
+            'networking': { x: this.width * 0.35, y: this.height * 0.65 },
+            'game-dev': { x: this.width * 0.65, y: this.height * 0.65 },
+
+            // Special positions
+            'mcp': { x: this.width * 0.5, y: this.height * 0.3 },
+            'blockchain': { x: this.width * 0.5, y: this.height * 0.7 },
+
+            // Center for uncategorized
+            'other': { x: this.width * 0.5, y: this.height * 0.5 }
+        };
+
+        return positions[category] || positions['other'];
+    }
+    
+    setupSVGDefs() {
+        const defs = this.svg.append('defs');
+
+        // Obsidian-style: subtle outer glow (not gradients, just soft shadow)
+        const shadowFilter = defs.append('filter')
+            .attr('id', 'node-shadow')
+            .attr('x', '-50%').attr('y', '-50%')
+            .attr('width', '200%').attr('height', '200%');
+        shadowFilter.append('feGaussianBlur')
+            .attr('in', 'SourceGraphic')
+            .attr('stdDeviation', '1.5')
+            .attr('result', 'blur');
+        shadowFilter.append('feComponentTransfer')
+            .attr('in', 'blur')
+            .attr('result', 'shadow')
+            .append('feFuncA')
+            .attr('type', 'linear')
+            .attr('slope', '0.3');
+        shadowFilter.append('feMerge')
+            .append('feMergeNode').attr('in', 'shadow');
+        d3.select('#node-shadow').select('feMerge')
+            .append('feMergeNode').attr('in', 'SourceGraphic');
+
+        // Very subtle pulse for top-10 repos
+        const pulseFilter = defs.append('filter')
+            .attr('id', 'glow-pulse')
+            .attr('x', '-30%').attr('y', '-30%')
+            .attr('width', '160%').attr('height', '160%');
+        pulseFilter.append('feGaussianBlur')
+            .attr('stdDeviation', '1')
+            .attr('result', 'coloredBlur');
+        pulseFilter.append('feMerge')
+            .append('feMergeNode').attr('in', 'coloredBlur');
+        d3.select('#glow-pulse').select('feMerge')
+            .append('feMergeNode').attr('in', 'SourceGraphic');
+    }
+
+    getNodeRadius(d) {
+        const stars = d.stars || 1;
+        const isMobile = this.isMobileViewport();
+        const base = Math.log10(stars + 1) * (isMobile ? 4.2 : 6) + (isMobile ? 6 : 7);
+        if (stars >= 100000) return Math.min(isMobile ? 24 : 38, base);
+        if (stars >= 10000)  return Math.min(isMobile ? 20 : 30, base);
+        if (stars >= 1000)   return Math.min(isMobile ? 16 : 22, base);
+        return Math.min(isMobile ? 12 : 16, Math.max(isMobile ? 7 : 6, base));
+    }
+    
+    setupFilters() {
+        const categoryContainer = document.getElementById('category-filters');
+        if (categoryContainer) {
+            categoryContainer.innerHTML = '';
+            const categoryCounts = this.getDisplayCategoryCounts();
+            const categories = ['all', ...Object.keys(this.categoryMeta)
+                .filter(category => categoryCounts[category])
+                .sort((a, b) => categoryCounts[b] - categoryCounts[a])];
+
+            categories.forEach(category => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn' + (category === 'all' ? ' active' : '');
+                btn.textContent = category === 'all' ? 'All' : this.getCategoryLabel(category);
+                btn.dataset.category = category;
+                btn.addEventListener('click', (e) => this.filterByCategory(category, e.currentTarget));
+                this.attachRipple(btn);
+                categoryContainer.appendChild(btn);
+            });
+        }
+
+        const languageContainer = document.getElementById('language-filters');
+        if (languageContainer) {
+            languageContainer.innerHTML = '';
+            const languageCounts = new Map();
+            this.repositories.forEach(repo => {
+                if (repo.language && repo.language !== 'Unknown') {
+                    languageCounts.set(repo.language, (languageCounts.get(repo.language) || 0) + 1);
+                }
+            });
+
+            const topLanguages = Array.from(languageCounts.entries())
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 15)
+                .map(([lang, count]) => lang);
+
+            const allBtn = document.createElement('button');
+            allBtn.className = 'filter-btn active';
+            allBtn.textContent = 'All';
+            allBtn.dataset.language = 'all';
+            allBtn.addEventListener('click', (e) => this.filterByLanguage('all', e.currentTarget));
+            this.attachRipple(allBtn);
+            languageContainer.appendChild(allBtn);
+
+            topLanguages.forEach(language => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.textContent = language;
+                btn.dataset.language = language;
+                btn.addEventListener('click', (e) => this.filterByLanguage(language, e.currentTarget));
+                this.attachRipple(btn);
+                languageContainer.appendChild(btn);
+            });
+        }
+    }
+
+    setupPresets() {
+        document.querySelectorAll('#preset-filters .filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.preset === this.currentFilters.preset);
+            btn.addEventListener('click', (e) => this.applyPreset(e.currentTarget.dataset.preset, e.currentTarget));
+            this.attachRipple(btn);
+        });
+    }
+    
+    setupLegend() {
+        const legendContainer = document.getElementById('legend-items');
+        if (legendContainer) {
+            legendContainer.innerHTML = '';
+            const categoryCounts = this.getDisplayCategoryCounts();
+            
+            // Create legend items sorted by count
+            Object.entries(categoryCounts)
+                .sort(([,a], [,b]) => b - a)
+                .forEach(([category, count]) => {
+                    const item = document.createElement('div');
+                    item.className = 'legend-item';
+                    
+                    const color = document.createElement('div');
+                    color.className = 'legend-color';
+                    color.style.backgroundColor = this.categoryColors[category] || '#6366F1';
+                    
+                    const label = document.createElement('span');
+                    label.textContent = `${this.getCategoryLabel(category)} (${count})`;
+                    
+                    item.appendChild(color);
+                    item.appendChild(label);
+                    
+                    // Make legend items clickable to filter
+                    item.addEventListener('click', () => {
+                        this.filterByCategory(category);
+                        // Update category filter button
+                        document.querySelectorAll('#category-filters .filter-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                            if (btn.dataset.category === category) {
+                                btn.classList.add('active');
+                            }
+                        });
+                    });
+                    
+                    item.style.cursor = 'pointer';
+                    legendContainer.appendChild(item);
+                });
+        }
+    }
+
+    getDisplayCategoryCounts() {
+        const categoryCounts = {};
+        this.repositories.forEach(repo => {
+            const category = this.getRepoCategory(repo);
+            categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+        });
+        return categoryCounts;
+    }
+
+    applyPreset(preset = 'sample', button) {
+        this.currentFilters.preset = preset;
+        document.querySelectorAll('#preset-filters .filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.preset === preset);
+        });
+        if (button) button.classList.add('active');
+        this.applyFilters();
+    }
+    
+    filterByCategory(category, button) {
+        this.currentFilters.category = category;
+        
+        if (button) {
+            document.querySelectorAll('#category-filters .filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+        }
+        
+        this.applyFilters();
+    }
+    
+    filterByLanguage(language, button) {
+        this.currentFilters.language = language;
+        
+        if (button) {
+            document.querySelectorAll('#language-filters .filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+        }
+        
+        this.applyFilters();
+    }
+    
+    applyFilters() {
+        let results = this.repositories.filter(repo => {
+            // Enhanced search filter - searches in name, description, topics, language, owner
+            if (this.currentFilters.search) {
+                const score = this.getSearchScore(repo, this.currentFilters.search);
+                repo._searchScore = score;
+                if (score <= 0) return false;
+            } else {
+                repo._searchScore = 0;
+            }
+            
+            if (!this.matchesPreset(repo)) return false;
+
+            // Category filter
+            if (this.currentFilters.category !== 'all' && this.getRepoCategory(repo) !== this.currentFilters.category) {
+                return false;
+            }
+            
+            // Language filter
+            if (this.currentFilters.language !== 'all' && repo.language !== this.currentFilters.language) {
+                return false;
+            }
+            
+            // Stars filter
+            if (this.currentFilters.stars !== 'all') {
+                const minStars = parseInt(this.currentFilters.stars);
+                if (repo.stars < minStars) return false;
+            }
+            
+            return true;
+        });
+
+        if (this.currentFilters.search) {
+            results = results.sort((a, b) => (b._searchScore - a._searchScore) || ((b.stars || 0) - (a.stars || 0)));
+        } else if (this.currentFilters.preset === 'sample') {
+            results = this.pickBalancedSample(results, this.isMobileViewport() ? 32 : 48);
+        } else if (this.currentFilters.preset === 'curated') {
+            results = results
+                .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+                .slice(0, this.isMobileViewport() ? 90 : 140);
+        } else if (this.currentFilters.preset === 'popular') {
+            results = results.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+        }
+
+        this.filteredRepositories = results;
+        
+        this.updateVisualization();
+        this.updateStats();
+        this.updateResultList();
+    }
+
+    matchesPreset(repo) {
+        const category = this.getRepoCategory(repo);
+        const preset = this.currentFilters.preset;
+        if (preset === 'all') return true;
+        if (preset === 'popular') return (repo.stars || 0) >= 50000;
+        if (preset === 'learning') return ['ai-learning', 'career-interview', 'docs-reference', 'system-design'].includes(category);
+        if (preset === 'ai') return ['ai-models', 'ai-agents', 'llm-apps', 'rag-search', 'ai-learning', 'mcp'].includes(category);
+        if (preset === 'sample') return this.getRepoCategory(repo) !== 'other';
+        if (preset === 'curated') return this.getRepoCategory(repo) !== 'other';
+        return true;
+    }
+
+    pickBalancedSample(repositories, limit) {
+        const sorted = [...repositories].sort((a, b) => (b.stars || 0) - (a.stars || 0));
+        const byCategory = d3.group(sorted, d => this.getRepoCategory(d));
+        const selected = [];
+        const seen = new Set();
+
+        [...byCategory.entries()]
+            .sort(([, a], [, b]) => b.length - a.length)
+            .slice(0, this.isMobileViewport() ? 6 : 8)
+            .forEach(([, repos]) => {
+                repos.slice(0, this.isMobileViewport() ? 4 : 5).forEach(repo => {
+                    if (!seen.has(repo.id) && selected.length < limit) {
+                        seen.add(repo.id);
+                        selected.push(repo);
+                    }
+                });
+            });
+
+        for (const repo of sorted) {
+            if (selected.length >= limit) break;
+            if (!seen.has(repo.id)) {
+                seen.add(repo.id);
+                selected.push(repo);
+            }
+        }
+
+        return selected.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+    }
+
+    getSearchScore(repo, query) {
+        const q = query.trim().toLowerCase();
+        if (!q) return 1;
+        let score = 0;
+        const checks = [
+            [repo.name, 20],
+            [repo.fullName, 18],
+            [repo.owner, 10],
+            [this.getCategoryLabel(this.getRepoCategory(repo)), 10],
+            [repo.language, 8],
+            [(repo.topics || []).join(' '), 8],
+            [repo.description, 5]
+        ];
+        checks.forEach(([value, weight]) => {
+            const text = String(value || '').toLowerCase();
+            if (text === q) score += weight * 3;
+            else if (text.startsWith(q)) score += weight * 2;
+            else if (text.includes(q)) score += weight;
+        });
+        return score;
+    }
+    
+    updateVisualization() {
+        if (!this.simulation || !this.svg) return;
+        
+        if (this.filteredRepositories.length === 0) {
+            this.showEmptyState();
+            return;
+        }
+        
+        const links = this.viewOptions.showLinks ? this.createIntelligentLinks() : [];
+        
+        const g = this.svg.select('.main-group');
+        
+        // Clear existing
+        g.selectAll('*').remove();
+        
+        // Update links with enhanced styling
+        const link = g.append('g')
+            .selectAll('line')
+            .data(links)
+            .enter().append('line')
+            .attr('class', 'link')
+            .attr('stroke', '#ffffff')
+            .attr('stroke-opacity', this.currentFilters.preset === 'sample' ? 0.08 : 0.11)
+            .attr('stroke-width', this.currentFilters.preset === 'sample' ? 1 : 1.2);
+        
+        // Identify top 10 repos by stars
+        const top10Repos = [...this.filteredRepositories]
+            .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+            .slice(0, 10)
+            .map(d => d.id);
+
+        // Update nodes with vibrant design and visible strokes
+        const node = g.append('g')
+            .selectAll('circle')
+            .data(this.filteredRepositories)
+            .enter().append('circle')
+            .attr('class', d => {
+                const classes = ['node'];
+                const radius = this.getNodeRadius(d);
+                if (radius >= 15) classes.push('node-entering');
+                if (top10Repos.includes(d.id)) classes.push('node-top10');
+                return classes.join(' ');
+            })
+            .attr('r', d => this.getNodeRadius(d))
+            .attr('fill', d => this.categoryColors[this.getRepoCategory(d)] || '#7d7d8d')
+            .attr('stroke', '#ffffff')
+            .attr('stroke-width', d => {
+                const r = this.getNodeRadius(d);
+                if (r >= 35) return 1.2;
+                if (r >= 22) return 1;
+                return 0.6;
+            })
+            .attr('stroke-opacity', 0.6)
+            .attr('filter', d => top10Repos.includes(d.id) ? 'url(#glow-pulse)' : 'url(#node-shadow)')
+            .attr('opacity', 0.85)
+            .each(function(d, i) {
+                // Add staggered animation delay
+                if (d3.select(this).classed('node-entering')) {
+                    const delay = Math.min(i * 2, 300);
+                    d3.select(this).style('animation-delay', `${delay}ms`);
+                }
+            })
+            .call(this.createDragHandler())
+            .on('click', (event, d) => {
+                // On touch devices, first tap shows tooltip; second opens URL
+                if (this._isTouchDevice) return;
+                window.open(d.url, '_blank');
+            })
+            .on('mouseover', (event, d) => {
+                this.showTooltip(event, d);
+                d3.select(event.target)
+                    .transition().duration(150)
+                    .attr('r', this.getNodeRadius(d) * 1.15)
+                    .attr('opacity', 1);
+            })
+            .on('mouseout', (event, d) => {
+                this.hideTooltip();
+                d3.select(event.target)
+                    .transition().duration(200)
+                    .attr('r', this.getNodeRadius(d))
+                    .attr('opacity', 0.95);
+            })
+            .on('touchstart', (event, d) => {
+                this._isTouchDevice = true;
+                event.stopPropagation();
+                const touch = event.touches[0];
+
+                if (this._lastTappedNodeId === d.id) {
+                    // Second tap: open URL
+                    window.open(d.url, '_blank');
+                    this._lastTappedNodeId = null;
+                    this.hideTooltip();
+                } else {
+                    // First tap: show tooltip with tap-again hint
+                    this._lastTappedNodeId = d.id;
+                    this.showTooltip({ pageX: touch.pageX, pageY: touch.pageY }, d, true);
+                    d3.select(event.target)
+                        .attr('stroke-width', 4)
+                        .attr('opacity', 1);
+                    // Auto-reset after 3s
+                    clearTimeout(this._tapTimeout);
+                    this._tapTimeout = setTimeout(() => {
+                        if (this._lastTappedNodeId === d.id) {
+                            this._lastTappedNodeId = null;
+                            this.hideTooltip();
+                            d3.select(event.target)
+                                .attr('stroke-width', 2)
+                                .attr('opacity', 0.9);
+                        }
+                    }, 3000);
+                }
+            }, { passive: true });
+
+        const labelData = this.viewOptions.showLabels ? this.getVisibleLabelData() : [];
+        const label = g.append('g')
+            .selectAll('text')
+            .data(labelData)
+            .enter().append('text')
+            .attr('class', 'node-label')
+            .text(d => {
+                const name = d.name || d.fullName || 'Unknown';
+                const display = String(name);
+                const r = this.getNodeRadius(d);
+                const maxChars = r >= 35 ? 20 : r >= 22 ? 14 : 12;
+                return display.length > maxChars ? display.substring(0, maxChars) + '...' : display;
+            })
+            .attr('dy', '.35em')
+            .style('font-size', d => {
+                const r = this.getNodeRadius(d);
+                if (r >= 35) return '13px';
+                if (r >= 22) return '11px';
+                return '9px';
+            })
+            .style('font-weight', 'bold')
+            .style('fill', '#ffffff')
+            .style('text-anchor', 'middle')
+            .style('pointer-events', 'none')
+            .style('text-shadow', '2px 2px 4px rgba(0,0,0,0.8)');
+
+        this.renderClusterLabels(g);
+        
+        // Update simulation
+        this.simulation.nodes(this.filteredRepositories);
+        this.simulation.force('link').links(links);
+        this.simulation.alpha(0.55).restart();
+        clearTimeout(this._settleTimer);
+        this._settleTimer = setTimeout(() => {
+            if (this.simulation) this.simulation.alphaTarget(0).stop();
+        }, 900);
+        
+        // Enhanced animation tick function
+        this.simulation.on('tick', () => {
+            const edgePad = window.innerWidth >= 768 ? 0 : 18;
+            const minX = window.innerWidth >= 768 ? 360 : edgePad;
+            const maxX = window.innerWidth >= 768 ? this.width - 300 : this.width - edgePad;
+            const headerHeight = this.getHeaderHeight();
+            const minY = window.innerWidth >= 768 ? headerHeight + 24 : headerHeight + 18;
+            const maxY = this.height - edgePad;
+            this.filteredRepositories.forEach(d => {
+                const r = this.getNodeRadius(d);
+                d.x = Math.max(minX + r, Math.min(maxX - r, d.x || this.width / 2));
+                d.y = Math.max(minY + r, Math.min(maxY - r, d.y || this.height / 2));
+            });
+
+            link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+
+            node
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+
+            label
+                .attr('x', d => d.x)
+                .attr('y', d => d.y);
+        });
+    }
+
+    renderClusterLabels(g) {
+        const counts = {};
+        this.filteredRepositories.forEach(repo => {
+            const category = this.getRepoCategory(repo);
+            counts[category] = (counts[category] || 0) + 1;
+        });
+
+        const clusters = Object.entries(counts)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, this.currentFilters.preset === 'sample' ? (this.isMobileViewport() ? 3 : 5) : (this.isMobileViewport() ? 4 : 7))
+            .map(([category, count]) => ({
+                category,
+                count,
+                ...this.getCategoryPosition(category)
+            }));
+
+        const clusterGroup = g.append('g').attr('class', 'cluster-labels');
+        clusterGroup.selectAll('text')
+            .data(clusters)
+            .enter().append('text')
+            .attr('class', 'cluster-label')
+            .attr('x', d => d.x)
+            .attr('y', d => d.y)
+            .attr('fill', d => this.categoryColors[d.category] || '#cbd5e1')
+            .attr('text-anchor', 'middle')
+            .text(d => `${this.getCategoryLabel(d.category)} (${d.count})`);
+    }
+
+    getVisibleLabelData() {
+        const maxLabels = this.currentFilters.preset === 'sample'
+            ? (this.isMobileViewport() ? 6 : 10)
+            : (this.isMobileViewport() ? 6 : 14);
+        const minRadiusForLabel = this.currentFilters.preset === 'sample' ? 28 : 30;
+        const topByStars = [...this.filteredRepositories]
+            .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+            .slice(0, maxLabels);
+        const bigBubbles = this.filteredRepositories.filter(d => this.getNodeRadius(d) >= minRadiusForLabel);
+        return [...new Map([...topByStars, ...bigBubbles].map(d => [d.id, d])).values()]
+            .slice(0, maxLabels);
+    }
+    
+    createIntelligentLinks() {
+        const links = [];
+        
+        // Group repositories by category for better clustering
+        const categoryGroups = d3.group(this.filteredRepositories, d => this.getRepoCategory(d));
+        
+        // Create links within categories (for clustering)
+        categoryGroups.forEach(repos => {
+            // Sort by stars to connect popular repos
+            repos.sort((a, b) => b.stars - a.stars);
+
+            const maxSourceNodes = this.currentFilters.preset === 'sample' ? 6 : 12;
+            const neighbors = this.currentFilters.preset === 'sample' ? 1 : 2;
+            for (let i = 0; i < repos.length && i < maxSourceNodes; i++) {
+                for (let j = i + 1; j < Math.min(repos.length, i + 1 + neighbors); j++) {
+                    links.push({
+                        source: repos[i].id,
+                        target: repos[j].id
+                    });
+                }
+            }
+        });
+        
+        // Add some cross-category links for popular repositories
+        const popularRepos = this.filteredRepositories
+            .filter(repo => repo.stars > 50000)
+            .sort((a, b) => b.stars - a.stars)
+            .slice(0, this.currentFilters.preset === 'sample' ? 5 : 8);
+        
+        for (let i = 0; i < popularRepos.length - 1; i++) {
+            links.push({
+                source: popularRepos[i].id,
+                target: popularRepos[i + 1].id
+            });
+        }
+        
+        return links;
+    }
+    
+    createDragHandler() {
+        return d3.drag()
+            .on('start', (event, d) => {
+                if (!event.active) this.simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            })
+            .on('drag', (event, d) => {
+                d.fx = event.x;
+                d.fy = event.y;
+            })
+            .on('end', (event, d) => {
+                if (!event.active) this.simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            });
+    }
+    
+    showTooltip(event, d, isTouchTap = false) {
+        const [x, y] = [event.pageX, event.pageY];
+        const isMobile = window.innerWidth <= 767;
+        const tooltipWidth = isMobile ? Math.min(window.innerWidth * 0.9, 340) : 350;
+        const tooltipOffset = 15;
+
+        let leftPos, topPos;
+
+        if (isMobile && isTouchTap) {
+            // On mobile tap: pin tooltip to bottom of screen, centered
+            leftPos = (window.innerWidth - tooltipWidth) / 2;
+            topPos = window.innerHeight - 220;
+        } else {
+            leftPos = x + tooltipOffset;
+            topPos = y - tooltipOffset;
+
+            if (leftPos + tooltipWidth > window.innerWidth - 10) {
+                leftPos = Math.max(10, x - tooltipWidth - tooltipOffset);
+            }
+            if (isMobile && (leftPos < 10 || leftPos + tooltipWidth > window.innerWidth - 10)) {
+                leftPos = (window.innerWidth - tooltipWidth) / 2;
+            }
+            topPos = Math.max(10, Math.min(topPos, window.innerHeight - 220));
+        }
+
+        const svgStar = '<svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="#ffd700" stroke="#ffd700" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+        const svgFork = '<svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg>';
+        const svgCode = '<svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>';
+        const svgLink = '<svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>';
+        const svgTap = '<svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 13"/></svg>';
+
+        const actionHint = isTouchTap
+            ? `<div class=\"tooltip-tap-hint\">${svgTap} Tap again to open repository</div>`
+            : `<div class=\"tooltip-action\">${svgTap} Click to open repository</div>`;
+
+        this.tooltip
+            .style('left', leftPos + 'px')
+            .style('top', topPos + 'px')
+            .style('max-width', tooltipWidth + 'px')
+            .html(`
+                <div class=\"tooltip-title\">${d.name || d.fullName || 'Unknown'}</div>
+                <div class=\"tooltip-owner\">by ${d.owner || '—'}</div>
+                <div class=\"tooltip-category\">${this.getCategoryLabel(this.getRepoCategory(d))}</div>
+                <div class=\"tooltip-meta\">
+                    <div class=\"tooltip-stat\">${svgStar} ${d.stars.toLocaleString()}</div>
+                    <div class=\"tooltip-stat\">${svgFork} ${d.forks.toLocaleString()}</div>
+                    <div class=\"tooltip-stat\">${svgCode} ${d.language}</div>
+                    <div class=\"tooltip-stat\">${svgLink} ${d.fullName}</div>
+                </div>
+                <div class=\"tooltip-desc\">${d.description || 'No description available'}</div>
+                ${actionHint}
+            `)
+            .classed('visible', true);
+    }
+
+    hideTooltip() {
+        this.tooltip.classed('visible', false);
+    }
+    
+    showEmptyState() {
+        const g = this.svg.select('.main-group');
+        g.selectAll('*').remove();
+        g.append('text')
+            .attr('x', this.width / 2)
+            .attr('y', this.height / 2)
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#ffffff')
+            .attr('font-size', '20px')
+            .attr('font-weight', 'bold')
+            .text('No repositories match your current filters');
+        
+        g.append('text')
+            .attr('x', this.width / 2)
+            .attr('y', this.height / 2 + 30)
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#ffffff')
+            .attr('font-size', '14px')
+            .text('Try adjusting your search criteria or reset filters');
+    }
+    
+    updateStats() {
+        const totalEl = document.getElementById('total-repos');
+        const visibleEl = document.getElementById('visible-repos');
+
+        this.animateCounter(totalEl, this.repositories.length, true);
+        this.animateCounter(visibleEl, this.filteredRepositories.length, true);
+
+        const count = this.repositories.length;
+        document.title = `${this.config.appName} - ${count.toLocaleString()} starred repositories`;
+
+        const titleEl = document.querySelector('.title');
+        if (titleEl) {
+            const starSvg = titleEl.querySelector('.icon');
+            const svgHtml = starSvg ? starSvg.outerHTML : '';
+            titleEl.innerHTML = `${svgHtml} ${this.config.appName} <span class="title-count">${count.toLocaleString()} repos</span>`;
+        }
+
+        const updatedEl = document.getElementById('last-updated');
+        const ts = this.dataLastUpdated ? new Date(this.dataLastUpdated) : new Date();
+        updatedEl.textContent = ts.toLocaleString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        // data source note
+        const noteEl = document.getElementById('data-source-note');
+        if (noteEl) {
+            noteEl.textContent = this.dataSource === 'live' ? 'Live API' : 'Actions cache';
+        }
+
+        const syncEl = document.getElementById('sync-status');
+        const staleEl = document.getElementById('stale-warning');
+        const ageHours = (Date.now() - ts.getTime()) / (1000 * 60 * 60);
+        const isStale = ageHours > this.config.staleHours;
+        if (syncEl) {
+            syncEl.textContent = isStale ? 'Stale' : 'Fresh';
+            syncEl.classList.toggle('stale', isStale);
+        }
+        if (staleEl) {
+            staleEl.hidden = !isStale;
+            staleEl.textContent = `Data is ${Math.round(ageHours)}h old. View the update workflow for sync details.`;
+        }
+        this.updateLayoutMetrics();
+    }
+
+    updateResultList() {
+        const container = document.getElementById('search-results');
+        const countEl = document.getElementById('result-count-label');
+        if (!container) return;
+
+        const topResults = [...this.filteredRepositories]
+            .sort((a, b) => (b._searchScore - a._searchScore) || ((b.stars || 0) - (a.stars || 0)))
+            .slice(0, 8);
+
+        if (countEl) {
+            countEl.textContent = `${this.filteredRepositories.length.toLocaleString()} matching`;
+        }
+
+        container.innerHTML = topResults.map(repo => `
+            <a class="result-item" href="${repo.url}" target="_blank" rel="noopener">
+                <span class="result-name">${repo.fullName || repo.name}</span>
+                <span class="result-meta">${this.getCategoryLabel(this.getRepoCategory(repo))} · ${(repo.stars || 0).toLocaleString()} stars</span>
+            </a>
+        `).join('');
+    }
+
+    exportRepositoriesCsv() {
+        if (!this.repositories.length) return;
+
+        const columns = [
+            'name',
+            'fullName',
+            'owner',
+            'url',
+            'description',
+            'primaryCategory',
+            'displayCategory',
+            'secondaryCategories',
+            'language',
+            'stars',
+            'forks',
+            'topics',
+            'lastUpdated'
+        ];
+
+        const rows = this.repositories.map(repo => ({
+            name: repo.name || '',
+            fullName: repo.fullName || '',
+            owner: repo.owner || '',
+            url: repo.url || '',
+            description: repo.description || '',
+            primaryCategory: repo.category || '',
+            displayCategory: this.getRepoCategory(repo),
+            secondaryCategories: (repo.secondaryCategories || []).join('|'),
+            language: repo.language || '',
+            stars: repo.stars || 0,
+            forks: repo.forks || 0,
+            topics: (repo.topics || []).join('|'),
+            lastUpdated: this.dataLastUpdated || ''
+        }));
+
+        const csv = [
+            columns.join(','),
+            ...rows.map(row => columns.map(column => this.escapeCsv(row[column])).join(','))
+        ].join('\n');
+
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        const date = new Date(this.dataLastUpdated || Date.now()).toISOString().slice(0, 10);
+        link.href = url;
+        link.download = `github-stars-explorer-${date}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+    }
+
+    escapeCsv(value) {
+        const text = String(value ?? '');
+        return /[",\n\r]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+    }
+
+    animateCounter(el, target, format = false) {
+        if (!el) return;
+        const current = parseInt(String(el.textContent).replace(/,/g, ''), 10) || 0;
+        if (current === target) return;
+
+        el.textContent = format ? target.toLocaleString() : target;
+        el.classList.remove('pop');
+        // Force reflow to restart animation
+        void el.offsetWidth;
+        el.classList.add('pop');
+        el.addEventListener('animationend', () => el.classList.remove('pop'), { once: true });
+    }
+    
+    setupSwipeToClose(panel, closeCallback) {
+        if (!panel) return;
+        let startY = 0;
+        let startTime = 0;
+
+        panel.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+            startTime = Date.now();
+        }, { passive: true });
+
+        panel.addEventListener('touchend', (e) => {
+            const deltaY = e.changedTouches[0].clientY - startY;
+            const deltaTime = Date.now() - startTime;
+            // Swipe down: at least 60px in under 400ms
+            if (deltaY > 60 && deltaTime < 400) {
+                closeCallback();
+            }
+        }, { passive: true });
+    }
+
+    attachRipple(btn) {
+        btn.addEventListener('pointerdown', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px`;
+            btn.appendChild(ripple);
+            ripple.addEventListener('animationend', () => ripple.remove());
+        });
+    }
+
+    resetFilters() {
+        // Reset all filters
+        this.currentFilters = {
+            search: '',
+            preset: 'sample',
+            category: 'all',
+            language: 'all',
+            stars: 'all'
+        };
+        this.viewOptions.showLabels = false;
+        this.viewOptions.showLinks = false;
+        
+        // Reset UI elements
+        const searchInput = document.getElementById('search');
+        if (searchInput) searchInput.value = '';
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelectorAll('#toggle-labels, #toggle-lines').forEach(btn => {
+            btn.classList.remove('active-toggle');
+            btn.setAttribute('aria-pressed', 'false');
+        });
+        
+        // Activate 'all' buttons
+        document.querySelectorAll('[data-preset="sample"], [data-category="all"], [data-language="all"], [data-stars="all"]').forEach(btn => {
+            btn.classList.add('active');
+        });
+        
+        this.applyFilters();
+    }
+
+    updateLayoutMetrics() {
+        const headerHeight = this.getHeaderHeight();
+        document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+    }
+
+    getHeaderHeight() {
+        const header = document.querySelector('.app-header');
+        return header ? Math.ceil(header.getBoundingClientRect().height) : 96;
+    }
+    
+    handleResize() {
+        if (!this.svg || !this.simulation) return;
+        
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this.updateLayoutMetrics();
+        
+        this.svg.attr('width', this.width).attr('height', this.height);
+        this.simulation.force('center', d3.forceCenter(this.width / 2, this.height / 2));
+
+        if (['sample', 'curated'].includes(this.currentFilters.preset)) {
+            this.applyFilters();
+            return;
+        }
+
+        // Re-apply mobile-aware force params on resize
+        const isMobile = this.isMobileViewport();
+        this.simulation.force('charge', d3.forceManyBody().strength(isMobile ? -400 : -200).distanceMax(isMobile ? 500 : 300));
+        this.simulation.force('collision', d3.forceCollide().radius(d => this.getNodeRadius(d) + (isMobile ? 8 : 3)));
+
+        this.simulation.alpha(0.3).restart();
+    }
+    
+    hideLoading() {
+        const loading = document.getElementById('loading');
+        if (loading) {
+            loading.style.display = 'none';
+        }
+    }
+    
+    showError(message) {
+        const loading = document.getElementById('loading');
+        if (loading) {
+            const warnIcon = '<svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>';
+            const refreshIcon = '<svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>';
+            loading.innerHTML = `
+                <div class=\"error-message\">
+                    <h3>${warnIcon} Error</h3>
+                    <p>${message}</p>
+                    <button onclick=\"location.reload()\" class=\"filter-btn\" style=\"margin-top: 15px; background: #EF4444;\">
+                        ${refreshIcon} Retry
+                    </button>
+                </div>
+            `;
+        }
+    }
+}
+
+// Initialize the application when the page loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        new GitHubStarsGraph();
+    });
+} else {
+    new GitHubStarsGraph();
+}

@@ -1,0 +1,138 @@
+name: Update Stars and Deploy to Pages
+run-name: ${{ github.event_name }} stars update on ${{ github.ref_name }}
+
+on:
+  schedule:
+    # Run every 6 hours, away from the top-of-hour Actions traffic spike.
+    - cron: '23 */6 * * *'
+  workflow_dispatch: # Allow manual triggering
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'README.md'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: '24'
+
+    - name: Show workflow diagnostics
+      run: |
+        echo "event=${{ github.event_name }}"
+        echo "ref=${{ github.ref }}"
+        echo "sha=${{ github.sha }}"
+        echo "node=$(node --version)"
+    
+    - name: Create data directory and set permissions
+      run: |
+        mkdir -p data
+        chmod +x scripts/fetch-data.js scripts/clean-data.js scripts/validate-data.js
+    
+    - name: Fetch and process starred repositories
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_USERNAME: 'axelior'
+      run: |
+        echo "🚀 Starting repository fetch..."
+        node scripts/fetch-data.js > data/repositories.json
+        echo "✅ Repository data saved to data/repositories.json"
+        
+        # Verify the data file was created
+        if [ -f "data/repositories.json" ]; then
+          echo "✅ Data file exists"
+          REPO_COUNT=$(node -e "const data = require('./data/repositories.json'); console.log(data.totalCount || data.repositories?.length || 0);")
+          echo "📊 Found $REPO_COUNT repositories"
+          
+          # Validate data quality and run cleanup if needed
+          echo "🔍 Checking data quality..."
+          if node -e "const data = require('./data/repositories.json'); const corrupted = data.repositories.filter(r => r.description && (r.description.includes(' gi ee ') || r.description.includes(' a d ') || r.description.includes(' fo '))); console.log(corrupted.length); process.exit(corrupted.length > 10 ? 1 : 0);"; then
+            echo "✅ Data quality check passed"
+          else
+            echo "🧹 Running data cleanup..."
+            node scripts/clean-data.js
+            echo "✅ Data cleanup completed"
+          fi
+
+          echo "🧪 Validating generated dataset..."
+          node scripts/validate-data.js
+          echo "✅ Dataset validation passed"
+        else
+          echo "❌ Data file not created!"
+          exit 1
+        fi
+
+    - name: Show generated data summary
+      run: |
+        REPO_COUNT=$(node -e "const data = require('./data/repositories.json'); console.log(data.totalCount || data.repositories?.length || 0);")
+        LAST_UPDATED=$(node -e "const data = require('./data/repositories.json'); console.log(data.lastUpdated || data.metadata?.lastUpdated || 'unknown');")
+        echo "repo_count=$REPO_COUNT"
+        echo "last_updated=$LAST_UPDATED"
+    
+    - name: Commit and push data changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action Bot"
+        git add data/
+        
+        # Check if there are changes to commit
+        if git diff --staged --quiet; then
+          echo "📝 No data changes to commit"
+        else
+          REPO_COUNT=$(node -e "const data = require('./data/repositories.json'); console.log(data.totalCount || data.repositories?.length || 0);")
+          git commit -m "🔄 Auto-update: ${REPO_COUNT} starred repositories - $(date '+%Y-%m-%d %H:%M UTC')"
+          git push
+          echo "✅ Data changes committed and pushed"
+        fi
+
+    - name: Build Pages artifact directory
+      run: |
+        rm -rf _site
+        mkdir -p _site/data
+        cp index.html app.js _site/
+        cp data/repositories.json _site/data/
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v6
+      
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v5
+      with:
+        path: '_site'
+        retention-days: 1
+        
+  deploy:
+    needs: update-data
+    runs-on: ubuntu-latest
+    if: success()
+    
+    permissions:
+      pages: write
+      id-token: write
+      
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v5

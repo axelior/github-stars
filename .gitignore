@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+tests/node_modules/
+
+# Build output
+_site/
+
+# OS files
+.DS_Store
+
+# Local tooling
+.claude/launch.json

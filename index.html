@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Stars Explorer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ffd700" d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0f1f;
+            --bg-secondary: #141b2d;
+            --bg-tertiary: #1a2332;
+            --header-height: 96px;
+            --text-primary: #f8f9fa;
+            --text-secondary: #d1d5db;
+            --accent-cyan: #06b6d4;
+            --accent-violet: #8b5cf6;
+            --accent-gold: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f472b6;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+
+        .app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 15, 31, 0.7);
+            backdrop-filter: blur(20px);
+            padding: 16px 28px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(107, 114, 128, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0;
+            color: var(--text-primary);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .title .icon {
+            -webkit-text-fill-color: initial;
+        }
+
+        .title-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7em;
+            opacity: 0.85;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            padding: 3px 8px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 28px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 4px;
+        }
+
+        .sync-status {
+            color: var(--accent-emerald);
+        }
+
+        .sync-status.stale {
+            color: var(--accent-gold);
+        }
+
+        .stale-warning {
+            position: fixed;
+            top: 102px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            max-width: min(90vw, 680px);
+            padding: 10px 14px;
+            border: 1px solid rgba(245, 158, 11, 0.45);
+            border-radius: 8px;
+            background: rgba(82, 54, 12, 0.9);
+            color: #fde68a;
+            font-size: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .stale-warning[hidden] {
+            display: none;
+        }
+
+        .controls-panel {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 20px;
+            border-radius: 15px;
+            z-index: 999;
+            max-width: 320px;
+            max-height: calc(100vh - 110px);
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .control-section {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .control-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .control-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #718096;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.5);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .filter-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: capitalize;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(45deg, #4ECDC4, #44A08D);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .preset-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            max-height: none;
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .result-count-label {
+            font-size: 11px;
+            color: #94a3b8;
+            white-space: nowrap;
+        }
+
+        .result-list {
+            display: grid;
+            gap: 6px;
+            max-height: 230px;
+            overflow-y: auto;
+        }
+
+        .result-item {
+            display: grid;
+            gap: 3px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            color: inherit;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .result-item:hover {
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .result-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #f8fafc;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .result-meta {
+            font-size: 11px;
+            color: #94a3b8;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .legend-panel {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 20px;
+            border-radius: 15px;
+            z-index: 999;
+            max-width: 250px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .legend-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #E2E8F0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .legend-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+
+        #graph {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(10, 15, 31, 0.75);
+            backdrop-filter: blur(24px) saturate(1.1);
+            color: var(--text-primary);
+            padding: 16px 18px;
+            border-radius: 12px;
+            pointer-events: none;
+            font-size: 13px;
+            max-width: 340px;
+            z-index: 1001;
+            border: 1px solid rgba(107, 114, 128, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            display: none;
+            opacity: 0;
+            transform: translateY(8px) scale(0.95);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .tooltip.visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .tooltip-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #4ECDC4;
+            word-break: break-word;
+        }
+
+        .tooltip-owner {
+            font-size: 13px;
+            color: #9CA3AF;
+            margin-bottom: 8px;
+        }
+
+        .tooltip-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .tooltip-stat {
+            font-size: 12px;
+            color: #A0AEC0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .tooltip-desc {
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            color: #E2E8F0;
+        }
+
+        .tooltip-category {
+            display: inline-block;
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ECDC4;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .tooltip-action {
+            font-size: 11px;
+            color: #4ECDC4;
+            font-style: italic;
+        }
+
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1002;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid #4ECDC4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        .progress-text {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #A0AEC0;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes bubbleEntry {
+            0%   {
+                transform: scale(0) translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bubblePulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.1));
+            }
+            50% {
+                transform: scale(1.02);
+                filter: drop-shadow(0 6px 20px rgba(6, 182, 212, 0.2));
+            }
+        }
+
+        .node {
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+        }
+
+        .node:hover {
+            filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.4));
+        }
+
+        .node-entering {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: bubbleEntry 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            will-change: transform, opacity;
+        }
+
+        .node-top10 {
+            filter: drop-shadow(0 6px 18px rgba(255, 255, 255, 0.16));
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .node-entering, .node-top10 {
+                animation: none;
+            }
+        }
+
+        .node:hover {
+            stroke-width: 3px;
+            filter: brightness(1.3) drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+        }
+
+        .link {
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 1px;
+        }
+
+        .node-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-anchor: middle;
+            pointer-events: none;
+            fill: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .cluster-label {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            opacity: 0.42;
+            pointer-events: none;
+            paint-order: stroke;
+            stroke: rgba(10, 15, 31, 0.92);
+            stroke-width: 5px;
+            stroke-linejoin: round;
+        }
+
+        /* Mobile menu toggle buttons */
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            z-index: 998;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-toggle:hover {
+            background: rgba(0, 0, 0, 0.95);
+            transform: scale(1.05);
+        }
+
+        .toggle-controls {
+            bottom: 80px;
+            left: 20px;
+        }
+
+        .toggle-legend {
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .panel-close {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .panel-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Touch target improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .filter-grid {
+                gap: 12px;
+            }
+
+            .legend-item {
+                min-height: 48px;
+                padding: 10px 12px;
+            }
+
+            .node {
+                stroke-width: 3.5px;
+            }
+        }
+
+        /* Compact mobile stats grid */
+        @media (max-width: 767px) {
+            .stats {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 6px 12px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Responsive adjustments - Enhanced Mobile UI (Bottom Sheet Panels) */
+
+        /* Mobile devices (up to 767px) */
+        @media (max-width: 767px) {
+            .app-header {
+                flex-direction: column;
+                gap: 8px;
+                padding: 10px 14px;
+            }
+
+            .title {
+                font-size: 19px;
+            }
+
+            .stats {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .stat-item {
+                font-size: 11px;
+            }
+
+            .stat-number {
+                font-size: 16px;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .refresh-btn {
+                font-size: 11px;
+                padding: 6px 10px;
+            }
+
+            /* Filters: collapsible bottom sheet - collapsed by default so bubbles get full view */
+            .controls-panel {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: -100%;
+                top: auto;
+                max-width: 100%;
+                width: 100%;
+                max-height: 70vh;
+                border-radius: 20px 20px 0 0;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-bottom: none;
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding: 0 20px 30px;
+                transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+                -webkit-overflow-scrolling: touch;
+                visibility: hidden;
+            }
+
+            .controls-panel.mobile-open {
+                bottom: 0;
+                visibility: visible;
+            }
+
+            /* Legend: collapsible bottom sheet */
+            .legend-panel {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: -100%;
+                top: auto;
+                max-width: 100%;
+                width: 100%;
+                max-height: 70vh;
+                border-radius: 20px 20px 0 0;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-bottom: none;
+                overflow-y: auto;
+                transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+                padding: 0 20px 30px;
+                visibility: hidden;
+            }
+
+            .legend-panel.mobile-open {
+                bottom: 0;
+                visibility: visible;
+            }
+
+            /* Show both toggles - tap to expand filters or legend */
+            .toggle-controls,
+            .toggle-legend {
+                display: flex;
+                flex-direction: column;
+                width: 56px;
+                height: 56px;
+                font-size: 20px;
+                border-radius: 14px;
+                gap: 2px;
+            }
+
+            .toggle-controls {
+                top: calc(var(--header-height, 150px) + 12px);
+                bottom: auto;
+                left: 16px;
+            }
+
+            .toggle-legend {
+                top: calc(var(--header-height, 150px) + 76px);
+                bottom: auto;
+                left: 16px;
+            }
+
+            .toggle-label {
+                display: block;
+            }
+
+            .panel-close {
+                display: flex;
+            }
+
+            .panel-drag-handle {
+                display: block;
+            }
+
+            .swipe-hint {
+                display: block;
+            }
+
+            #graph {
+                width: 100vw;
+                height: 100vh;
+                position: fixed;
+                inset: 0;
+            }
+
+            .tooltip {
+                max-width: 90vw;
+                font-size: 12px;
+            }
+
+            .tooltip-title {
+                font-size: 14px;
+            }
+
+            .control-label {
+                font-size: 11px;
+                font-weight: 700;
+            }
+
+            .search-input {
+                font-size: 16px;
+                padding: 12px 36px 12px 14px;
+            }
+
+            .filter-grid {
+                gap: 10px;
+                max-height: none;
+            }
+
+            .filter-btn {
+                font-size: 12px;
+                font-weight: 600;
+                padding: 10px 14px;
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .filter-btn.active {
+                border: 2px solid #4ECDC4;
+                box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.25);
+            }
+
+            .legend-item {
+                font-size: 11px;
+                padding: 8px 10px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .app-header {
+                padding: 10px 12px;
+                gap: 8px;
+            }
+
+            .title {
+                width: 100%;
+                justify-content: center;
+                font-size: 17px;
+                white-space: normal;
+                text-align: center;
+                line-height: 1.15;
+            }
+
+            .title-count {
+                padding: 2px 6px;
+                font-size: 0.64em;
+            }
+
+            .stats {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 6px;
+            }
+
+            .stat-number {
+                font-size: 13px;
+                margin-bottom: 2px;
+            }
+
+            .stat-item {
+                min-width: 0;
+                font-size: 9px;
+            }
+
+            .stat-note {
+                display: none;
+            }
+
+            .header-actions {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 8px;
+                width: 100%;
+                overflow: visible;
+            }
+
+            .header-actions::-webkit-scrollbar {
+                display: none;
+            }
+
+            .header-actions > .filter-toggle-wrap,
+            .header-actions > #toggle-legend-header,
+            .header-actions > #calm-view {
+                display: flex;
+                min-width: 0;
+            }
+
+            .filter-toggle-wrap {
+                width: 100%;
+            }
+
+            #toggle-filters-header,
+            #toggle-legend-header,
+            #calm-view {
+                width: 100%;
+                justify-content: center;
+            }
+
+            #hide-filters-btn,
+            #toggle-labels,
+            #toggle-lines,
+            #refresh-now,
+            #export-csv {
+                display: none;
+            }
+
+            .refresh-btn,
+            .filter-toggle-btn {
+                font-size: 12px;
+                padding: 10px 8px;
+                border-radius: 12px;
+            }
+
+            .controls-panel,
+            .legend-panel {
+                max-height: min(68vh, 520px);
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .result-list {
+                max-height: 150px;
+            }
+
+            .cluster-label {
+                font-size: 9px;
+                opacity: 0.28;
+            }
+
+            .mobile-toggle {
+                display: none !important;
+            }
+        }
+
+        /* Medium devices (tablets, 768px to 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .app-header {
+                padding: 15px 20px;
+            }
+
+            .title {
+                font-size: 22px;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+
+            .controls-panel {
+                max-width: 280px;
+                top: 70px;
+            }
+
+            .legend-panel {
+                max-width: 220px;
+                top: 70px;
+            }
+
+            .tooltip {
+                max-width: 300px;
+            }
+        }
+
+        /* Large devices (desktops, 1024px and up) */
+        @media (min-width: 1024px) {
+            .controls-panel {
+                max-width: 320px;
+            }
+
+            .legend-panel {
+                max-width: 250px;
+            }
+        }
+
+        /* Landscape orientation optimizations for mobile */
+        @media (max-width: 767px) and (orientation: landscape) {
+            .app-header {
+                flex-direction: row;
+                padding: 8px 15px;
+                gap: 10px;
+            }
+
+            .title {
+                font-size: 16px;
+            }
+
+            .stats {
+                gap: 8px;
+                font-size: 11px;
+                flex-wrap: nowrap;
+            }
+
+            .stat-number {
+                font-size: 14px;
+            }
+
+            .stat-item div:not(.stat-number) {
+                font-size: 10px;
+            }
+
+            .header-actions {
+                width: auto;
+            }
+
+            .mobile-toggle {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+                border-radius: 12px;
+            }
+
+            .toggle-label {
+                font-size: 9px;
+            }
+
+            .toggle-controls,
+            .toggle-legend {
+                display: flex;
+            }
+
+            .toggle-legend {
+                bottom: 10px;
+                left: 15px;
+            }
+
+            /* Filters: bottom sheet in landscape too (collapsible) */
+            .controls-panel {
+                bottom: -100%;
+                top: auto;
+                left: 0;
+                right: 0;
+                max-height: 60vh;
+            }
+
+            .controls-panel.mobile-open {
+                bottom: 0;
+            }
+
+            /* Legend: side panel in landscape */
+            .legend-panel {
+                bottom: auto;
+                top: 0;
+                left: -60%;
+                right: auto;
+                width: 55%;
+                max-width: 55%;
+                max-height: 100vh;
+                border-radius: 0 16px 16px 0;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-left: none;
+                padding: 50px 20px 20px;
+                transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .legend-panel.mobile-open {
+                left: 0;
+                bottom: auto;
+            }
+
+            .panel-drag-handle {
+                display: none;
+            }
+
+            .swipe-hint {
+                display: none;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .filter-btn,
+            .legend-item,
+            .refresh-btn,
+            .mobile-toggle,
+            .filter-toggle-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            .node {
+                stroke-width: 3px;
+            }
+
+            .search-input {
+                font-size: 16px;
+            }
+        }
+
+        /* Prevent zoom on double tap for better UX */
+        button,
+        input {
+            touch-action: manipulation;
+        }
+
+        .error-message {
+            background: #ef4444;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            text-align: center;
+        }
+
+        .success-message {
+            background: #10b981;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        /* Header actions */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        .refresh-btn {
+            padding: 8px 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.12);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 12px;
+            font-weight: 600;
+            backdrop-filter: blur(8px);
+        }
+        .refresh-btn:hover {
+            background: rgba(255,255,255,0.22);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-toggle-btn {
+            display: none;
+            padding: 8px 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.12);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            backdrop-filter: blur(8px);
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-toggle-btn:hover {
+            background: rgba(255,255,255,0.22);
+        }
+
+        .filter-toggle-btn.collapsed {
+            background: rgba(78, 205, 196, 0.25);
+            border-color: rgba(78, 205, 196, 0.5);
+        }
+
+        .filter-toggle-btn.active-toggle {
+            background: rgba(78, 205, 196, 0.24);
+            border-color: rgba(78, 205, 196, 0.48);
+            color: #eafffb;
+        }
+
+        .filter-toggle-btn.muted-toggle {
+            color: rgba(255, 255, 255, 0.72);
+        }
+
+        .filter-toggle-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .hide-filters-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.7);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .hide-filters-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .filter-toggle-wrap.hidden {
+            display: none;
+        }
+
+        .show-filters-fab {
+            display: none;
+            position: fixed;
+            bottom: 90px;
+            left: 20px;
+            z-index: 998;
+            padding: 12px 16px;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+
+        .show-filters-fab:hover {
+            transform: scale(1.05);
+        }
+
+        .show-filters-fab.visible {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 767px) {
+            .show-filters-fab {
+                bottom: 150px;
+            }
+        }
+
+        /* Desktop: collapsible sidebar */
+        @media (min-width: 768px) {
+            .filter-toggle-btn {
+                display: inline-flex;
+            }
+
+            .controls-panel.collapsed {
+                transform: translateX(calc(-100% - 32px));
+                pointer-events: none;
+                opacity: 0;
+            }
+
+            .legend-panel.collapsed {
+                transform: translateX(calc(100% + 32px));
+                pointer-events: none;
+                opacity: 0;
+            }
+
+            .controls-panel,
+            .legend-panel {
+                transition: transform 0.28s ease, opacity 0.2s ease;
+            }
+
+            .panel-close {
+                display: flex;
+            }
+        }
+
+        /* Mobile: show Filters toggle in header to open bottom sheet */
+        @media (max-width: 767px) {
+            .filter-toggle-btn {
+                display: inline-flex;
+            }
+        }
+
+        /* small note text under stats */
+        .stat-note {
+            font-size: 11px;
+            color: #A0AEC0;
+            margin-top: 2px;
+            font-style: italic;
+        }
+
+        /* ===== Enhanced Mobile UI Additions ===== */
+
+        /* Panel backdrop overlay */
+        .panel-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 997;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(2px);
+        }
+        .panel-backdrop.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Bottom sheet drag handle */
+        .panel-drag-handle {
+            display: none;
+            width: 40px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 2px;
+            margin: 12px auto 10px;
+            flex-shrink: 0;
+            cursor: grab;
+        }
+
+        /* Swipe hint text */
+        .swipe-hint {
+            display: none;
+            text-align: center;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        /* Search wrapper for clear button */
+        .search-wrapper {
+            position: relative;
+        }
+
+        /* Search clear button */
+        .search-clear-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.45);
+            cursor: pointer;
+            font-size: 15px;
+            padding: 4px 6px;
+            display: none;
+            line-height: 1;
+            transition: color 0.2s;
+            touch-action: manipulation;
+            border-radius: 50%;
+        }
+        .search-clear-btn.visible {
+            display: block;
+        }
+        .search-clear-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Mobile toggle label */
+        .toggle-label {
+            display: none;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: 0.02em;
+        }
+
+        /* Active toggle state */
+        .mobile-toggle.active-toggle {
+            background: rgba(78, 205, 196, 0.25);
+            border-color: rgba(78, 205, 196, 0.6);
+            color: #4ECDC4;
+        }
+
+        /* Ripple effect on buttons */
+        .filter-btn,
+        .refresh-btn,
+        .mobile-toggle,
+        .legend-item {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.28);
+            transform: scale(0);
+            animation: ripple-anim 0.5s linear;
+            pointer-events: none;
+        }
+        @keyframes ripple-anim {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* Animated stat counter pop */
+        @keyframes statPop {
+            0%   { transform: scale(1); }
+            40%  { transform: scale(1.18); color: #7EDDD7; }
+            100% { transform: scale(1); }
+        }
+        .stat-number.pop {
+            animation: statPop 0.35s ease;
+        }
+
+        /* Touch tap tooltip (mobile) - shows a "tap again to open" hint */
+        .tooltip-tap-hint {
+            font-size: 11px;
+            color: #4ECDC4;
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        /* Smooth panel appearance on mobile */
+        @media (max-width: 767px) {
+            .controls-panel,
+            .legend-panel {
+                will-change: bottom;
+            }
+        }
+
+        /* Inline SVG icon helper */
+        .icon {
+            display: inline-block;
+            vertical-align: -0.125em;
+            flex-shrink: 0;
+        }
+
+        /* Visible focus states for keyboard navigation */
+        .filter-btn:focus-visible,
+        .filter-toggle-btn:focus-visible,
+        .hide-filters-btn:focus-visible,
+        .show-filters-fab:focus-visible,
+        .mobile-toggle:focus-visible,
+        .panel-close:focus-visible,
+        .legend-item:focus-visible,
+        .refresh-btn:focus-visible,
+        .search-clear-btn:focus-visible {
+            outline: 2px solid #4ECDC4;
+            outline-offset: 2px;
+        }
+
+        .search-input:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.5);
+        }
+
+        /* Respect reduced-motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-header">
+        <h1 class="title"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="#ffd700" stroke="#ffd700" stroke-width="1" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> GitHub Stars Explorer</h1>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="total-repos" aria-live="polite">0</div>
+                <div>Total Repos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="visible-repos" aria-live="polite">0</div>
+                <div>Visible</div>
+            </div>
+            <div class="stat-item">
+                <div style="font-size: 12px;" id="last-updated">Loading...</div>
+                <div>Last Synced</div>
+                <div class="stat-note" id="data-source-note">...</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number sync-status" id="sync-status" aria-live="polite">...</div>
+                <div>Status</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="filter-toggle-wrap" id="filter-toggle-wrap">
+                <button id="toggle-filters-header" class="filter-toggle-btn" title="Toggle filters" aria-label="Toggle filters" aria-expanded="false"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" y1="2" x2="14" y2="6"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="16" y1="18" x2="16" y2="22"/></svg> Filters</button>
+                <button id="hide-filters-btn" class="hide-filters-btn" title="Hide Filters button" aria-label="Hide Filters button"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
+            </div>
+            <button id="toggle-legend-header" class="filter-toggle-btn collapsed" title="Toggle category legend" aria-label="Toggle legend" aria-expanded="false"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.6-.7 1.6-1.7 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.7 1.7-1.7h2c3.1 0 5.6-2.5 5.6-5.6C22 6 17.5 2 12 2z"/></svg> Legend</button>
+            <button id="calm-view" class="filter-toggle-btn active-toggle" title="Return to a calm small sample view" aria-label="Calm view"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg> Calm</button>
+            <button id="toggle-labels" class="filter-toggle-btn muted-toggle" title="Show or hide repository name labels" aria-label="Toggle labels" aria-pressed="false"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg> Labels</button>
+            <button id="toggle-lines" class="filter-toggle-btn muted-toggle" title="Show or hide relationship lines" aria-label="Toggle lines" aria-pressed="false"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6h.01"/><path d="M18 18h.01"/><path d="M18 6h.01"/><path d="M6 18h.01"/><path d="m7 7 10 10"/><path d="m17 7-10 10"/></svg> Lines</button>
+            <button id="refresh-now" class="refresh-btn" title="Open the GitHub Actions update workflow for this static dataset."><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg> Sync Status</button>
+            <button id="export-csv" class="refresh-btn" title="Export the current repository dataset as CSV."><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Export CSV</button>
+        </div>
+    </div>
+
+    <div class="stale-warning" id="stale-warning" hidden></div>
+
+    <div class="panel-backdrop" id="panel-backdrop"></div>
+
+    <div class="controls-panel collapsed" id="controls-panel" role="region" aria-label="Filters">
+        <div class="panel-drag-handle" id="controls-drag-handle"></div>
+        <div class="swipe-hint">Swipe down to close</div>
+        <button class="panel-close" id="close-controls" aria-label="Close filters"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+        <div class="control-section">
+            <label class="control-label"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg> Explore Preset</label>
+            <div class="filter-grid preset-grid" id="preset-filters" role="group" aria-label="Explore presets">
+                <button class="filter-btn active" data-preset="sample">Sample</button>
+                <button class="filter-btn" data-preset="all">All</button>
+                <button class="filter-btn" data-preset="curated">Curated</button>
+                <button class="filter-btn" data-preset="popular">Popular</button>
+                <button class="filter-btn" data-preset="learning">Learning</button>
+                <button class="filter-btn" data-preset="ai">AI</button>
+            </div>
+        </div>
+        <div class="control-section">
+            <label class="control-label"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Search Repositories</label>
+            <div class="search-wrapper" role="search">
+                <input type="text" id="search" class="search-input" placeholder="Search name, topics, language…" aria-label="Search repositories">
+                <button class="search-clear-btn" id="search-clear" aria-label="Clear search"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <div class="results-header">
+                <label class="control-label" style="margin-bottom:0;"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg> Top Matches</label>
+                <span class="result-count-label" id="result-count-label">0 matching</span>
+            </div>
+            <div class="result-list" id="search-results" aria-live="polite"></div>
+        </div>
+        
+        <div class="control-section">
+            <label class="control-label"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg> Filter by Category</label>
+            <div class="filter-grid" id="category-filters" role="group" aria-label="Category filters"></div>
+        </div>
+
+        <div class="control-section">
+            <label class="control-label"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Filter by Language</label>
+            <div class="filter-grid" id="language-filters" role="group" aria-label="Language filters"></div>
+        </div>
+
+        <div class="control-section">
+            <label class="control-label"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Filter by Stars</label>
+            <div class="filter-grid" id="stars-filters" role="group" aria-label="Star count filters">
+                <button class="filter-btn active" data-stars="all">All</button>
+                <button class="filter-btn" data-stars="1000">1K+</button>
+                <button class="filter-btn" data-stars="5000">5K+</button>
+                <button class="filter-btn" data-stars="10000">10K+</button>
+                <button class="filter-btn" data-stars="50000">50K+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="legend-panel collapsed" id="legend-panel" role="region" aria-label="Legend">
+        <div class="panel-drag-handle" id="legend-drag-handle"></div>
+        <div class="swipe-hint">Swipe down to close</div>
+        <button class="panel-close" id="close-legend" aria-label="Close legend"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+        <div class="legend-title"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg> Repository Categories</div>
+        <div id="legend-items"></div>
+    </div>
+
+    <!-- Mobile toggle buttons -->
+    <button class="mobile-toggle toggle-controls" id="toggle-controls" aria-label="Open filters" aria-expanded="false">
+        <span class="toggle-icon"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" y1="2" x2="14" y2="6"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="16" y1="18" x2="16" y2="22"/></svg></span>
+        <span class="toggle-label">Filters</span>
+    </button>
+    <button class="mobile-toggle toggle-legend" id="toggle-legend" aria-label="Open legend" aria-expanded="false">
+        <span class="toggle-icon"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></span>
+        <span class="toggle-label">Legend</span>
+    </button>
+
+    <button class="show-filters-fab" id="show-filters-fab" aria-label="Show Filters" title="Show Filters button"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" y1="2" x2="14" y2="6"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="16" y1="18" x2="16" y2="22"/></svg> Filters</button>
+
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Loading GitHub starred repositories...</p>
+        <div class="progress-text" id="progress-text">Initializing...</div>
+    </div>
+
+    <svg id="graph"></svg>
+    <div class="tooltip" id="tooltip"></div>
+
+    <script src="app.js?v=20260506-calm2"></script>
+</body>
+</html>
