@@ -1,6 +1,58 @@
 {
   "repositories": [
     {
+      "id": 73315177,
+      "name": "reactiflux.com",
+      "owner": "reactiflux",
+      "fullName": "reactiflux/reactiflux.com",
+      "description": "Reactiflux Website",
+      "url": "https://github.com/reactiflux/reactiflux.com",
+      "language": "TypeScript",
+      "stars": 273,
+      "forks": 58,
+      "category": "other",
+      "categoryScore": 4,
+      "secondaryCategories": [
+        "frontend",
+        "other"
+      ],
+      "displayCategory": "frontend",
+      "updatedAt": "2026-08-13T12:40:49Z",
+      "topics": []
+    },
+    {
+      "id": 910422636,
+      "name": "kaneo",
+      "owner": "usekaneo",
+      "fullName": "usekaneo/kaneo",
+      "description": "🎯 All you need. Nothing you don't. Open source project management that works for you, not against you.",
+      "url": "https://github.com/usekaneo/kaneo",
+      "language": "TypeScript",
+      "stars": 8221,
+      "forks": 663,
+      "category": "web-dev",
+      "categoryScore": 20,
+      "secondaryCategories": [
+        "frontend",
+        "self-hosted"
+      ],
+      "displayCategory": "frontend",
+      "updatedAt": "2026-08-13T13:41:21Z",
+      "topics": [
+        "hono",
+        "issue-management",
+        "issue-tracker",
+        "jira-alternative",
+        "kanban",
+        "linear-alternative",
+        "mcp",
+        "project-management",
+        "react",
+        "self-hosted",
+        "typescript"
+      ]
+    },
+    {
       "id": 1212503250,
       "name": "ego-lite",
       "owner": "citrolabs",
@@ -8,8 +60,8 @@
       "description": "The fastest browser for AI agents to run browser automation, built for sharing your logged-in browser state with your AI agents, like Codex or Claude Code, without disturbing you. Zero cost, zero config.",
       "url": "https://github.com/citrolabs/ego-lite",
       "language": "JavaScript",
-      "stars": 9876,
-      "forks": 501,
+      "stars": 9940,
+      "forks": 504,
       "category": "ai-ml",
       "categoryScore": 41,
       "secondaryCategories": [
@@ -18,7 +70,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:57:01Z",
+      "updatedAt": "2026-08-13T13:50:48Z",
       "topics": [
         "agent-skills",
         "ai-agent",
@@ -40,15 +92,15 @@
       "description": "Scalable toolkit for efficient model reinforcement",
       "url": "https://github.com/NVIDIA-NeMo/RL",
       "language": "Python",
-      "stars": 1902,
-      "forks": 511,
+      "stars": 1904,
+      "forks": 512,
       "category": "python",
       "categoryScore": 8,
       "secondaryCategories": [
         "python"
       ],
       "displayCategory": "python",
-      "updatedAt": "2026-08-13T06:28:55Z",
+      "updatedAt": "2026-08-13T13:15:02Z",
       "topics": []
     },
     {
@@ -59,7 +111,7 @@
       "description": "Evaluate and improve models and agents using environments",
       "url": "https://github.com/NVIDIA-NeMo/Gym",
       "language": "Python",
-      "stars": 1108,
+      "stars": 1110,
       "forks": 266,
       "category": "ai-ml",
       "categoryScore": 38,
@@ -69,7 +121,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:44:29Z",
+      "updatedAt": "2026-08-13T12:42:06Z",
       "topics": [
         "agents",
         "benchmarks",
@@ -91,8 +143,8 @@
       "description": "",
       "url": "https://github.com/NVIDIA-NeMo/Switchyard",
       "language": "Rust",
-      "stars": 963,
-      "forks": 97,
+      "stars": 1046,
+      "forks": 98,
       "category": "other",
       "categoryScore": 4,
       "secondaryCategories": [
@@ -100,7 +152,7 @@
         "other"
       ],
       "displayCategory": "systems-low-level",
-      "updatedAt": "2026-08-13T07:53:53Z",
+      "updatedAt": "2026-08-13T13:50:28Z",
       "topics": []
     },
     {
@@ -111,8 +163,8 @@
       "description": "Run agents like Hermes, LangChain Deep Agents, and OpenClaw more securely inside NVIDIA OpenShell with managed inference",
       "url": "https://github.com/NVIDIA/NemoClaw",
       "language": "TypeScript",
-      "stars": 22142,
-      "forks": 3016,
+      "stars": 22143,
+      "forks": 3017,
       "category": "ai-ml",
       "categoryScore": 31,
       "secondaryCategories": [
@@ -121,7 +173,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:55:02Z",
+      "updatedAt": "2026-08-13T12:59:07Z",
       "topics": [
         "ai-agents",
         "hermes",
@@ -199,8 +251,8 @@
       "description": "Clone any website with one command using AI coding agents",
       "url": "https://github.com/JCodesMore/ai-website-cloner-template",
       "language": "JavaScript",
-      "stars": 31840,
-      "forks": 4634,
+      "stars": 31860,
+      "forks": 4636,
       "category": "ui-ux",
       "categoryScore": 38,
       "secondaryCategories": [
@@ -210,7 +262,7 @@
         "full-stack-frameworks"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:47:33Z",
+      "updatedAt": "2026-08-13T13:47:37Z",
       "topics": [
         "ai",
         "ai-agents",
@@ -334,7 +386,7 @@
       "description": "Boring avatars is an open source React library that generates custom, SVG-based avatars from any username and color palette.",
       "url": "https://github.com/boringdesigners/boring-avatars",
       "language": "TypeScript",
-      "stars": 6358,
+      "stars": 6359,
       "forks": 212,
       "category": "web-dev",
       "categoryScore": 20,
@@ -342,7 +394,7 @@
         "frontend"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-10T18:22:54Z",
+      "updatedAt": "2026-08-13T13:01:01Z",
       "topics": [
         "avatar",
         "avatar-component",
@@ -385,7 +437,7 @@
       "description": "DiceBear is an avatar library for designers and developers. 🌍",
       "url": "https://github.com/dicebear/dicebear",
       "language": "Vue",
-      "stars": 9272,
+      "stars": 9278,
       "forks": 399,
       "category": "api",
       "categoryScore": 8,
@@ -394,7 +446,7 @@
         "backend-api"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:24:42Z",
+      "updatedAt": "2026-08-13T13:28:24Z",
       "topics": [
         "api",
         "avataaars",
@@ -424,7 +476,7 @@
         "mobile"
       ],
       "displayCategory": "systems-low-level",
-      "updatedAt": "2026-08-13T03:47:49Z",
+      "updatedAt": "2026-08-13T10:57:06Z",
       "topics": []
     },
     {
@@ -462,8 +514,8 @@
       "description": "Open-source speech recognition toolkit for training, inference, streaming ASR, VAD, punctuation, speaker diarization pipelines, and OpenAI-compatible/MCP serving.",
       "url": "https://github.com/modelscope/FunASR",
       "language": "Python",
-      "stars": 19812,
-      "forks": 1986,
+      "stars": 19819,
+      "forks": 1989,
       "category": "ai-ml",
       "categoryScore": 35,
       "secondaryCategories": [
@@ -471,7 +523,7 @@
         "backend-api"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:28:32Z",
+      "updatedAt": "2026-08-13T13:34:08Z",
       "topics": [
         "asr",
         "audio",
@@ -545,8 +597,8 @@
       "description": "Codebase intelligence for AI and humans: code health scores, auto-generated docs, git analytics, dead code detection, and architectural decisions via MCP.",
       "url": "https://github.com/repowise-dev/repowise",
       "language": "Python",
-      "stars": 5574,
-      "forks": 579,
+      "stars": 5660,
+      "forks": 581,
       "category": "python",
       "categoryScore": 16,
       "secondaryCategories": [
@@ -555,7 +607,7 @@
         "python"
       ],
       "displayCategory": "developer-tools",
-      "updatedAt": "2026-08-13T07:57:11Z",
+      "updatedAt": "2026-08-13T13:49:50Z",
       "topics": [
         "ai",
         "code-complexity",
@@ -582,8 +634,8 @@
       "description": "A 2.78-trillion-parameter Kimi K3 running inference on a single CPU in 8.24 GB of RAM. Portable C99: no BLAS, no framework, no GPU.",
       "url": "https://github.com/FareedKhan-dev/kimi-k3-in-c",
       "language": "C",
-      "stars": 5313,
-      "forks": 856,
+      "stars": 5380,
+      "forks": 869,
       "category": "ai-ml",
       "categoryScore": 53,
       "secondaryCategories": [
@@ -592,7 +644,7 @@
         "full-stack-frameworks"
       ],
       "displayCategory": "ai-learning",
-      "updatedAt": "2026-08-13T07:57:25Z",
+      "updatedAt": "2026-08-13T13:53:10Z",
       "topics": [
         "avx2",
         "c99",
@@ -624,15 +676,15 @@
       "description": "Give your agent a computer 👾",
       "url": "https://github.com/cloudflare/computer",
       "language": "TypeScript",
-      "stars": 7875,
-      "forks": 434,
+      "stars": 7922,
+      "forks": 437,
       "category": "other",
       "categoryScore": 4,
       "secondaryCategories": [
         "other"
       ],
       "displayCategory": "other",
-      "updatedAt": "2026-08-13T07:46:06Z",
+      "updatedAt": "2026-08-13T13:31:18Z",
       "topics": []
     },
     {
@@ -643,8 +695,8 @@
       "description": "Graph-Native Infrastructure for Context and Accountable AI Systems",
       "url": "https://github.com/semantica-agi/semantica",
       "language": "Python",
-      "stars": 5964,
-      "forks": 641,
+      "stars": 6165,
+      "forks": 663,
       "category": "ai-ml",
       "categoryScore": 51,
       "secondaryCategories": [
@@ -654,7 +706,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:58:02Z",
+      "updatedAt": "2026-08-13T13:52:20Z",
       "topics": [
         "agent-memory",
         "ai",
@@ -686,8 +738,8 @@
       "description": "A Simple and Universal Swarm Intelligence Engine, Predicting Anything. 简洁通用的群体智能引擎，预测万物",
       "url": "https://github.com/666ghj/MiroFish",
       "language": "Python",
-      "stars": 70919,
-      "forks": 11054,
+      "stars": 70927,
+      "forks": 11051,
       "category": "python",
       "categoryScore": 16,
       "secondaryCategories": [
@@ -695,7 +747,7 @@
         "python"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:39:19Z",
+      "updatedAt": "2026-08-13T13:47:30Z",
       "topics": [
         "agent-memory",
         "financial-forecasting",
@@ -717,7 +769,7 @@
       "description": "A list of OSINT tools & resources for (fraud-)investigators, CTI-analysts, KYC, AML and more.",
       "url": "https://github.com/K2SOsint/Legendary_OSINT",
       "language": "Unknown",
-      "stars": 1675,
+      "stars": 1677,
       "forks": 213,
       "category": "learning",
       "categoryScore": 13,
@@ -725,7 +777,7 @@
         "docs-reference"
       ],
       "displayCategory": "docs-reference",
-      "updatedAt": "2026-08-13T04:32:48Z",
+      "updatedAt": "2026-08-13T13:14:47Z",
       "topics": [
         "cti",
         "cyberthreatintelligence",
@@ -742,7 +794,7 @@
       "description": "Why is this running? Trace any process, port, container, or file back to what started it - CLI + TUI.",
       "url": "https://github.com/pranshuparmar/witr",
       "language": "Go",
-      "stars": 21356,
+      "stars": 21372,
       "forks": 747,
       "category": "devops",
       "categoryScore": 41,
@@ -751,7 +803,7 @@
         "devops"
       ],
       "displayCategory": "developer-tools",
-      "updatedAt": "2026-08-13T07:53:12Z",
+      "updatedAt": "2026-08-13T13:04:00Z",
       "topics": [
         "cli",
         "containers",
@@ -783,7 +835,7 @@
       "description": "High-performance React Native Graphics using Skia",
       "url": "https://github.com/Shopify/react-native-skia",
       "language": "TypeScript",
-      "stars": 8507,
+      "stars": 8508,
       "forks": 627,
       "category": "web-dev",
       "categoryScore": 18,
@@ -791,7 +843,7 @@
         "frontend"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:48:01Z",
+      "updatedAt": "2026-08-13T12:39:25Z",
       "topics": [
         "react",
         "react-native",
@@ -865,7 +917,7 @@
         "mobile"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T06:31:32Z",
+      "updatedAt": "2026-08-13T12:31:04Z",
       "topics": []
     },
     {
@@ -877,7 +929,7 @@
       "url": "https://github.com/mrousavy/react-native-nitro-image",
       "language": "TypeScript",
       "stars": 637,
-      "forks": 35,
+      "forks": 36,
       "category": "web-dev",
       "categoryScore": 18,
       "secondaryCategories": [
@@ -950,8 +1002,8 @@
       "description": "SpaceXAI's coding agent harness and TUI. Fullscreen, mouse interactive, extensible.",
       "url": "https://github.com/xai-org/grok-build",
       "language": "Rust",
-      "stars": 24925,
-      "forks": 4731,
+      "stars": 24983,
+      "forks": 4737,
       "category": "ai-ml",
       "categoryScore": 10,
       "secondaryCategories": [
@@ -961,7 +1013,7 @@
         "systems-low-level"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:58:09Z",
+      "updatedAt": "2026-08-13T13:46:05Z",
       "topics": []
     },
     {
@@ -981,7 +1033,7 @@
         "docs-reference"
       ],
       "displayCategory": "productivity-apps",
-      "updatedAt": "2026-08-12T23:31:32Z",
+      "updatedAt": "2026-08-13T13:21:27Z",
       "topics": [
         "accounting",
         "billing",
@@ -1078,8 +1130,8 @@
       "description": "End-to-end realtime stack for connecting humans and AI",
       "url": "https://github.com/livekit/livekit",
       "language": "Go",
-      "stars": 20294,
-      "forks": 2241,
+      "stars": 20301,
+      "forks": 2242,
       "category": "ai-ml",
       "categoryScore": 8,
       "secondaryCategories": [
@@ -1087,7 +1139,7 @@
         "backend-api"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:52:25Z",
+      "updatedAt": "2026-08-13T12:53:28Z",
       "topics": [
         "golang",
         "media-server",
@@ -1106,7 +1158,7 @@
       "description": "Create beautiful moving gradients on Framer, Figma and React",
       "url": "https://github.com/ruucm/shadergradient",
       "language": "TypeScript",
-      "stars": 2062,
+      "stars": 2063,
       "forks": 112,
       "category": "web-dev",
       "categoryScore": 18,
@@ -1115,7 +1167,7 @@
         "developer-tools"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-12T21:14:08Z",
+      "updatedAt": "2026-08-13T12:33:35Z",
       "topics": [
         "figma-plugin",
         "framer",
@@ -1133,7 +1185,7 @@
       "description": "Desktop app that records your on-screen work session and uses the GitHub Copilot CLI to reconstruct it as an intent + ordered steps, then builds a reusable Skill or Automation for Microsoft Scout, Microsoft Copilot Cowork, or Copilot Studio.",
       "url": "https://github.com/microsoft/skill-recorder",
       "language": "TypeScript",
-      "stars": 3018,
+      "stars": 3032,
       "forks": 312,
       "category": "ai-ml",
       "categoryScore": 18,
@@ -1144,7 +1196,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:27:40Z",
+      "updatedAt": "2026-08-13T13:48:56Z",
       "topics": [
         "agent-skills",
         "ai-agents",
@@ -1166,8 +1218,8 @@
       "description": "logo-generator-skill",
       "url": "https://github.com/op7418/logo-generator-skill",
       "language": "HTML",
-      "stars": 1716,
-      "forks": 137,
+      "stars": 1738,
+      "forks": 138,
       "category": "other",
       "categoryScore": 4,
       "secondaryCategories": [
@@ -1175,7 +1227,7 @@
         "other"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:53:51Z",
+      "updatedAt": "2026-08-13T13:50:42Z",
       "topics": []
     },
     {
@@ -1186,8 +1238,8 @@
       "description": "Skills for Real Engineers. Straight from my .agents directory.",
       "url": "https://github.com/mattpocock/skills",
       "language": "Shell",
-      "stars": 215537,
-      "forks": 18598,
+      "stars": 215949,
+      "forks": 18625,
       "category": "ai-ml",
       "categoryScore": 8,
       "secondaryCategories": [
@@ -1196,7 +1248,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:59:12Z",
+      "updatedAt": "2026-08-13T13:53:44Z",
       "topics": []
     },
     {
@@ -1207,8 +1259,8 @@
       "description": "Comp AI CRM is an open source, CRM designed for AI agents. Agentic-first CRM.",
       "url": "https://github.com/trycompai/crm",
       "language": "TypeScript",
-      "stars": 8352,
-      "forks": 965,
+      "stars": 8371,
+      "forks": 973,
       "category": "ai-ml",
       "categoryScore": 13,
       "secondaryCategories": [
@@ -1216,7 +1268,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:46:36Z",
+      "updatedAt": "2026-08-13T13:48:30Z",
       "topics": []
     },
     {
@@ -1246,8 +1298,8 @@
       "description": "Waku Waku! Waku Agent is a local-first AI agent harness you actually own, including loop, memory, eval, all in code built to stay legible as it grows.",
       "url": "https://github.com/ShenSeanChen/waku-agent",
       "language": "Python",
-      "stars": 1299,
-      "forks": 240,
+      "stars": 1305,
+      "forks": 242,
       "category": "ai-ml",
       "categoryScore": 94,
       "secondaryCategories": [
@@ -1257,7 +1309,7 @@
         "full-stack-frameworks"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:18:44Z",
+      "updatedAt": "2026-08-13T13:33:44Z",
       "topics": [
         "agent-framework",
         "ai-agent",
@@ -1459,8 +1511,8 @@
       "description": "Extract any website’s design system into tokens in seconds: logo, colors, typography, borders & more. One command.",
       "url": "https://github.com/dembrandt/dembrandt",
       "language": "TypeScript",
-      "stars": 2642,
-      "forks": 251,
+      "stars": 2677,
+      "forks": 256,
       "category": "web-dev",
       "categoryScore": 27,
       "secondaryCategories": [
@@ -1468,7 +1520,7 @@
         "productivity-apps"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:47:22Z",
+      "updatedAt": "2026-08-13T13:42:17Z",
       "topics": [
         "brand-audits",
         "css",
@@ -1500,7 +1552,7 @@
       "description": "Open-source Claude Design alternative. One-click import your Claude Code / Codex API key. Prompt → prototype / slides / PDF. Multi-model (Claude, GPT, Gemini, Kimi, GLM, Ollama). BYOK, local-first, MIT.",
       "url": "https://github.com/OpenCoworkAI/open-codesign",
       "language": "TypeScript",
-      "stars": 7712,
+      "stars": 7713,
       "forks": 810,
       "category": "ai-ml",
       "categoryScore": 80,
@@ -1511,7 +1563,7 @@
         "developer-tools"
       ],
       "displayCategory": "llm-apps",
-      "updatedAt": "2026-08-13T06:57:27Z",
+      "updatedAt": "2026-08-13T13:00:08Z",
       "topics": [
         "ai-design",
         "anthropic",
@@ -1543,7 +1595,7 @@
       "description": "real time face swap and one-click video deepfake with only a single image",
       "url": "https://github.com/hacksider/Deep-Live-Cam",
       "language": "Python",
-      "stars": 95896,
+      "stars": 95911,
       "forks": 13996,
       "category": "ai-ml",
       "categoryScore": 8,
@@ -1552,7 +1604,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:33:20Z",
+      "updatedAt": "2026-08-13T13:08:55Z",
       "topics": [
         "ai",
         "ai-deep-fake",
@@ -1582,7 +1634,7 @@
       "description": "Uber's cross-platform mobile architecture framework - Android Repository",
       "url": "https://github.com/uber/RIBs",
       "language": "Kotlin",
-      "stars": 7929,
+      "stars": 7930,
       "forks": 913,
       "category": "mobile",
       "categoryScore": 34,
@@ -1591,7 +1643,7 @@
         "mobile"
       ],
       "displayCategory": "full-stack-frameworks",
-      "updatedAt": "2026-08-13T05:10:14Z",
+      "updatedAt": "2026-08-13T12:15:03Z",
       "topics": [
         "android",
         "architectural-patterns",
@@ -1613,8 +1665,8 @@
       "description": "Material UI: Comprehensive React component library that implements Google's Material Design. Free forever.",
       "url": "https://github.com/mui/material-ui",
       "language": "JavaScript",
-      "stars": 98753,
-      "forks": 32560,
+      "stars": 98751,
+      "forks": 32558,
       "category": "ui-ux",
       "categoryScore": 46,
       "secondaryCategories": [
@@ -1622,7 +1674,7 @@
         "ui-ux"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:25:29Z",
+      "updatedAt": "2026-08-13T13:33:42Z",
       "topics": [
         "design-system",
         "material-design",
@@ -1639,7 +1691,7 @@
       "description": "An open source collection of animated, interactive & fully customizable React components for building memorable websites.",
       "url": "https://github.com/DavidHDev/react-bits",
       "language": "JavaScript",
-      "stars": 45415,
+      "stars": 45432,
       "forks": 2168,
       "category": "ui-ux",
       "categoryScore": 53,
@@ -1649,7 +1701,7 @@
         "ui-ux"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:39:18Z",
+      "updatedAt": "2026-08-13T13:42:34Z",
       "topics": [
         "3d",
         "animations",
@@ -1677,8 +1729,8 @@
       "description": "Brand building skills for Claude Code and AI agents. strategy, naming, identity, voice, positioning, messaging, auditing, and launch",
       "url": "https://github.com/arnabbagxd/Brand-building-skills",
       "language": "Shell",
-      "stars": 500,
-      "forks": 66,
+      "stars": 505,
+      "forks": 67,
       "category": "ai-ml",
       "categoryScore": 23,
       "secondaryCategories": [
@@ -1688,7 +1740,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T01:26:39Z",
+      "updatedAt": "2026-08-13T13:52:10Z",
       "topics": [
         "brand-architecture",
         "brand-audit",
@@ -1714,8 +1766,8 @@
       "description": "A library of creative canvas components. Real HTML with WebGL effects running over it. React, Vue, Svelte, vanilla.",
       "url": "https://github.com/DavidHDev/canvas-ui",
       "language": "TypeScript",
-      "stars": 3803,
-      "forks": 194,
+      "stars": 3813,
+      "forks": 195,
       "category": "web-dev",
       "categoryScore": 75,
       "secondaryCategories": [
@@ -1723,7 +1775,7 @@
         "full-stack-frameworks"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:57:06Z",
+      "updatedAt": "2026-08-13T13:52:52Z",
       "topics": [
         "animation",
         "canvas",
@@ -1774,8 +1826,8 @@
       "description": "A hive mind communication platform",
       "url": "https://github.com/block/buzz",
       "language": "Rust",
-      "stars": 26915,
-      "forks": 3283,
+      "stars": 27031,
+      "forks": 3306,
       "category": "other",
       "categoryScore": 4,
       "secondaryCategories": [
@@ -1783,7 +1835,7 @@
         "other"
       ],
       "displayCategory": "systems-low-level",
-      "updatedAt": "2026-08-13T07:55:27Z",
+      "updatedAt": "2026-08-13T13:50:38Z",
       "topics": []
     },
     {
@@ -1825,15 +1877,15 @@
       "description": "A skill that turn any brand into a scrollable 3D world landing page",
       "url": "https://github.com/oso95/scroll-world",
       "language": "JavaScript",
-      "stars": 8092,
-      "forks": 921,
+      "stars": 8112,
+      "forks": 923,
       "category": "other",
       "categoryScore": 4,
       "secondaryCategories": [
         "other"
       ],
       "displayCategory": "other",
-      "updatedAt": "2026-08-13T07:35:47Z",
+      "updatedAt": "2026-08-13T13:44:36Z",
       "topics": []
     },
     {
@@ -1844,15 +1896,15 @@
       "description": "Agent Skills for Google products and technologies",
       "url": "https://github.com/google/skills",
       "language": "Python",
-      "stars": 17956,
-      "forks": 1426,
+      "stars": 18010,
+      "forks": 1428,
       "category": "python",
       "categoryScore": 8,
       "secondaryCategories": [
         "python"
       ],
       "displayCategory": "python",
-      "updatedAt": "2026-08-13T07:54:39Z",
+      "updatedAt": "2026-08-13T13:45:48Z",
       "topics": [
         "google",
         "googlecloud",
@@ -1867,8 +1919,8 @@
       "description": "Turn any technical book PDF into a Claude Code skill — ready to study, reference, and use while you work.",
       "url": "https://github.com/virgiliojr94/book-to-skill",
       "language": "Python",
-      "stars": 20982,
-      "forks": 2214,
+      "stars": 21079,
+      "forks": 2223,
       "category": "ai-ml",
       "categoryScore": 10,
       "secondaryCategories": [
@@ -1876,7 +1928,7 @@
         "docs-reference"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:54:26Z",
+      "updatedAt": "2026-08-13T13:45:18Z",
       "topics": []
     },
     {
@@ -1887,8 +1939,8 @@
       "description": "Awesome list of 300+ agentic AI resources",
       "url": "https://github.com/slavakurilyak/awesome-ai-agents",
       "language": "Python",
-      "stars": 2159,
-      "forks": 526,
+      "stars": 2161,
+      "forks": 527,
       "category": "learning",
       "categoryScore": 27,
       "secondaryCategories": [
@@ -1896,7 +1948,7 @@
         "docs-reference"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T01:27:33Z",
+      "updatedAt": "2026-08-13T10:56:04Z",
       "topics": [
         "agent",
         "agentic",
@@ -1911,7 +1963,7 @@
       "description": "Think with AI beyond the chat box. A shared canvas for handwriting, equations, diagrams, and spatial reasoning.",
       "url": "https://github.com/penecho/penecho",
       "language": "JavaScript",
-      "stars": 2045,
+      "stars": 2052,
       "forks": 248,
       "category": "ai-ml",
       "categoryScore": 23,
@@ -1919,7 +1971,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:51:24Z",
+      "updatedAt": "2026-08-13T13:28:50Z",
       "topics": [
         "ai",
         "canvas",
@@ -1939,8 +1991,8 @@
       "description": "Fullstack app framework for web, desktop, and mobile.",
       "url": "https://github.com/DioxusLabs/dioxus",
       "language": "Rust",
-      "stars": 38646,
-      "forks": 1839,
+      "stars": 38658,
+      "forks": 1840,
       "category": "web-dev",
       "categoryScore": 32,
       "secondaryCategories": [
@@ -1949,7 +2001,7 @@
         "systems-low-level"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:46:39Z",
+      "updatedAt": "2026-08-13T13:45:30Z",
       "topics": [
         "android",
         "css",
@@ -1974,7 +2026,7 @@
       "description": "AI Elements is a component library and custom registry built on top of shadcn/ui to help you build AI-native applications faster.",
       "url": "https://github.com/vercel/ai-elements",
       "language": "TypeScript",
-      "stars": 2320,
+      "stars": 2323,
       "forks": 265,
       "category": "ui-ux",
       "categoryScore": 23,
@@ -1982,7 +2034,7 @@
         "ui-ux"
       ],
       "displayCategory": "ui-ux",
-      "updatedAt": "2026-08-13T06:56:28Z",
+      "updatedAt": "2026-08-13T10:43:02Z",
       "topics": [
         "ai",
         "elements",
@@ -2027,8 +2079,8 @@
       "description": "Self-hosted deployment platform",
       "url": "https://github.com/oblien/openship",
       "language": "TypeScript",
-      "stars": 10598,
-      "forks": 889,
+      "stars": 10608,
+      "forks": 892,
       "category": "ai-ml",
       "categoryScore": 16,
       "secondaryCategories": [
@@ -2037,7 +2089,7 @@
         "self-hosted"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:45:15Z",
+      "updatedAt": "2026-08-13T13:51:35Z",
       "topics": [
         "agents",
         "ai",
@@ -2053,7 +2105,7 @@
       "description": "Visualize, collaborate, and evolve the software architecture with always actual and live diagrams from your code",
       "url": "https://github.com/likec4/likec4",
       "language": "TypeScript",
-      "stars": 5413,
+      "stars": 5415,
       "forks": 358,
       "category": "system-design",
       "categoryScore": 8,
@@ -2061,7 +2113,7 @@
         "system-design"
       ],
       "displayCategory": "system-design",
-      "updatedAt": "2026-08-13T07:12:09Z",
+      "updatedAt": "2026-08-13T13:45:09Z",
       "topics": [
         "architecture",
         "architecture-as-code",
@@ -2096,8 +2148,8 @@
       "description": "The Frontend Stack for Agents & Generative UI. React, Angular, Mobile, Slack, and more.  Makers of the AG-UI Protocol",
       "url": "https://github.com/CopilotKit/CopilotKit",
       "language": "TypeScript",
-      "stars": 36731,
-      "forks": 4537,
+      "stars": 36736,
+      "forks": 4538,
       "category": "ai-ml",
       "categoryScore": 72,
       "secondaryCategories": [
@@ -2107,7 +2159,7 @@
         "frontend"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:42:20Z",
+      "updatedAt": "2026-08-13T13:04:32Z",
       "topics": [
         "agent",
         "agent-native",
@@ -2139,15 +2191,15 @@
       "description": "An auto-company works for 24/7 on your own PC - Windows/Linux/macOS.",
       "url": "https://github.com/MaxMiksa/Auto-Company",
       "language": "Python",
-      "stars": 2262,
-      "forks": 362,
+      "stars": 2265,
+      "forks": 363,
       "category": "python",
       "categoryScore": 8,
       "secondaryCategories": [
         "python"
       ],
       "displayCategory": "python",
-      "updatedAt": "2026-08-13T06:28:38Z",
+      "updatedAt": "2026-08-13T13:26:36Z",
       "topics": []
     },
     {
@@ -2158,8 +2210,8 @@
       "description": "Write HTML. Render video. Built for agents.",
       "url": "https://github.com/heygen-com/hyperframes",
       "language": "TypeScript",
-      "stars": 40781,
-      "forks": 3887,
+      "stars": 40815,
+      "forks": 3891,
       "category": "ai-ml",
       "categoryScore": 16,
       "secondaryCategories": [
@@ -2169,7 +2221,7 @@
         "frontend"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:54:37Z",
+      "updatedAt": "2026-08-13T13:46:08Z",
       "topics": [
         "ai",
         "animation",
@@ -2201,7 +2253,7 @@
         "full-stack-frameworks"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:10:18Z",
+      "updatedAt": "2026-08-13T13:41:26Z",
       "topics": [
         "experience-management",
         "form",
@@ -2230,8 +2282,8 @@
       "description": "A slide framework built for agents.",
       "url": "https://github.com/1weiho/open-slide",
       "language": "TypeScript",
-      "stars": 6156,
-      "forks": 440,
+      "stars": 6260,
+      "forks": 446,
       "category": "web-dev",
       "categoryScore": 18,
       "secondaryCategories": [
@@ -2239,7 +2291,7 @@
         "full-stack-frameworks"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:58:55Z",
+      "updatedAt": "2026-08-13T13:48:11Z",
       "topics": [
         "agent",
         "react",
@@ -2254,7 +2306,7 @@
       "description": "Independent directory of useful skills, plugins, memory providers, tools, surfaces, and guides for Nous Research's open-source Hermes Agent.",
       "url": "https://github.com/0xNyk/awesome-hermes-agent",
       "language": "Unknown",
-      "stars": 5294,
+      "stars": 5300,
       "forks": 378,
       "category": "learning",
       "categoryScore": 43,
@@ -2264,7 +2316,7 @@
         "docs-reference"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T06:14:32Z",
+      "updatedAt": "2026-08-13T13:25:27Z",
       "topics": [
         "agent-skills",
         "ai-agents",
@@ -2286,7 +2338,7 @@
       "description": "▦ Universal, standards-based auth provider.",
       "url": "https://github.com/anomalyco/openauth",
       "language": "TypeScript",
-      "stars": 7334,
+      "stars": 7333,
       "forks": 312,
       "category": "other",
       "categoryScore": 4,
@@ -2294,7 +2346,7 @@
         "other"
       ],
       "displayCategory": "other",
-      "updatedAt": "2026-08-13T07:16:51Z",
+      "updatedAt": "2026-08-13T10:07:23Z",
       "topics": []
     },
     {
@@ -2305,7 +2357,7 @@
       "description": "AI Agent 驱动的开源可自部署视频工作台：将小说与剧本转为角色、场景、道具资产、分镜、视频和剪映草稿，支持跨镜头一致性、多供应商与费用追踪 | Self-hosted AI video workspace for stories, storyboards and short-form video production",
       "url": "https://github.com/ArcReel/ArcReel",
       "language": "Python",
-      "stars": 3983,
+      "stars": 3987,
       "forks": 796,
       "category": "ai-ml",
       "categoryScore": 41,
@@ -2316,7 +2368,7 @@
         "docs-reference"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:47:10Z",
+      "updatedAt": "2026-08-13T13:53:44Z",
       "topics": [
         "agentic-workflow",
         "ai-agent",
@@ -2348,7 +2400,7 @@
       "description": "A free and open source instant messaging and VoIP chat app built for friends, groups, and communities.",
       "url": "https://github.com/fluxerapp/fluxer",
       "language": "TypeScript",
-      "stars": 9955,
+      "stars": 9956,
       "forks": 695,
       "category": "other",
       "categoryScore": 4,
@@ -2356,7 +2408,7 @@
         "other"
       ],
       "displayCategory": "other",
-      "updatedAt": "2026-08-13T07:11:45Z",
+      "updatedAt": "2026-08-13T12:59:16Z",
       "topics": [
         "fluxer",
         "fluxerapp"
@@ -2370,8 +2422,8 @@
       "description": "The open-source CapCut alternative",
       "url": "https://github.com/OpenCut-app/OpenCut",
       "language": "TypeScript",
-      "stars": 82584,
-      "forks": 8174,
+      "stars": 82657,
+      "forks": 8181,
       "category": "other",
       "categoryScore": 4,
       "secondaryCategories": [
@@ -2379,7 +2431,7 @@
         "other"
       ],
       "displayCategory": "productivity-apps",
-      "updatedAt": "2026-08-13T07:55:16Z",
+      "updatedAt": "2026-08-13T13:53:07Z",
       "topics": [
         "editor",
         "oss",
@@ -2432,8 +2484,8 @@
       "description": "Open-source AI penetration testing tool to find and fix your app’s vulnerabilities.",
       "url": "https://github.com/usestrix/strix",
       "language": "Python",
-      "stars": 51652,
-      "forks": 5544,
+      "stars": 51736,
+      "forks": 5557,
       "category": "ai-ml",
       "categoryScore": 31,
       "secondaryCategories": [
@@ -2442,7 +2494,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:58:20Z",
+      "updatedAt": "2026-08-13T13:49:13Z",
       "topics": [
         "agents",
         "ai-hacking",
@@ -2474,8 +2526,8 @@
       "description": "Persistent memory for Claude Code and 6 other CLI agents, stored as plain markdown in your Obsidian vault. Stop re-explaining your projects, decisions and people every session. 45 commands: hybrid semantic search, self-rewriting notes, key-less web research, and scheduled agents that maintain the vault while you sleep.",
       "url": "https://github.com/eugeniughelbur/obsidian-second-brain",
       "language": "Python",
-      "stars": 3980,
-      "forks": 500,
+      "stars": 3982,
+      "forks": 501,
       "category": "ai-ml",
       "categoryScore": 65,
       "secondaryCategories": [
@@ -2485,7 +2537,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:24:09Z",
+      "updatedAt": "2026-08-13T13:10:28Z",
       "topics": [
         "agent-skills",
         "ai-agents",
@@ -2557,7 +2609,7 @@
       "description": "Paste any GitHub URL → interactive architecture map. See how files connect, find what breaks if you change something. No install, no accounts — runs entirely in your browser.",
       "url": "https://github.com/braedonsaunders/codeflow",
       "language": "HTML",
-      "stars": 4914,
+      "stars": 4915,
       "forks": 742,
       "category": "web-dev",
       "categoryScore": 8,
@@ -2567,7 +2619,7 @@
         "developer-tools"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T02:56:56Z",
+      "updatedAt": "2026-08-13T12:18:19Z",
       "topics": [
         "architecture",
         "browser-based",
@@ -2589,8 +2641,8 @@
       "description": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, every edge explained, no vector store.",
       "url": "https://github.com/Graphify-Labs/graphify",
       "language": "Python",
-      "stars": 105796,
-      "forks": 10309,
+      "stars": 105914,
+      "forks": 10319,
       "category": "ai-ml",
       "categoryScore": 71,
       "secondaryCategories": [
@@ -2600,7 +2652,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:58:21Z",
+      "updatedAt": "2026-08-13T13:52:36Z",
       "topics": [
         "ai-agents",
         "antigravity",
@@ -2631,7 +2683,7 @@
       "description": "DivKit is an open source Server-Driven UI (SDUI) framework. SDUI is a an emerging technique that leverage the server to build the user interfaces of their mobile app",
       "url": "https://github.com/divkit/divkit",
       "language": "Kotlin",
-      "stars": 2658,
+      "stars": 2659,
       "forks": 192,
       "category": "mobile",
       "categoryScore": 56,
@@ -2642,7 +2694,7 @@
         "mobile"
       ],
       "displayCategory": "rag-search",
-      "updatedAt": "2026-08-13T03:58:24Z",
+      "updatedAt": "2026-08-13T11:53:07Z",
       "topics": [
         "android",
         "backend-driven-ui",
@@ -2676,7 +2728,7 @@
         "ui-ux"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-12T16:38:57Z",
+      "updatedAt": "2026-08-13T13:11:51Z",
       "topics": []
     },
     {
@@ -2687,7 +2739,7 @@
       "description": "The Generative UI framework",
       "url": "https://github.com/vercel-labs/json-render",
       "language": "TypeScript",
-      "stars": 15890,
+      "stars": 15897,
       "forks": 863,
       "category": "ai-ml",
       "categoryScore": 5,
@@ -2697,7 +2749,7 @@
         "full-stack-frameworks"
       ],
       "displayCategory": "llm-apps",
-      "updatedAt": "2026-08-13T07:47:48Z",
+      "updatedAt": "2026-08-13T13:17:33Z",
       "topics": []
     },
     {
@@ -2708,7 +2760,7 @@
       "description": "Leantime is a goals focused project management system for non-project managers. Building with ADHD, Autism, and dyslexia in mind.",
       "url": "https://github.com/Leantime/leantime",
       "language": "PHP",
-      "stars": 11322,
+      "stars": 11325,
       "forks": 1103,
       "category": "other",
       "categoryScore": 4,
@@ -2717,7 +2769,7 @@
         "other"
       ],
       "displayCategory": "developer-tools",
-      "updatedAt": "2026-08-13T04:04:35Z",
+      "updatedAt": "2026-08-13T12:41:36Z",
       "topics": [
         "agile",
         "asana",
@@ -2749,8 +2801,8 @@
       "description": "TencentDB Agent Memory is a team-level memory hub for AI Agents — turning conversations, docs, and code into four reusable memory assets (Chat Memory, Skill, LLM-Wiki, Code-Graph) that are governed, shared, and equipped across agents and frameworks.",
       "url": "https://github.com/TencentCloud/TencentDB-Agent-Memory",
       "language": "TypeScript",
-      "stars": 20867,
-      "forks": 1892,
+      "stars": 21048,
+      "forks": 1913,
       "category": "ai-ml",
       "categoryScore": 51,
       "secondaryCategories": [
@@ -2760,7 +2812,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:58:32Z",
+      "updatedAt": "2026-08-13T13:52:09Z",
       "topics": [
         "agent",
         "ai-agent",
@@ -2781,7 +2833,7 @@
       "description": "The diary of Tom Riddle for the reMarkable Paper Pro — write with your pen, the page drinks your ink and answers in a flowing hand",
       "url": "https://github.com/MaximeRivest/riddle",
       "language": "Rust",
-      "stars": 1819,
+      "stars": 1820,
       "forks": 166,
       "category": "other",
       "categoryScore": 4,
@@ -2790,7 +2842,7 @@
         "other"
       ],
       "displayCategory": "systems-low-level",
-      "updatedAt": "2026-08-12T17:57:47Z",
+      "updatedAt": "2026-08-13T11:25:03Z",
       "topics": [
         "appload",
         "eink",
@@ -2808,15 +2860,15 @@
       "description": "💫 Toolkit to help you get started with Spec-Driven Development",
       "url": "https://github.com/github/spec-kit",
       "language": "Python",
-      "stars": 126677,
-      "forks": 11328,
+      "stars": 126954,
+      "forks": 11350,
       "category": "ai-ml",
       "categoryScore": 8,
       "secondaryCategories": [
         "ai-models"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:57:43Z",
+      "updatedAt": "2026-08-13T13:53:42Z",
       "topics": [
         "ai",
         "copilot",
@@ -2835,8 +2887,8 @@
       "description": "Temporal service",
       "url": "https://github.com/temporalio/temporal",
       "language": "Go",
-      "stars": 22270,
-      "forks": 1806,
+      "stars": 22280,
+      "forks": 1808,
       "category": "system-design",
       "categoryScore": 60,
       "secondaryCategories": [
@@ -2845,7 +2897,7 @@
         "system-design"
       ],
       "displayCategory": "full-stack-frameworks",
-      "updatedAt": "2026-08-13T07:11:31Z",
+      "updatedAt": "2026-08-13T13:09:17Z",
       "topics": [
         "cronjob-scheduler",
         "distributed-cron",
@@ -2873,8 +2925,8 @@
       "description": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 20% fewer tokens for coding agents, 60-95% fewer tokens for JSON, same answers. Library, proxy, MCP server.",
       "url": "https://github.com/headroomlabs-ai/headroom",
       "language": "Python",
-      "stars": 66123,
-      "forks": 5061,
+      "stars": 66164,
+      "forks": 5064,
       "category": "ai-ml",
       "categoryScore": 120,
       "secondaryCategories": [
@@ -2884,7 +2936,7 @@
         "backend-api"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:55:45Z",
+      "updatedAt": "2026-08-13T13:50:21Z",
       "topics": [
         "agent",
         "ai",
@@ -2916,8 +2968,8 @@
       "description": "LEAKED SYSTEM PROMPTS FOR CHATGPT, CLAUDE, GEMINI, GROK, PERPLEXITY, CURSOR, LOVABLE, REPLIT, AND MORE! - AI SYSTEMS TRANSPARENCY FOR ALL! 👐",
       "url": "https://github.com/elder-plinius/CL4R1T4S",
       "language": "Unknown",
-      "stars": 46875,
-      "forks": 9525,
+      "stars": 46879,
+      "forks": 9526,
       "category": "ai-ml",
       "categoryScore": 88,
       "secondaryCategories": [
@@ -2925,7 +2977,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:42:32Z",
+      "updatedAt": "2026-08-13T13:35:37Z",
       "topics": [
         "agents",
         "ai",
@@ -2957,8 +3009,8 @@
       "description": "autonomous red teaming platform; multi-agent offensive-security meta-harness",
       "url": "https://github.com/elder-plinius/T3MP3ST",
       "language": "TypeScript",
-      "stars": 5544,
-      "forks": 1153,
+      "stars": 5546,
+      "forks": 1154,
       "category": "ai-ml",
       "categoryScore": 18,
       "secondaryCategories": [
@@ -2966,7 +3018,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:33:58Z",
+      "updatedAt": "2026-08-13T13:49:43Z",
       "topics": [
         "agents",
         "ai",
@@ -2983,7 +3035,7 @@
       "description": "🚀 The definitive roadmap to becoming a Forward Deployment Engineer (FDE). Master AI Agents, Enterprise Data Architecture, and Strategic Consulting. Bridging the gap between HQ and the field. Inspired by the  Delta  role at Palantir, OpenAI, and Scale AI.",
       "url": "https://github.com/pierpaolo28/Awesome-FDE-Roadmap",
       "language": "Unknown",
-      "stars": 856,
+      "stars": 858,
       "forks": 134,
       "category": "learning",
       "categoryScore": 43,
@@ -2993,7 +3045,7 @@
         "docs-reference"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T00:49:13Z",
+      "updatedAt": "2026-08-13T12:20:29Z",
       "topics": [
         "ai-agents",
         "awesome-list",
@@ -3042,15 +3094,15 @@
       "description": "",
       "url": "https://github.com/anthropics/financial-services",
       "language": "Python",
-      "stars": 34212,
-      "forks": 5097,
+      "stars": 34229,
+      "forks": 5099,
       "category": "python",
       "categoryScore": 8,
       "secondaryCategories": [
         "python"
       ],
       "displayCategory": "python",
-      "updatedAt": "2026-08-13T07:45:01Z",
+      "updatedAt": "2026-08-13T12:26:49Z",
       "topics": []
     },
     {
@@ -3061,7 +3113,7 @@
       "description": "",
       "url": "https://github.com/meituan-longcat/LongCat-Video",
       "language": "Python",
-      "stars": 6715,
+      "stars": 6717,
       "forks": 1155,
       "category": "python",
       "categoryScore": 8,
@@ -3069,7 +3121,7 @@
         "python"
       ],
       "displayCategory": "python",
-      "updatedAt": "2026-08-13T06:17:38Z",
+      "updatedAt": "2026-08-13T11:37:32Z",
       "topics": []
     },
     {
@@ -3140,8 +3192,8 @@
       "description": "Privacy first, AI meeting assistant with 4x faster Parakeet/Whisper live transcription, speaker diarization, and Ollama summarization built on Rust. 100% local processing. no cloud required. Meetily (Meetly Ai - https://meetily.ai) is the #1 Self-hosted, Open-source Ai meeting note taker for macOS & Windows. Understand How to write meeting minutes",
       "url": "https://github.com/Zackriya-Solutions/meetily",
       "language": "Rust",
-      "stars": 29022,
-      "forks": 3068,
+      "stars": 29033,
+      "forks": 3071,
       "category": "ai-ml",
       "categoryScore": 23,
       "secondaryCategories": [
@@ -3151,7 +3203,7 @@
         "productivity-apps"
       ],
       "displayCategory": "llm-apps",
-      "updatedAt": "2026-08-13T07:12:41Z",
+      "updatedAt": "2026-08-13T13:52:56Z",
       "topics": [
         "ai",
         "ai-meeting-assistant",
@@ -3183,7 +3235,7 @@
       "description": "A vector index built on TurboQuant, written in Rust with Python bindings",
       "url": "https://github.com/RyanCodrai/turbovec",
       "language": "Rust",
-      "stars": 14742,
+      "stars": 14746,
       "forks": 1320,
       "category": "ai-ml",
       "categoryScore": 18,
@@ -3194,7 +3246,7 @@
         "backend-api"
       ],
       "displayCategory": "rag-search",
-      "updatedAt": "2026-08-13T06:21:06Z",
+      "updatedAt": "2026-08-13T13:42:33Z",
       "topics": [
         "ann",
         "avx512",
@@ -3221,15 +3273,15 @@
       "description": "cut Claude Code token usage by rendering text context as images",
       "url": "https://github.com/teamchong/pxpipe",
       "language": "TypeScript",
-      "stars": 7073,
-      "forks": 613,
+      "stars": 7081,
+      "forks": 616,
       "category": "ai-ml",
       "categoryScore": 10,
       "secondaryCategories": [
         "ai-models"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:20:23Z",
+      "updatedAt": "2026-08-13T13:35:34Z",
       "topics": []
     },
     {
@@ -3240,7 +3292,7 @@
       "description": "JavaScript in-page GUI agent. Control web interfaces with natural language.",
       "url": "https://github.com/alibaba/page-agent",
       "language": "TypeScript",
-      "stars": 28609,
+      "stars": 28614,
       "forks": 2546,
       "category": "ai-ml",
       "categoryScore": 18,
@@ -3250,7 +3302,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:30:42Z",
+      "updatedAt": "2026-08-13T12:21:39Z",
       "topics": [
         "agent",
         "ai",
@@ -3270,8 +3322,8 @@
       "description": "A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.",
       "url": "https://github.com/msitarzewski/agency-agents",
       "language": "Shell",
-      "stars": 144844,
-      "forks": 23444,
+      "stars": 145015,
+      "forks": 23461,
       "category": "ai-ml",
       "categoryScore": 15,
       "secondaryCategories": [
@@ -3281,7 +3333,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:59:00Z",
+      "updatedAt": "2026-08-13T13:52:13Z",
       "topics": []
     },
     {
@@ -3292,7 +3344,7 @@
       "description": "Structured multi-perspective deliberation for hard decisions. Run full councils, focused triads, or duo debates across Claude Code, Codex, Gemini CLI, and OpenCode.",
       "url": "https://github.com/0xNyk/council-of-high-intelligence",
       "language": "Shell",
-      "stars": 3943,
+      "stars": 3945,
       "forks": 58,
       "category": "ai-ml",
       "categoryScore": 80,
@@ -3302,7 +3354,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:33:50Z",
+      "updatedAt": "2026-08-13T10:19:32Z",
       "topics": [
         "agent-skill",
         "ai-agents",
@@ -3366,7 +3418,7 @@
       "description": "Hunt down 840+ social media accounts using AI",
       "url": "https://github.com/arxhr007/Aliens_eye",
       "language": "Python",
-      "stars": 3110,
+      "stars": 3109,
       "forks": 360,
       "category": "python",
       "categoryScore": 24,
@@ -3374,7 +3426,7 @@
         "python"
       ],
       "displayCategory": "python",
-      "updatedAt": "2026-08-13T07:16:49Z",
+      "updatedAt": "2026-08-13T08:08:34Z",
       "topics": [
         "ai",
         "artificial-intelligence",
@@ -3405,8 +3457,8 @@
       "description": "Practical patterns, starters & CLI tools for loop engineering with AI coding agents. Design systems that prompt and orchestrate agents (inspired by Addy Osmani and Boris Cherny). Includes loop-audit, loop-init, loop-cost.",
       "url": "https://github.com/cobusgreyling/loop-engineering",
       "language": "JavaScript",
-      "stars": 10301,
-      "forks": 1399,
+      "stars": 10311,
+      "forks": 1400,
       "category": "ai-ml",
       "categoryScore": 93,
       "secondaryCategories": [
@@ -3415,7 +3467,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:33:57Z",
+      "updatedAt": "2026-08-13T13:31:41Z",
       "topics": [
         "agentic-ai",
         "ai-agents",
@@ -3444,15 +3496,15 @@
       "description": "Google Cloud Knowledge Catalog Tools and Samples",
       "url": "https://github.com/GoogleCloudPlatform/knowledge-catalog",
       "language": "TypeScript",
-      "stars": 8550,
-      "forks": 735,
+      "stars": 8559,
+      "forks": 734,
       "category": "cloud",
       "categoryScore": 5,
       "secondaryCategories": [
         "cloud"
       ],
       "displayCategory": "cloud",
-      "updatedAt": "2026-08-13T07:19:54Z",
+      "updatedAt": "2026-08-13T13:31:25Z",
       "topics": []
     },
     {
@@ -3463,7 +3515,7 @@
       "description": "Free and Open Source Reverse Engineering Platform powered by rizin",
       "url": "https://github.com/rizinorg/cutter",
       "language": "C++",
-      "stars": 19457,
+      "stars": 19459,
       "forks": 1430,
       "category": "security",
       "categoryScore": 8,
@@ -3472,7 +3524,7 @@
         "security"
       ],
       "displayCategory": "systems-low-level",
-      "updatedAt": "2026-08-13T07:51:09Z",
+      "updatedAt": "2026-08-13T11:23:15Z",
       "topics": [
         "cutter",
         "debugger",
@@ -3489,8 +3541,8 @@
       "description": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
       "url": "https://github.com/DietrichGebert/ponytail",
       "language": "JavaScript",
-      "stars": 101746,
-      "forks": 5591,
+      "stars": 101932,
+      "forks": 5606,
       "category": "ai-ml",
       "categoryScore": 65,
       "secondaryCategories": [
@@ -3499,7 +3551,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:58:34Z",
+      "updatedAt": "2026-08-13T13:52:44Z",
       "topics": [
         "agent-skills",
         "ai-agents",
@@ -3521,8 +3573,8 @@
       "description": "50+ open-source generative AI apps you can clone, deploy, and monetize — image generators, video tools, virtual try-ons, AI SaaS templates, and platform integrations. One-click Vercel deploy on every template.",
       "url": "https://github.com/Anil-matcha/awesome-generative-ai-apps",
       "language": "JavaScript",
-      "stars": 2915,
-      "forks": 404,
+      "stars": 2918,
+      "forks": 403,
       "category": "learning",
       "categoryScore": 43,
       "secondaryCategories": [
@@ -3532,7 +3584,7 @@
         "docs-reference"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T03:19:56Z",
+      "updatedAt": "2026-08-13T13:46:35Z",
       "topics": [
         "ai-apps",
         "ai-image-generator",
@@ -3590,8 +3642,8 @@
       "description": "A community-maintained Python framework for creating mathematical animations.",
       "url": "https://github.com/ManimCommunity/manim",
       "language": "Python",
-      "stars": 40153,
-      "forks": 3022,
+      "stars": 40155,
+      "forks": 3023,
       "category": "python",
       "categoryScore": 16,
       "secondaryCategories": [
@@ -3599,7 +3651,7 @@
         "python"
       ],
       "displayCategory": "full-stack-frameworks",
-      "updatedAt": "2026-08-13T06:46:47Z",
+      "updatedAt": "2026-08-13T13:49:21Z",
       "topics": [
         "animations",
         "hacktoberfest",
@@ -3616,7 +3668,7 @@
       "description": "Wayland - The AI Agent That Perceives. Reasons. Acts. Evolves.",
       "url": "https://github.com/FerroxLabs/wayland",
       "language": "TypeScript",
-      "stars": 570,
+      "stars": 571,
       "forks": 107,
       "category": "ai-ml",
       "categoryScore": 15,
@@ -3625,7 +3677,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T03:25:39Z",
+      "updatedAt": "2026-08-13T08:14:49Z",
       "topics": []
     },
     {
@@ -3636,8 +3688,8 @@
       "description": "Taste-Skill - gives your AI good taste. stops the AI from generating boring, generic slop",
       "url": "https://github.com/Leonxlnx/taste-skill",
       "language": "JavaScript",
-      "stars": 76038,
-      "forks": 5209,
+      "stars": 76153,
+      "forks": 5218,
       "category": "ai-ml",
       "categoryScore": 33,
       "secondaryCategories": [
@@ -3646,7 +3698,7 @@
         "frontend"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:58:47Z",
+      "updatedAt": "2026-08-13T13:51:52Z",
       "topics": [
         "agent",
         "ai",
@@ -3671,8 +3723,8 @@
       "description": "Platform to build admin panels, internal tools, and dashboards. Integrates with 25+ databases and any API.",
       "url": "https://github.com/appsmithorg/appsmith",
       "language": "TypeScript",
-      "stars": 40661,
-      "forks": 4719,
+      "stars": 40664,
+      "forks": 4720,
       "category": "web-dev",
       "categoryScore": 22,
       "secondaryCategories": [
@@ -3682,7 +3734,7 @@
         "self-hosted"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:56:59Z",
+      "updatedAt": "2026-08-13T13:12:09Z",
       "topics": [
         "admin-dashboard",
         "admin-panels",
@@ -3714,7 +3766,7 @@
       "description": "Terminal-based plasmid map viewer, sequence editor, and cloning/mutagenesis workbench in pure Python",
       "url": "https://github.com/Binomica-Labs/SpliceCraft",
       "language": "Python",
-      "stars": 195,
+      "stars": 197,
       "forks": 12,
       "category": "python",
       "categoryScore": 16,
@@ -3725,7 +3777,7 @@
         "python"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-11T04:08:39Z",
+      "updatedAt": "2026-08-13T09:06:57Z",
       "topics": [
         "bioengineering",
         "biology",
@@ -3754,7 +3806,7 @@
       "description": "Official repository of Trino, the distributed SQL query engine for big data, formerly known as PrestoSQL (https://trino.io)",
       "url": "https://github.com/trinodb/trino",
       "language": "Java",
-      "stars": 13135,
+      "stars": 13137,
       "forks": 3729,
       "category": "system-design",
       "categoryScore": 23,
@@ -3764,7 +3816,7 @@
         "system-design"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-13T07:50:39Z",
+      "updatedAt": "2026-08-13T13:16:22Z",
       "topics": [
         "analytics",
         "big-data",
@@ -3795,8 +3847,8 @@
       "description": "Agent Skills for NVIDIA products — install into Claude Code, Codex, and other coding agents to run Physical AI, robotics, simulation, CUDA, and RAG workflows end to end.",
       "url": "https://github.com/NVIDIA/skills",
       "language": "Python",
-      "stars": 2883,
-      "forks": 335,
+      "stars": 2897,
+      "forks": 336,
       "category": "ai-ml",
       "categoryScore": 71,
       "secondaryCategories": [
@@ -3806,7 +3858,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:49:27Z",
+      "updatedAt": "2026-08-13T13:50:07Z",
       "topics": [
         "agent-skills",
         "agentic-ai",
@@ -3832,7 +3884,7 @@
       "description": "NeMo Guardrails is an open-source toolkit for easily adding programmable guardrails to LLM-based conversational systems.",
       "url": "https://github.com/NVIDIA-NeMo/Guardrails",
       "language": "Python",
-      "stars": 6932,
+      "stars": 6936,
       "forks": 805,
       "category": "ai-ml",
       "categoryScore": 39,
@@ -3842,7 +3894,7 @@
         "full-stack-frameworks"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:47:40Z",
+      "updatedAt": "2026-08-13T12:03:56Z",
       "topics": [
         "agents",
         "generative-ai",
@@ -3863,7 +3915,7 @@
       "description": "SkillOpt is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits, validation-gated updates, and deployable best_skill.md artifacts.",
       "url": "https://github.com/microsoft/SkillOpt",
       "language": "Python",
-      "stars": 15973,
+      "stars": 15985,
       "forks": 1487,
       "category": "ai-ml",
       "categoryScore": 20,
@@ -3872,7 +3924,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:25:29Z",
+      "updatedAt": "2026-08-13T13:08:14Z",
       "topics": [
         "agent-skills",
         "self-evolving-agents"
@@ -3886,7 +3938,7 @@
       "description": "The flexible backend for all your projects 🐰 Turn your DB into a headless CMS, admin panels, or apps with a custom UI, instant APIs, auth & more.",
       "url": "https://github.com/directus/directus",
       "language": "TypeScript",
-      "stars": 37344,
+      "stars": 37359,
       "forks": 4902,
       "category": "web-dev",
       "categoryScore": 27,
@@ -3896,7 +3948,7 @@
         "databases"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:35:26Z",
+      "updatedAt": "2026-08-13T13:14:47Z",
       "topics": [
         "api",
         "app",
@@ -4036,8 +4088,8 @@
       "description": "A black hole for Internet advertisements",
       "url": "https://github.com/pi-hole/pi-hole",
       "language": "Shell",
-      "stars": 60334,
-      "forks": 3278,
+      "stars": 60337,
+      "forks": 3277,
       "category": "networking",
       "categoryScore": 15,
       "secondaryCategories": [
@@ -4046,7 +4098,7 @@
         "networking"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-13T07:21:25Z",
+      "updatedAt": "2026-08-13T13:39:23Z",
       "topics": [
         "ad-blocker",
         "blocker",
@@ -4069,7 +4121,7 @@
       "description": "A beautiful, non-destructive, and GPU-accelerated RAW image editor built with performance in mind.",
       "url": "https://github.com/CyberTimon/RapidRAW",
       "language": "TypeScript",
-      "stars": 9309,
+      "stars": 9312,
       "forks": 481,
       "category": "web-dev",
       "categoryScore": 18,
@@ -4080,7 +4132,7 @@
         "systems-low-level"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:48:31Z",
+      "updatedAt": "2026-08-13T11:16:01Z",
       "topics": [
         "color-grading",
         "editing",
@@ -4100,15 +4152,15 @@
       "description": "🪨 why use many token when few token do trick — Claude Code skill that cuts 65% of tokens by talking like caveman",
       "url": "https://github.com/JuliusBrussee/caveman",
       "language": "Go",
-      "stars": 97870,
-      "forks": 5646,
+      "stars": 97938,
+      "forks": 5649,
       "category": "ai-ml",
       "categoryScore": 70,
       "secondaryCategories": [
         "ai-models"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:59:12Z",
+      "updatedAt": "2026-08-13T13:52:46Z",
       "topics": [
         "ai",
         "anthropic",
@@ -4130,7 +4182,7 @@
       "description": "Create and share 3D architectural projects.",
       "url": "https://github.com/pascalorg/editor",
       "language": "TypeScript",
-      "stars": 21344,
+      "stars": 21348,
       "forks": 2736,
       "category": "web-dev",
       "categoryScore": 35,
@@ -4140,7 +4192,7 @@
         "productivity-apps"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:57:25Z",
+      "updatedAt": "2026-08-13T13:32:27Z",
       "topics": [
         "3d",
         "architecture",
@@ -4164,8 +4216,8 @@
       "description": "#1 Persistent memory for AI coding agents based on real-world benchmarks",
       "url": "https://github.com/rohitg00/agentmemory",
       "language": "TypeScript",
-      "stars": 26952,
-      "forks": 2296,
+      "stars": 26959,
+      "forks": 2299,
       "category": "ai-ml",
       "categoryScore": 31,
       "secondaryCategories": [
@@ -4173,7 +4225,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:49:41Z",
+      "updatedAt": "2026-08-13T13:43:41Z",
       "topics": [
         "agentmemory",
         "agents",
@@ -4227,7 +4279,7 @@
         "backend-api"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T01:40:16Z",
+      "updatedAt": "2026-08-13T11:18:38Z",
       "topics": []
     },
     {
@@ -4238,7 +4290,7 @@
       "description": "FineTune, a macOS menu bar app for per-app volume control, multi-device output, audio routing, and 10-band EQ. Free and open-source alternative to SoundSource.",
       "url": "https://github.com/ronitsingh10/FineTune",
       "language": "Swift",
-      "stars": 8660,
+      "stars": 8667,
       "forks": 302,
       "category": "mobile",
       "categoryScore": 38,
@@ -4246,7 +4298,7 @@
         "mobile"
       ],
       "displayCategory": "mobile",
-      "updatedAt": "2026-08-13T07:33:01Z",
+      "updatedAt": "2026-08-13T13:09:48Z",
       "topics": [
         "audio",
         "audio-control",
@@ -4273,7 +4325,7 @@
       "description": "The Open Standard for Generative UI",
       "url": "https://github.com/thesysdev/openui",
       "language": "TypeScript",
-      "stars": 8348,
+      "stars": 8349,
       "forks": 608,
       "category": "ai-ml",
       "categoryScore": 41,
@@ -4283,7 +4335,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T06:45:33Z",
+      "updatedAt": "2026-08-13T12:54:13Z",
       "topics": [
         "agent",
         "agents",
@@ -4357,8 +4409,8 @@
       "description": "Every API has a secret identity. This finds it, absorbs every feature from every competing tool, then builds the GOAT CLI — designed for AI agents first, with SQLite sync, offline search, and compound insight commands.",
       "url": "https://github.com/mvanhorn/cli-printing-press",
       "language": "Go",
-      "stars": 4429,
-      "forks": 471,
+      "stars": 4432,
+      "forks": 470,
       "category": "api",
       "categoryScore": 23,
       "secondaryCategories": [
@@ -4368,7 +4420,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:34:47Z",
+      "updatedAt": "2026-08-13T09:00:39Z",
       "topics": [
         "ai-agents",
         "cli",
@@ -4386,7 +4438,7 @@
       "description": "Before I go to bed, I tell my agents: good night, have fun",
       "url": "https://github.com/kunchenguid/gnhf",
       "language": "TypeScript",
-      "stars": 3655,
+      "stars": 3657,
       "forks": 273,
       "category": "other",
       "categoryScore": 4,
@@ -4394,7 +4446,7 @@
         "other"
       ],
       "displayCategory": "other",
-      "updatedAt": "2026-08-13T07:37:50Z",
+      "updatedAt": "2026-08-13T12:52:44Z",
       "topics": []
     },
     {
@@ -4428,7 +4480,7 @@
       "description": "Per-process network monitoring for your terminal with deep packet inspection. Cross-platform, sandboxed.",
       "url": "https://github.com/domcyrus/rustnet",
       "language": "Rust",
-      "stars": 4846,
+      "stars": 4848,
       "forks": 223,
       "category": "tools",
       "categoryScore": 16,
@@ -4437,7 +4489,7 @@
         "systems-low-level"
       ],
       "displayCategory": "developer-tools",
-      "updatedAt": "2026-08-13T06:56:59Z",
+      "updatedAt": "2026-08-13T13:44:49Z",
       "topics": [
         "cli",
         "dpi",
@@ -4466,8 +4518,8 @@
       "description": "🌊 The original agent meta-harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems. Features adaptive memory, self-learning intelligence, RAG integration, and native Claude Code / Codex / Hermes and many more Integrated",
       "url": "https://github.com/ruvnet/ruflo",
       "language": "TypeScript",
-      "stars": 67750,
-      "forks": 8108,
+      "stars": 67760,
+      "forks": 8112,
       "category": "ai-ml",
       "categoryScore": 61,
       "secondaryCategories": [
@@ -4477,7 +4529,7 @@
         "llm-apps"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:42:53Z",
+      "updatedAt": "2026-08-13T13:35:25Z",
       "topics": [
         "agentic-ai",
         "agentic-framework",
@@ -4509,7 +4561,7 @@
       "description": "[CVPR 2026] PersonaLive! : Expressive Portrait Image Animation for Live Streaming",
       "url": "https://github.com/GVCLab/PersonaLive",
       "language": "Python",
-      "stars": 3519,
+      "stars": 3520,
       "forks": 496,
       "category": "python",
       "categoryScore": 8,
@@ -4518,7 +4570,7 @@
         "python"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-13T07:32:44Z",
+      "updatedAt": "2026-08-13T10:55:29Z",
       "topics": [
         "cvpr",
         "cvpr2026",
@@ -4534,8 +4586,8 @@
       "description": "Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, and more.",
       "url": "https://github.com/Egonex-AI/Understand-Anything",
       "language": "TypeScript",
-      "stars": 79152,
-      "forks": 6649,
+      "stars": 79195,
+      "forks": 6651,
       "category": "ai-ml",
       "categoryScore": 71,
       "secondaryCategories": [
@@ -4544,7 +4596,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:53:39Z",
+      "updatedAt": "2026-08-13T13:48:19Z",
       "topics": [
         "antigravity-skills",
         "business-knowledge",
@@ -4574,7 +4626,7 @@
       "url": "https://github.com/MiroShark/MiroShark",
       "language": "Python",
       "stars": 1429,
-      "forks": 299,
+      "forks": 298,
       "category": "ai-ml",
       "categoryScore": 8,
       "secondaryCategories": [
@@ -4600,8 +4652,8 @@
       "description": "AI agents running research on single-GPU nanochat training automatically",
       "url": "https://github.com/karpathy/autoresearch",
       "language": "Python",
-      "stars": 93765,
-      "forks": 13298,
+      "stars": 93787,
+      "forks": 13300,
       "category": "ai-ml",
       "categoryScore": 13,
       "secondaryCategories": [
@@ -4609,7 +4661,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:57:43Z",
+      "updatedAt": "2026-08-13T13:07:10Z",
       "topics": []
     },
     {
@@ -4620,7 +4672,7 @@
       "description": "UNIX-like reverse engineering framework and command-line toolset",
       "url": "https://github.com/radareorg/radare2",
       "language": "C",
-      "stars": 24562,
+      "stars": 24563,
       "forks": 3299,
       "category": "security",
       "categoryScore": 8,
@@ -4629,7 +4681,7 @@
         "security"
       ],
       "displayCategory": "full-stack-frameworks",
-      "updatedAt": "2026-08-13T05:00:11Z",
+      "updatedAt": "2026-08-13T11:42:49Z",
       "topics": [
         "binary-analysis",
         "c",
@@ -4651,8 +4703,8 @@
       "description": "The agent that grows with you",
       "url": "https://github.com/NousResearch/hermes-agent",
       "language": "Python",
-      "stars": 229769,
-      "forks": 45376,
+      "stars": 229919,
+      "forks": 45440,
       "category": "ai-ml",
       "categoryScore": 101,
       "secondaryCategories": [
@@ -4660,7 +4712,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:59:10Z",
+      "updatedAt": "2026-08-13T13:51:51Z",
       "topics": [
         "ai",
         "ai-agent",
@@ -4685,7 +4737,7 @@
       "description": "A fancy self-hosted monitoring tool",
       "url": "https://github.com/louislam/uptime-kuma",
       "language": "JavaScript",
-      "stars": 90136,
+      "stars": 90139,
       "forks": 8238,
       "category": "devops",
       "categoryScore": 23,
@@ -4694,7 +4746,7 @@
         "devops"
       ],
       "displayCategory": "self-hosted",
-      "updatedAt": "2026-08-13T07:35:09Z",
+      "updatedAt": "2026-08-13T11:16:15Z",
       "topics": [
         "docker",
         "monitor",
@@ -4755,7 +4807,7 @@
       "description": "CheckCle is a self-hosted, open-source monitoring platform for seamless, real-time full-stack systems, applications, and infrastructure. It provides real-time uptime monitoring, distributed checks, incident tracking, and alerts. All deployable anywhere.",
       "url": "https://github.com/operacle/checkcle",
       "language": "Go",
-      "stars": 2923,
+      "stars": 2924,
       "forks": 251,
       "category": "devops",
       "categoryScore": 26,
@@ -4766,7 +4818,7 @@
         "devops"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-13T07:33:35Z",
+      "updatedAt": "2026-08-13T08:04:25Z",
       "topics": [
         "alternative",
         "api",
@@ -4804,7 +4856,7 @@
         "networking"
       ],
       "displayCategory": "systems-low-level",
-      "updatedAt": "2026-08-13T07:16:49Z",
+      "updatedAt": "2026-08-13T13:03:09Z",
       "topics": [
         "application",
         "gui",
@@ -4835,8 +4887,8 @@
       "description": "Learn it. Build it. Ship it for others.",
       "url": "https://github.com/rohitg00/ai-engineering-from-scratch",
       "language": "Python",
-      "stars": 46631,
-      "forks": 8122,
+      "stars": 46651,
+      "forks": 8133,
       "category": "ai-ml",
       "categoryScore": 115,
       "secondaryCategories": [
@@ -4846,7 +4898,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:40:28Z",
+      "updatedAt": "2026-08-13T13:27:41Z",
       "topics": [
         "agents",
         "ai",
@@ -4878,15 +4930,15 @@
       "description": "Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and QA",
       "url": "https://github.com/garrytan/gstack",
       "language": "TypeScript",
-      "stars": 127754,
-      "forks": 19239,
+      "stars": 127791,
+      "forks": 19241,
       "category": "ai-ml",
       "categoryScore": 10,
       "secondaryCategories": [
         "ai-models"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:56:48Z",
+      "updatedAt": "2026-08-13T13:50:21Z",
       "topics": []
     },
     {
@@ -4897,7 +4949,7 @@
       "description": "Open-source intelligence for the global theater. Track everything from the corporate/private jets of the wealthy, and spy satellites, to seismic events in one unified interface. Hook an AI agent up to have it parse through data and find previously unseen correlations. The knowledge is available to all but rarely aggregated in the open, until now.",
       "url": "https://github.com/BigBodyCobain/Shadowbroker",
       "language": "Python",
-      "stars": 10775,
+      "stars": 10776,
       "forks": 1719,
       "category": "ai-ml",
       "categoryScore": 18,
@@ -4907,7 +4959,7 @@
         "docs-reference"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:40:46Z",
+      "updatedAt": "2026-08-13T11:00:50Z",
       "topics": [
         "ads-b",
         "adsb",
@@ -4939,8 +4991,8 @@
       "description": "FinceptTerminal is a modern finance application offering advanced market analytics, investment research, and economic data tools, designed for interactive exploration and data-driven decision-making in a user-friendly environment.",
       "url": "https://github.com/Fincept-Corporation/FinceptTerminal",
       "language": "C++",
-      "stars": 30163,
-      "forks": 4257,
+      "stars": 30174,
+      "forks": 4256,
       "category": "ai-ml",
       "categoryScore": 31,
       "secondaryCategories": [
@@ -4950,7 +5002,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:32:38Z",
+      "updatedAt": "2026-08-13T12:25:33Z",
       "topics": [
         "ai-agents",
         "algorithmic-trading",
@@ -4998,15 +5050,15 @@
       "description": "A collection of DESIGN.md files analysis by popular brand design systems. Drop one into your project and let coding agents generate a matching UI.",
       "url": "https://github.com/VoltAgent/awesome-design-md",
       "language": "Unknown",
-      "stars": 108174,
-      "forks": 12352,
+      "stars": 108237,
+      "forks": 12358,
       "category": "learning",
       "categoryScore": 48,
       "secondaryCategories": [
         "docs-reference"
       ],
       "displayCategory": "docs-reference",
-      "updatedAt": "2026-08-13T07:55:31Z",
+      "updatedAt": "2026-08-13T13:46:41Z",
       "topics": [
         "awesome-list",
         "design-md",
@@ -5028,8 +5080,8 @@
       "description": "The context API to search, scrape, and interact with the web at scale. 🔥",
       "url": "https://github.com/firecrawl/firecrawl",
       "language": "TypeScript",
-      "stars": 166623,
-      "forks": 9364,
+      "stars": 166776,
+      "forks": 9367,
       "category": "ai-ml",
       "categoryScore": 31,
       "secondaryCategories": [
@@ -5039,7 +5091,7 @@
         "backend-api"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:56:44Z",
+      "updatedAt": "2026-08-13T13:50:57Z",
       "topics": [
         "ai",
         "ai-agents",
@@ -5070,8 +5122,8 @@
       "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
       "url": "https://github.com/affaan-m/ECC",
       "language": "JavaScript",
-      "stars": 239823,
-      "forks": 36405,
+      "stars": 239878,
+      "forks": 36412,
       "category": "ai-ml",
       "categoryScore": 65,
       "secondaryCategories": [
@@ -5081,7 +5133,7 @@
         "productivity-apps"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:51:13Z",
+      "updatedAt": "2026-08-13T13:51:59Z",
       "topics": [
         "ai-agents",
         "anthropic",
@@ -5101,7 +5153,7 @@
       "description": "**GeoSentinel** is a geospatial monitoring platform that tracks global movement in real time.  It aggregates ship and flight routes, live coordinates, and geodata into a unified system, providing clear geographic and geopolitical awareness for analysis, visualization, and decision-making.",
       "url": "https://github.com/h9zdev/GeoSentinel",
       "language": "HTML",
-      "stars": 1065,
+      "stars": 1066,
       "forks": 310,
       "category": "monitoring",
       "categoryScore": 5,
@@ -5110,7 +5162,7 @@
         "monitoring"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-12T08:25:30Z",
+      "updatedAt": "2026-08-13T09:58:15Z",
       "topics": []
     },
     {
@@ -5143,7 +5195,7 @@
       "description": "GEO-first SEO skill for Claude Code. Comprehensive AI search optimization for any website — citability scoring, AI crawler analysis, brand authority, schema markup, platform-specific optimization, and PDF reports.  If you want learn how to sell this to real businesses, check out the skool community",
       "url": "https://github.com/zubair-trabzada/geo-seo-claude",
       "language": "Python",
-      "stars": 9334,
+      "stars": 9335,
       "forks": 1481,
       "category": "ai-ml",
       "categoryScore": 17,
@@ -5151,7 +5203,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:41:45Z",
+      "updatedAt": "2026-08-13T11:13:26Z",
       "topics": []
     },
     {
@@ -5162,8 +5214,8 @@
       "description": "BillionMail gives you open-source MailServer, NewsLetter,  Email Marketing — fully self-hosted, dev-friendly, and free from monthly fees. Join the discord: https://discord.gg/asfXzBUhZr",
       "url": "https://github.com/Billionmail/BillionMail",
       "language": "Go",
-      "stars": 15413,
-      "forks": 1667,
+      "stars": 15414,
+      "forks": 1668,
       "category": "devops",
       "categoryScore": 8,
       "secondaryCategories": [
@@ -5172,7 +5224,7 @@
         "devops"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-13T03:02:02Z",
+      "updatedAt": "2026-08-13T09:09:14Z",
       "topics": [
         "dovecot",
         "email",
@@ -5195,7 +5247,7 @@
       "description": "Your personal intelligence agent. Watches the world from multiple data sources and pings you when something changes.",
       "url": "https://github.com/calesthio/Crucix",
       "language": "JavaScript",
-      "stars": 11309,
+      "stars": 11312,
       "forks": 1789,
       "category": "ai-ml",
       "categoryScore": 18,
@@ -5204,7 +5256,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:30:52Z",
+      "updatedAt": "2026-08-13T13:46:09Z",
       "topics": [
         "ai",
         "intelligence",
@@ -5219,8 +5271,8 @@
       "description": "GitNexus: The Zero-Server Code Intelligence Engine -       GitNexus is a client-side knowledge graph creator that runs entirely in your browser. Drop in a git repository (Github, Gitlab, Azure, Local) or ZIP file, and get an interactive knowledge graph with a built in Graph RAG Agent. Perfect for code exploration",
       "url": "https://github.com/abhigyanpatwari/GitNexus",
       "language": "TypeScript",
-      "stars": 45339,
-      "forks": 5025,
+      "stars": 45351,
+      "forks": 5026,
       "category": "web-dev",
       "categoryScore": 18,
       "secondaryCategories": [
@@ -5230,7 +5282,7 @@
         "frontend"
       ],
       "displayCategory": "rag-search",
-      "updatedAt": "2026-08-13T07:53:38Z",
+      "updatedAt": "2026-08-13T12:10:15Z",
       "topics": []
     },
     {
@@ -5241,8 +5293,8 @@
       "description": "The open-source app everyone uses to manage agents at work",
       "url": "https://github.com/paperclipai/paperclip",
       "language": "TypeScript",
-      "stars": 77900,
-      "forks": 14302,
+      "stars": 77992,
+      "forks": 14307,
       "category": "other",
       "categoryScore": 4,
       "secondaryCategories": [
@@ -5251,7 +5303,7 @@
         "other"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:58:26Z",
+      "updatedAt": "2026-08-13T13:37:56Z",
       "topics": []
     },
     {
@@ -5262,8 +5314,8 @@
       "description": "An open-source long-horizon SuperAgent harness that researches, codes, and creates. With the help of sandboxes, memories, tools, skill, subagents and message gateway, it handles different levels of tasks that could take minutes to hours.",
       "url": "https://github.com/bytedance/deer-flow",
       "language": "Python",
-      "stars": 79892,
-      "forks": 10930,
+      "stars": 79923,
+      "forks": 10939,
       "category": "ai-ml",
       "categoryScore": 48,
       "secondaryCategories": [
@@ -5273,7 +5325,7 @@
         "full-stack-frameworks"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:47:42Z",
+      "updatedAt": "2026-08-13T13:51:09Z",
       "topics": [
         "agent",
         "agentic",
@@ -5303,8 +5355,8 @@
       "description": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple chat apps with easily extensible capabilities.",
       "url": "https://github.com/agentscope-ai/QwenPaw",
       "language": "Python",
-      "stars": 33743,
-      "forks": 2976,
+      "stars": 33746,
+      "forks": 2979,
       "category": "ai-ml",
       "categoryScore": 49,
       "secondaryCategories": [
@@ -5314,7 +5366,7 @@
         "self-hosted"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:54:10Z",
+      "updatedAt": "2026-08-13T13:11:28Z",
       "topics": [
         "agent",
         "agent-harness",
@@ -5361,8 +5413,8 @@
       "description": "Secure, Fast, and Extensible Sandbox runtime for AI agents.",
       "url": "https://github.com/opensandbox-group/OpenSandbox",
       "language": "Python",
-      "stars": 12504,
-      "forks": 1053,
+      "stars": 12518,
+      "forks": 1055,
       "category": "ai-ml",
       "categoryScore": 26,
       "secondaryCategories": [
@@ -5371,7 +5423,7 @@
         "systems-low-level"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:53:43Z",
+      "updatedAt": "2026-08-13T13:53:30Z",
       "topics": [
         "ai",
         "ai-agent",
@@ -5388,8 +5440,8 @@
       "description": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface",
       "url": "https://github.com/koala73/worldmonitor",
       "language": "TypeScript",
-      "stars": 81382,
-      "forks": 12159,
+      "stars": 81470,
+      "forks": 12177,
       "category": "ai-ml",
       "categoryScore": 23,
       "secondaryCategories": [
@@ -5398,7 +5450,7 @@
         "backend-api"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:58:08Z",
+      "updatedAt": "2026-08-13T13:52:32Z",
       "topics": [
         "agent",
         "ai",
@@ -5423,7 +5475,7 @@
       "url": "https://github.com/cporter202/social-media-scraping-apis",
       "language": "JavaScript",
       "stars": 2146,
-      "forks": 444,
+      "forks": 443,
       "category": "learning",
       "categoryScore": 22,
       "secondaryCategories": [
@@ -5450,7 +5502,7 @@
       "description": "The awesome collection of OpenClaw skills. 5,400+ skills filtered and categorized from the official OpenClaw Skills Registry.🦞",
       "url": "https://github.com/VoltAgent/awesome-openclaw-skills",
       "language": "Unknown",
-      "stars": 51924,
+      "stars": 51928,
       "forks": 4996,
       "category": "learning",
       "categoryScore": 48,
@@ -5458,7 +5510,7 @@
         "docs-reference"
       ],
       "displayCategory": "docs-reference",
-      "updatedAt": "2026-08-13T07:32:47Z",
+      "updatedAt": "2026-08-13T13:45:14Z",
       "topics": [
         "agent-skills",
         "awesome",
@@ -5502,8 +5554,8 @@
       "description": "FULL Augment Code, Claude Code, Cluely, CodeBuddy, Comet, Cursor, Devin AI, Junie, Kiro, Leap.new, Lovable, Manus, NotionAI, Orchids.app, Perplexity, Poke, Qoder, Replit, Same.dev, Trae, Traycer AI, VSCode Agent, Warp.dev, Windsurf, Xcode, Z.ai Code, Dia & v0. (And other Open Sourced) System Prompts, Internal Tools & AI Models",
       "url": "https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools",
       "language": "Unknown",
-      "stars": 142777,
-      "forks": 34840,
+      "stars": 142797,
+      "forks": 34839,
       "category": "ai-ml",
       "categoryScore": 28,
       "secondaryCategories": [
@@ -5513,7 +5565,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:33:33Z",
+      "updatedAt": "2026-08-13T13:41:35Z",
       "topics": [
         "ai",
         "bolt",
@@ -5545,8 +5597,8 @@
       "description": "A list of Free Software network services and web applications which can be hosted on your own servers",
       "url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
       "language": "Unknown",
-      "stars": 312313,
-      "forks": 14655,
+      "stars": 312372,
+      "forks": 14661,
       "category": "learning",
       "categoryScore": 43,
       "secondaryCategories": [
@@ -5555,7 +5607,7 @@
         "docs-reference"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-13T07:57:55Z",
+      "updatedAt": "2026-08-13T13:53:28Z",
       "topics": [
         "awesome",
         "awesome-list",
@@ -5595,7 +5647,7 @@
       "description": "Babysitter enforces obedience on agentic workforces and enables them to manage extremely complex tasks and workflows through deterministic, hallucination-free self-orchestration",
       "url": "https://github.com/a5c-ai/babysitter",
       "language": "JavaScript",
-      "stars": 1671,
+      "stars": 1672,
       "forks": 99,
       "category": "ai-ml",
       "categoryScore": 48,
@@ -5606,7 +5658,7 @@
         "systems-low-level"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-12T23:18:30Z",
+      "updatedAt": "2026-08-13T12:15:32Z",
       "topics": [
         "agent-orchestration",
         "agent-skills",
@@ -5666,8 +5718,8 @@
       "description": "The open alternative to Salesforce, designed for AI.",
       "url": "https://github.com/twentyhq/twenty",
       "language": "TypeScript",
-      "stars": 54848,
-      "forks": 8513,
+      "stars": 54862,
+      "forks": 8514,
       "category": "web-dev",
       "categoryScore": 32,
       "secondaryCategories": [
@@ -5676,7 +5728,7 @@
         "databases"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:55:30Z",
+      "updatedAt": "2026-08-13T13:48:39Z",
       "topics": [
         "crm",
         "crm-system",
@@ -5705,8 +5757,8 @@
       "description": "Extracted system prompts from Anthropic - Claude Fable 5, Opus 5, Claude Design, Claude Code. OpenAI - ChatGPT GPT-5.6-Sol, Codex. Google - Gemini 3.5 Flash, 3.1 Pro, Antigravity. xAI - Grok, Cursor, Copilot, VS Code, Perplexity, and more. Updated regularly.",
       "url": "https://github.com/asgeirtj/system_prompts_leaks",
       "language": "JavaScript",
-      "stars": 62806,
-      "forks": 10316,
+      "stars": 62823,
+      "forks": 10317,
       "category": "ai-ml",
       "categoryScore": 146,
       "secondaryCategories": [
@@ -5715,7 +5767,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:39:02Z",
+      "updatedAt": "2026-08-13T13:19:21Z",
       "topics": [
         "ai",
         "ai-agents",
@@ -5747,7 +5799,7 @@
       "description": "Generative UI SDK for React",
       "url": "https://github.com/tambo-ai/tambo",
       "language": "TypeScript",
-      "stars": 11162,
+      "stars": 11163,
       "forks": 562,
       "category": "ai-ml",
       "categoryScore": 26,
@@ -5758,7 +5810,7 @@
         "frontend"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:39:21Z",
+      "updatedAt": "2026-08-13T08:05:09Z",
       "topics": [
         "agent",
         "agents",
@@ -5781,8 +5833,8 @@
       "description": "A Python library for extracting structured information from unstructured text using LLMs with precise source grounding and interactive visualization.",
       "url": "https://github.com/google/langextract",
       "language": "Python",
-      "stars": 38324,
-      "forks": 2685,
+      "stars": 38333,
+      "forks": 2686,
       "category": "ai-ml",
       "categoryScore": 46,
       "secondaryCategories": [
@@ -5790,7 +5842,7 @@
         "backend-api"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:26:18Z",
+      "updatedAt": "2026-08-13T13:50:35Z",
       "topics": [
         "gemini",
         "gemini-ai",
@@ -5813,8 +5865,8 @@
       "description": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows",
       "url": "https://github.com/ComposioHQ/awesome-claude-skills",
       "language": "Python",
-      "stars": 72398,
-      "forks": 8250,
+      "stars": 72413,
+      "forks": 8251,
       "category": "ai-ml",
       "categoryScore": 63,
       "secondaryCategories": [
@@ -5824,7 +5876,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:46:48Z",
+      "updatedAt": "2026-08-13T13:39:44Z",
       "topics": [
         "agent-skills",
         "ai-agents",
@@ -5853,8 +5905,8 @@
       "description": "An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.",
       "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
       "language": "Python",
-      "stars": 116241,
-      "forks": 12486,
+      "stars": 116335,
+      "forks": 12498,
       "category": "ui-ux",
       "categoryScore": 51,
       "secondaryCategories": [
@@ -5862,7 +5914,7 @@
         "ui-ux"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:58:04Z",
+      "updatedAt": "2026-08-13T13:53:40Z",
       "topics": [
         "ai-skills",
         "antigravity",
@@ -5921,7 +5973,7 @@
       "description": "A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code by TÂCHES.",
       "url": "https://github.com/gsd-build/get-shit-done",
       "language": "JavaScript",
-      "stars": 64711,
+      "stars": 64709,
       "forks": 5468,
       "category": "ai-ml",
       "categoryScore": 15,
@@ -5930,7 +5982,7 @@
         "ai-models"
       ],
       "displayCategory": "llm-apps",
-      "updatedAt": "2026-08-13T07:32:45Z",
+      "updatedAt": "2026-08-13T12:17:19Z",
       "topics": [
         "claude-code",
         "context-engineering",
@@ -5946,8 +5998,8 @@
       "description": "Persistent Context Across Sessions for Every Agent –  Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More",
       "url": "https://github.com/thedotmack/claude-mem",
       "language": "JavaScript",
-      "stars": 90589,
-      "forks": 7902,
+      "stars": 90620,
+      "forks": 7908,
       "category": "ai-ml",
       "categoryScore": 66,
       "secondaryCategories": [
@@ -5957,7 +6009,7 @@
         "databases"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:57:01Z",
+      "updatedAt": "2026-08-13T13:53:23Z",
       "topics": [
         "ai",
         "ai-agents",
@@ -6022,8 +6074,8 @@
       "description": "Qwen3-TTS is an open-source series of TTS models developed by the Qwen team at Alibaba Cloud, supporting stable, expressive, and streaming speech generation, free-form voice design, and vivid voice cloning.",
       "url": "https://github.com/QwenLM/Qwen3-TTS",
       "language": "Python",
-      "stars": 12932,
-      "forks": 1674,
+      "stars": 12937,
+      "forks": 1675,
       "category": "python",
       "categoryScore": 8,
       "secondaryCategories": [
@@ -6031,7 +6083,7 @@
         "python"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-13T06:34:32Z",
+      "updatedAt": "2026-08-13T12:49:20Z",
       "topics": []
     },
     {
@@ -6042,8 +6094,8 @@
       "description": "Beads - A memory upgrade for your coding agent",
       "url": "https://github.com/gastownhall/beads",
       "language": "Go",
-      "stars": 26270,
-      "forks": 1767,
+      "stars": 26277,
+      "forks": 1769,
       "category": "ai-ml",
       "categoryScore": 17,
       "secondaryCategories": [
@@ -6051,7 +6103,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:55:59Z",
+      "updatedAt": "2026-08-13T13:31:20Z",
       "topics": [
         "agents",
         "claude-code",
@@ -6095,7 +6147,7 @@
       "description": "🧠 AI Agent Skills Repository - A curated collection of specialized skills for AI coding agents (Claude Code, GitHub Copilot, Cursor, Windsurf). Created by Yuval Avidani using GitHub Copilot via VS Code Insiders.",
       "url": "https://github.com/hoodini/ai-agents-skills",
       "language": "Python",
-      "stars": 265,
+      "stars": 266,
       "forks": 59,
       "category": "ai-ml",
       "categoryScore": 25,
@@ -6105,7 +6157,7 @@
         "docs-reference"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-12T20:42:58Z",
+      "updatedAt": "2026-08-13T08:13:00Z",
       "topics": []
     },
     {
@@ -6116,7 +6168,7 @@
       "description": "Implement a reasoning LLM in PyTorch from scratch, step by step",
       "url": "https://github.com/rasbt/reasoning-from-scratch",
       "language": "Jupyter Notebook",
-      "stars": 4971,
+      "stars": 4972,
       "forks": 754,
       "category": "ai-ml",
       "categoryScore": 91,
@@ -6126,7 +6178,7 @@
         "docs-reference"
       ],
       "displayCategory": "ai-learning",
-      "updatedAt": "2026-08-13T07:58:21Z",
+      "updatedAt": "2026-08-13T11:02:59Z",
       "topics": [
         "ai",
         "artificial-intelligence",
@@ -6157,7 +6209,7 @@
       "description": "HeyGen AI agent skills — avatar creation and video production via the v3 Video Agent pipeline",
       "url": "https://github.com/heygen-com/skills",
       "language": "Shell",
-      "stars": 393,
+      "stars": 394,
       "forks": 66,
       "category": "ai-ml",
       "categoryScore": 41,
@@ -6167,7 +6219,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-12T21:05:04Z",
+      "updatedAt": "2026-08-13T08:47:05Z",
       "topics": [
         "agent-skills",
         "ai-agent",
@@ -6196,7 +6248,7 @@
         "mobile"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-12T15:28:25Z",
+      "updatedAt": "2026-08-13T09:33:16Z",
       "topics": [
         "android",
         "expo",
@@ -6215,7 +6267,7 @@
       "url": "https://github.com/aviz85/claude-skills-library",
       "language": "TypeScript",
       "stars": 45,
-      "forks": 14,
+      "forks": 15,
       "category": "ai-ml",
       "categoryScore": 10,
       "secondaryCategories": [
@@ -6256,7 +6308,7 @@
       "description": "40+ tips for getting the most out of Claude Code, from basics to advanced - includes a custom status line script and Claude Code running itself in a container. Also includes the dx plugin: skills for everyday dev workflows.",
       "url": "https://github.com/ykdojo/claude-code-tips",
       "language": "HTML",
-      "stars": 9610,
+      "stars": 9611,
       "forks": 762,
       "category": "ai-ml",
       "categoryScore": 46,
@@ -6267,7 +6319,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:39:13Z",
+      "updatedAt": "2026-08-13T09:26:04Z",
       "topics": [
         "agentic",
         "agentic-ai",
@@ -6291,15 +6343,15 @@
       "description": "The open source coding agent.",
       "url": "https://github.com/anomalyco/opencode",
       "language": "TypeScript",
-      "stars": 196804,
-      "forks": 25291,
+      "stars": 196947,
+      "forks": 25319,
       "category": "other",
       "categoryScore": 4,
       "secondaryCategories": [
         "other"
       ],
       "displayCategory": "other",
-      "updatedAt": "2026-08-13T07:58:30Z",
+      "updatedAt": "2026-08-13T13:53:11Z",
       "topics": []
     },
     {
@@ -6380,8 +6432,8 @@
       "description": "Universal skills loader for AI coding agents - npm i -g openskills",
       "url": "https://github.com/numman-ali/openskills",
       "language": "TypeScript",
-      "stars": 10689,
-      "forks": 671,
+      "stars": 10691,
+      "forks": 672,
       "category": "ai-ml",
       "categoryScore": 13,
       "secondaryCategories": [
@@ -6389,7 +6441,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:30:43Z",
+      "updatedAt": "2026-08-13T11:28:01Z",
       "topics": []
     },
     {
@@ -6400,8 +6452,8 @@
       "description": "Browser automation CLI for AI agents",
       "url": "https://github.com/vercel-labs/agent-browser",
       "language": "Rust",
-      "stars": 40532,
-      "forks": 2669,
+      "stars": 40551,
+      "forks": 2670,
       "category": "ai-ml",
       "categoryScore": 15,
       "secondaryCategories": [
@@ -6411,7 +6463,7 @@
         "systems-low-level"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:52:30Z",
+      "updatedAt": "2026-08-13T13:38:02Z",
       "topics": []
     },
     {
@@ -6556,7 +6608,7 @@
         "python"
       ],
       "displayCategory": "docs-reference",
-      "updatedAt": "2026-08-13T05:38:23Z",
+      "updatedAt": "2026-08-13T12:13:36Z",
       "topics": []
     },
     {
@@ -6567,8 +6619,8 @@
       "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞",
       "url": "https://github.com/openclaw/openclaw",
       "language": "TypeScript",
-      "stars": 386128,
-      "forks": 81157,
+      "stars": 386166,
+      "forks": 81167,
       "category": "ai-ml",
       "categoryScore": 8,
       "secondaryCategories": [
@@ -6577,7 +6629,7 @@
         "systems-low-level"
       ],
       "displayCategory": "llm-apps",
-      "updatedAt": "2026-08-13T07:58:56Z",
+      "updatedAt": "2026-08-13T13:48:35Z",
       "topics": [
         "ai",
         "assistant",
@@ -6643,8 +6695,8 @@
       "description": "📨 The ultimate agentic social media scheduling tool 🤖",
       "url": "https://github.com/gitroomhq/postiz-app",
       "language": "TypeScript",
-      "stars": 34609,
-      "forks": 6507,
+      "stars": 34623,
+      "forks": 6508,
       "category": "web-dev",
       "categoryScore": 20,
       "secondaryCategories": [
@@ -6653,7 +6705,7 @@
         "databases"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T07:25:34Z",
+      "updatedAt": "2026-08-13T12:54:12Z",
       "topics": [
         "nextjs",
         "open-source",
@@ -6673,15 +6725,15 @@
       "description": "",
       "url": "https://github.com/a2ui-project/a2ui",
       "language": "TypeScript",
-      "stars": 16097,
-      "forks": 1264,
+      "stars": 16100,
+      "forks": 1265,
       "category": "other",
       "categoryScore": 4,
       "secondaryCategories": [
         "other"
       ],
       "displayCategory": "other",
-      "updatedAt": "2026-08-13T07:30:14Z",
+      "updatedAt": "2026-08-13T12:14:08Z",
       "topics": []
     },
     {
@@ -6784,8 +6836,8 @@
       "description": "Complete guide to automating content for growth: Sora 2 video generation, brand authority automation, multi-platform posting, bulk content creation, and API integration.",
       "url": "https://github.com/cporter202/automate-for-growth",
       "language": "Unknown",
-      "stars": 746,
-      "forks": 188,
+      "stars": 749,
+      "forks": 190,
       "category": "learning",
       "categoryScore": 13,
       "secondaryCategories": [
@@ -6793,7 +6845,7 @@
         "docs-reference"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-13T04:41:38Z",
+      "updatedAt": "2026-08-13T10:23:02Z",
       "topics": [
         "ai-learning",
         "ai-learning-resource",
@@ -6846,15 +6898,15 @@
       "description": "Open-Source Frontier Voice AI",
       "url": "https://github.com/microsoft/VibeVoice",
       "language": "Python",
-      "stars": 52618,
-      "forks": 5934,
+      "stars": 52633,
+      "forks": 5936,
       "category": "python",
       "categoryScore": 8,
       "secondaryCategories": [
         "python"
       ],
       "displayCategory": "python",
-      "updatedAt": "2026-08-13T07:58:22Z",
+      "updatedAt": "2026-08-13T13:08:28Z",
       "topics": []
     },
     {
@@ -6884,7 +6936,7 @@
       "description": "Window peeking, alt-tab and other enhancements for macOS",
       "url": "https://github.com/ejbills/DockDoor",
       "language": "Swift",
-      "stars": 5879,
+      "stars": 5880,
       "forks": 208,
       "category": "mobile",
       "categoryScore": 8,
@@ -6892,7 +6944,7 @@
         "mobile"
       ],
       "displayCategory": "mobile",
-      "updatedAt": "2026-08-13T04:23:31Z",
+      "updatedAt": "2026-08-13T12:46:17Z",
       "topics": []
     },
     {
@@ -6903,8 +6955,8 @@
       "description": "A python package to build AI-powered real-time audio applications",
       "url": "https://github.com/juanmc2005/diart",
       "language": "Python",
-      "stars": 2012,
-      "forks": 164,
+      "stars": 2014,
+      "forks": 165,
       "category": "ai-ml",
       "categoryScore": 33,
       "secondaryCategories": [
@@ -6914,7 +6966,7 @@
         "ai-models"
       ],
       "displayCategory": "rag-search",
-      "updatedAt": "2026-08-11T22:49:15Z",
+      "updatedAt": "2026-08-13T11:52:29Z",
       "topics": [
         "deep-learning",
         "real-time",
@@ -6933,7 +6985,7 @@
       "description": "Create agents that monitor and act on your behalf.  Your agents are standing by!",
       "url": "https://github.com/huginn/huginn",
       "language": "Ruby",
-      "stars": 49783,
+      "stars": 49784,
       "forks": 4286,
       "category": "monitoring",
       "categoryScore": 8,
@@ -6942,7 +6994,7 @@
         "monitoring"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-13T05:30:56Z",
+      "updatedAt": "2026-08-13T10:42:14Z",
       "topics": [
         "agent",
         "automation",
@@ -6966,7 +7018,7 @@
       "description": "Sim is the collaborative workspace to build, deploy, and monitor AI agents and workflows. Used by 100,000+ builders.",
       "url": "https://github.com/simstudioai/sim",
       "language": "TypeScript",
-      "stars": 29416,
+      "stars": 29417,
       "forks": 3775,
       "category": "ai-ml",
       "categoryScore": 71,
@@ -6977,7 +7029,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:37:33Z",
+      "updatedAt": "2026-08-13T12:48:12Z",
       "topics": [
         "agent-workflow",
         "agentic-workflow",
@@ -7028,7 +7080,7 @@
       "description": "Contexts Optical Compression",
       "url": "https://github.com/deepseek-ai/DeepSeek-OCR",
       "language": "Python",
-      "stars": 23763,
+      "stars": 23768,
       "forks": 2194,
       "category": "python",
       "categoryScore": 8,
@@ -7036,7 +7088,7 @@
         "python"
       ],
       "displayCategory": "python",
-      "updatedAt": "2026-08-13T06:07:57Z",
+      "updatedAt": "2026-08-13T13:50:59Z",
       "topics": []
     },
     {
@@ -7074,7 +7126,7 @@
       "url": "https://github.com/facebookresearch/omnilingual-asr",
       "language": "Python",
       "stars": 2890,
-      "forks": 267,
+      "forks": 268,
       "category": "python",
       "categoryScore": 8,
       "secondaryCategories": [
@@ -7093,15 +7145,15 @@
       "description": "The largest Open-Source UI Library! Community-made and free to use. Made with either CSS or Tailwind.",
       "url": "https://github.com/uiverse-io/galaxy",
       "language": "HTML",
-      "stars": 12051,
-      "forks": 845,
+      "stars": 12057,
+      "forks": 848,
       "category": "web-dev",
       "categoryScore": 16,
       "secondaryCategories": [
         "frontend"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T06:56:44Z",
+      "updatedAt": "2026-08-13T10:38:37Z",
       "topics": [
         "community",
         "css",
@@ -7166,7 +7218,7 @@
       "description": "Lightpanda: the headless browser designed for AI and automation",
       "url": "https://github.com/lightpanda-io/browser",
       "language": "Zig",
-      "stars": 33861,
+      "stars": 33866,
       "forks": 1561,
       "category": "testing",
       "categoryScore": 15,
@@ -7175,7 +7227,7 @@
         "testing"
       ],
       "displayCategory": "systems-low-level",
-      "updatedAt": "2026-08-13T07:23:42Z",
+      "updatedAt": "2026-08-13T13:50:01Z",
       "topics": [
         "browser",
         "browser-automation",
@@ -7195,8 +7247,8 @@
       "description": "The absolute trainer to light up AI agents.",
       "url": "https://github.com/microsoft/agent-lightning",
       "language": "Python",
-      "stars": 17478,
-      "forks": 1532,
+      "stars": 17479,
+      "forks": 1533,
       "category": "ai-ml",
       "categoryScore": 63,
       "secondaryCategories": [
@@ -7205,7 +7257,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:40:38Z",
+      "updatedAt": "2026-08-13T12:27:50Z",
       "topics": [
         "agent",
         "agentic-ai",
@@ -7222,7 +7274,7 @@
       "description": "Database diagrams editor that allows you to visualize and design your DB with a single query.",
       "url": "https://github.com/chartdb/chartdb",
       "language": "TypeScript",
-      "stars": 22724,
+      "stars": 22726,
       "forks": 1465,
       "category": "data",
       "categoryScore": 25,
@@ -7232,7 +7284,7 @@
         "productivity-apps"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T06:47:36Z",
+      "updatedAt": "2026-08-13T13:41:05Z",
       "topics": [
         "database",
         "db",
@@ -7261,15 +7313,15 @@
       "description": "Breakthrough Method for Agile Ai Driven Development",
       "url": "https://github.com/bmad-code-org/BMAD-METHOD",
       "language": "JavaScript",
-      "stars": 51844,
-      "forks": 5931,
+      "stars": 51854,
+      "forks": 5932,
       "category": "ai-ml",
       "categoryScore": 5,
       "secondaryCategories": [
         "ai-models"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:33:35Z",
+      "updatedAt": "2026-08-13T13:07:25Z",
       "topics": []
     },
     {
@@ -7280,8 +7332,8 @@
       "description": "Spec-driven development (SDD) for AI coding assistants.",
       "url": "https://github.com/Fission-AI/OpenSpec",
       "language": "TypeScript",
-      "stars": 64723,
-      "forks": 4461,
+      "stars": 64755,
+      "forks": 4462,
       "category": "ai-ml",
       "categoryScore": 8,
       "secondaryCategories": [
@@ -7289,7 +7341,7 @@
         "ai-models"
       ],
       "displayCategory": "llm-apps",
-      "updatedAt": "2026-08-13T07:56:45Z",
+      "updatedAt": "2026-08-13T13:48:17Z",
       "topics": [
         "ai",
         "context-engineering",
@@ -7363,8 +7415,8 @@
       "description": "FinRL®:  Financial Reinforcement Learning. 🔥",
       "url": "https://github.com/AI4Finance-Foundation/FinRL",
       "language": "Jupyter Notebook",
-      "stars": 15997,
-      "forks": 3462,
+      "stars": 15999,
+      "forks": 3461,
       "category": "ai-ml",
       "categoryScore": 40,
       "secondaryCategories": [
@@ -7374,7 +7426,7 @@
         "full-stack-frameworks"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:33:02Z",
+      "updatedAt": "2026-08-13T11:25:25Z",
       "topics": [
         "algorithmic-trading",
         "deep-reinforcement-learning",
@@ -7563,8 +7615,8 @@
       "description": "PraisonAI 🦞 — Hire a 24/7 AI Workforce. Stop writing boilerplate and start shipping autonomous self-improving agents that research, plan, code, and execute tasks. Deployed in 5 lines of code with built-in memory, RAG, and support for 100+ LLMs.",
       "url": "https://github.com/MervinPraison/PraisonAI",
       "language": "Python",
-      "stars": 8833,
-      "forks": 1383,
+      "stars": 8837,
+      "forks": 1385,
       "category": "ai-ml",
       "categoryScore": 46,
       "secondaryCategories": [
@@ -7574,7 +7626,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T04:05:14Z",
+      "updatedAt": "2026-08-13T11:17:36Z",
       "topics": [
         "agents",
         "ai",
@@ -7662,7 +7714,7 @@
       "description": "Fast, light, simple Docker containers & Linux machines",
       "url": "https://github.com/orbstack/orbstack",
       "language": "Shell",
-      "stars": 9181,
+      "stars": 9183,
       "forks": 96,
       "category": "devops",
       "categoryScore": 15,
@@ -7671,7 +7723,7 @@
         "devops"
       ],
       "displayCategory": "developer-tools",
-      "updatedAt": "2026-08-13T04:05:59Z",
+      "updatedAt": "2026-08-13T13:44:47Z",
       "topics": [
         "colima",
         "docker",
@@ -7692,8 +7744,8 @@
       "description": "The batteries-included agent harness.",
       "url": "https://github.com/langchain-ai/deepagents",
       "language": "Python",
-      "stars": 27721,
-      "forks": 3865,
+      "stars": 27731,
+      "forks": 3872,
       "category": "ai-ml",
       "categoryScore": 48,
       "secondaryCategories": [
@@ -7701,7 +7753,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:30:52Z",
+      "updatedAt": "2026-08-13T13:47:00Z",
       "topics": [
         "ai",
         "deepagents",
@@ -7719,8 +7771,8 @@
       "description": "🌟 The Multi-Agent Framework: First AI Software Company, Towards Natural Language Programming",
       "url": "https://github.com/FoundationAgents/MetaGPT",
       "language": "Python",
-      "stars": 69798,
-      "forks": 8881,
+      "stars": 69805,
+      "forks": 8880,
       "category": "ai-ml",
       "categoryScore": 45,
       "secondaryCategories": [
@@ -7729,7 +7781,7 @@
         "full-stack-frameworks"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:33:18Z",
+      "updatedAt": "2026-08-13T13:26:04Z",
       "topics": [
         "agent",
         "gpt",
@@ -7746,7 +7798,7 @@
       "description": "Effortlessly compose, extend, and observe every service in real-time for the first time ever.",
       "url": "https://github.com/iii-hq/iii",
       "language": "Rust",
-      "stars": 18596,
+      "stars": 18597,
       "forks": 1245,
       "category": "ai-ml",
       "categoryScore": 16,
@@ -7757,7 +7809,7 @@
         "developer-tools"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T06:23:36Z",
+      "updatedAt": "2026-08-13T09:02:37Z",
       "topics": [
         "agents",
         "ai",
@@ -7800,8 +7852,8 @@
       "description": "A collective list of free APIs",
       "url": "https://github.com/public-apis/public-apis",
       "language": "Python",
-      "stars": 455805,
-      "forks": 50277,
+      "stars": 455867,
+      "forks": 50293,
       "category": "learning",
       "categoryScore": 16,
       "secondaryCategories": [
@@ -7809,7 +7861,7 @@
         "docs-reference"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-13T07:57:54Z",
+      "updatedAt": "2026-08-13T13:53:05Z",
       "topics": [
         "api",
         "apis",
@@ -7834,7 +7886,7 @@
       "description": "Integrate cutting-edge LLM technology quickly and easily into your apps",
       "url": "https://github.com/microsoft/semantic-kernel",
       "language": "C#",
-      "stars": 28444,
+      "stars": 28445,
       "forks": 4718,
       "category": "ai-ml",
       "categoryScore": 40,
@@ -7844,7 +7896,7 @@
         "systems-low-level"
       ],
       "displayCategory": "llm-apps",
-      "updatedAt": "2026-08-13T07:04:29Z",
+      "updatedAt": "2026-08-13T10:18:56Z",
       "topics": [
         "ai",
         "artificial-intelligence",
@@ -7885,8 +7937,8 @@
       "description": "A simple, easy-to-hack GraphRAG implementation",
       "url": "https://github.com/gusye1234/nano-graphrag",
       "language": "Python",
-      "stars": 3966,
-      "forks": 423,
+      "stars": 3967,
+      "forks": 424,
       "category": "ai-ml",
       "categoryScore": 38,
       "secondaryCategories": [
@@ -7895,7 +7947,7 @@
         "ai-models"
       ],
       "displayCategory": "rag-search",
-      "updatedAt": "2026-08-12T13:34:11Z",
+      "updatedAt": "2026-08-13T11:54:41Z",
       "topics": [
         "gpt",
         "gpt-4o",
@@ -8035,8 +8087,8 @@
       "description": "DeepCode: Open Agentic Coding (Paper2Code & Text2Web & Text2Backend)",
       "url": "https://github.com/HKUDS/DeepCode",
       "language": "Python",
-      "stars": 16341,
-      "forks": 2136,
+      "stars": 16343,
+      "forks": 2135,
       "category": "ai-ml",
       "categoryScore": 25,
       "secondaryCategories": [
@@ -8044,7 +8096,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:44:25Z",
+      "updatedAt": "2026-08-13T13:38:21Z",
       "topics": [
         "agentic-coding",
         "llm-agent"
@@ -8058,7 +8110,7 @@
       "description": "A curated collection of fun and creative examples generated with Nano Banana & Nano Banana Pro🍌, Gemini-2.5-flash-image based model. We also release Nano-consistent-150K openly to support the community's development of image generation and unified models(click to website to see our blog)",
       "url": "https://github.com/PicoTrex/Awesome-Nano-Banana-images",
       "language": "Unknown",
-      "stars": 23487,
+      "stars": 23489,
       "forks": 2387,
       "category": "learning",
       "categoryScore": 40,
@@ -8067,7 +8119,7 @@
         "docs-reference"
       ],
       "displayCategory": "developer-tools",
-      "updatedAt": "2026-08-13T06:50:52Z",
+      "updatedAt": "2026-08-13T09:34:33Z",
       "topics": [
         "awesome",
         "gemini-2-5-flash-image",
@@ -8124,7 +8176,7 @@
       "description": "AGENTS.md — a simple, open format for guiding coding agents",
       "url": "https://github.com/agentsmd/agents.md",
       "language": "TypeScript",
-      "stars": 23612,
+      "stars": 23616,
       "forks": 1777,
       "category": "other",
       "categoryScore": 4,
@@ -8132,7 +8184,7 @@
         "other"
       ],
       "displayCategory": "other",
-      "updatedAt": "2026-08-13T07:14:38Z",
+      "updatedAt": "2026-08-13T13:41:30Z",
       "topics": []
     },
     {
@@ -8143,7 +8195,7 @@
       "description": "A one stop repository for generative AI research updates, interview resources, notebooks and much more!",
       "url": "https://github.com/aishwaryanr/awesome-generative-ai-guide",
       "language": "HTML",
-      "stars": 28731,
+      "stars": 28733,
       "forks": 5872,
       "category": "learning",
       "categoryScore": 53,
@@ -8153,7 +8205,7 @@
         "docs-reference"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-13T05:17:00Z",
+      "updatedAt": "2026-08-13T09:58:58Z",
       "topics": [
         "awesome",
         "awesome-list",
@@ -8173,8 +8225,8 @@
       "description": "A curated set of 200+ plug-and-play n8n workflows that fuse classic automation with today’s AI stack—vector DBs, embeddings, and LLMs. Import any JSON, add your creds, hit Activate, and you’re live. Built to demo, prototype, or drop straight into production.",
       "url": "https://github.com/wassupjay/n8n-free-templates",
       "language": "Unknown",
-      "stars": 6140,
-      "forks": 1632,
+      "stars": 6141,
+      "forks": 1633,
       "category": "ai-ml",
       "categoryScore": 10,
       "secondaryCategories": [
@@ -8183,7 +8235,7 @@
         "ai-models"
       ],
       "displayCategory": "rag-search",
-      "updatedAt": "2026-08-13T01:32:29Z",
+      "updatedAt": "2026-08-13T10:33:47Z",
       "topics": [
         "automation",
         "automation-templates",
@@ -8203,8 +8255,8 @@
       "description": "100+ AI Agents, Agent Skills and RAG Apps - Free and Open Source.",
       "url": "https://github.com/Shubhamsaboo/awesome-llm-apps",
       "language": "Python",
-      "stars": 132396,
-      "forks": 19479,
+      "stars": 132436,
+      "forks": 19485,
       "category": "ai-ml",
       "categoryScore": 38,
       "secondaryCategories": [
@@ -8214,7 +8266,7 @@
         "llm-apps"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:52:08Z",
+      "updatedAt": "2026-08-13T13:51:14Z",
       "topics": [
         "agents",
         "llms",
@@ -8230,8 +8282,8 @@
       "description": "50+ tutorials and implementations for Generative AI Agent techniques, from basic conversational bots to complex multi-agent systems.",
       "url": "https://github.com/NirDiamant/GenAI_Agents",
       "language": "Jupyter Notebook",
-      "stars": 23780,
-      "forks": 3990,
+      "stars": 23784,
+      "forks": 3991,
       "category": "ai-ml",
       "categoryScore": 109,
       "secondaryCategories": [
@@ -8241,7 +8293,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T03:28:26Z",
+      "updatedAt": "2026-08-13T13:45:58Z",
       "topics": [
         "agentic-ai",
         "agents",
@@ -8272,8 +8324,8 @@
       "description": "18 Lessons to Get Started Building AI Agents",
       "url": "https://github.com/microsoft/ai-agents-for-beginners",
       "language": "Jupyter Notebook",
-      "stars": 72035,
-      "forks": 23864,
+      "stars": 72062,
+      "forks": 23870,
       "category": "ai-ml",
       "categoryScore": 49,
       "secondaryCategories": [
@@ -8283,7 +8335,7 @@
         "llm-apps"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:10:18Z",
+      "updatedAt": "2026-08-13T13:44:39Z",
       "topics": [
         "agentic-ai",
         "agentic-framework",
@@ -8307,7 +8359,7 @@
       "url": "https://github.com/argilla-io/argilla",
       "language": "Python",
       "stars": 5078,
-      "forks": 497,
+      "forks": 498,
       "category": "ai-ml",
       "categoryScore": 76,
       "secondaryCategories": [
@@ -8346,8 +8398,8 @@
       "description": "A list of AI autonomous agents",
       "url": "https://github.com/e2b-dev/awesome-ai-agents",
       "language": "Unknown",
-      "stars": 29394,
-      "forks": 3308,
+      "stars": 29400,
+      "forks": 3312,
       "category": "ai-ml",
       "categoryScore": 48,
       "secondaryCategories": [
@@ -8357,7 +8409,7 @@
         "docs-reference"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:30:13Z",
+      "updatedAt": "2026-08-13T11:01:21Z",
       "topics": [
         "agent",
         "ai",
@@ -8382,8 +8434,8 @@
       "description": "Memori is agent-native memory infrastructure. A LLM-agnostic layer that turns agent execution and conversation into structured, persistent state for production systems. Built for enterprise, Memori works with the data infrastructure you already run, no rip-and-replace, and deploys across managed cloud, single-tenant cloud, VPC, and on-premises.",
       "url": "https://github.com/MemoriLabs/Memori",
       "language": "Python",
-      "stars": 15753,
-      "forks": 2930,
+      "stars": 15786,
+      "forks": 2959,
       "category": "ai-ml",
       "categoryScore": 56,
       "secondaryCategories": [
@@ -8393,7 +8445,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:31:51Z",
+      "updatedAt": "2026-08-13T13:30:49Z",
       "topics": [
         "agent",
         "agent-memory",
@@ -8423,7 +8475,7 @@
       "description": "A collection of best resources to learn System Design, Software architecture, and prepare for System Design Interviews",
       "url": "https://github.com/javabuddy/best-system-design-resources",
       "language": "Unknown",
-      "stars": 4394,
+      "stars": 4395,
       "forks": 616,
       "category": "system-design",
       "categoryScore": 29,
@@ -8433,7 +8485,7 @@
         "system-design"
       ],
       "displayCategory": "career-interview",
-      "updatedAt": "2026-08-12T21:06:53Z",
+      "updatedAt": "2026-08-13T13:33:26Z",
       "topics": []
     },
     {
@@ -8445,7 +8497,7 @@
       "url": "https://github.com/appcypher/awesome-mcp-servers",
       "language": "Unknown",
       "stars": 5740,
-      "forks": 2177,
+      "forks": 2178,
       "category": "ai-ml",
       "categoryScore": 46,
       "secondaryCategories": [
@@ -8515,8 +8567,8 @@
       "description": "Universal memory layer for AI Agents",
       "url": "https://github.com/mem0ai/mem0",
       "language": "Python",
-      "stars": 63168,
-      "forks": 7369,
+      "stars": 63192,
+      "forks": 7372,
       "category": "ai-ml",
       "categoryScore": 54,
       "secondaryCategories": [
@@ -8526,7 +8578,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T07:55:58Z",
+      "updatedAt": "2026-08-13T13:53:46Z",
       "topics": [
         "agents",
         "ai",
@@ -8572,7 +8624,7 @@
       "description": "Gradio WebUI for creators and developers, featuring key TTS (Edge-TTS, kokoro) and zero-shot Voice Cloning (E2 & F5-TTS, CosyVoice), with Whisper audio processing, YouTube download, Demucs vocal isolation, and multilingual translation.",
       "url": "https://github.com/abus-aikorea/voice-pro",
       "language": "Python",
-      "stars": 12300,
+      "stars": 12309,
       "forks": 1784,
       "category": "python",
       "categoryScore": 8,
@@ -8581,7 +8633,7 @@
         "python"
       ],
       "displayCategory": "docs-reference",
-      "updatedAt": "2026-08-13T07:49:28Z",
+      "updatedAt": "2026-08-13T13:29:47Z",
       "topics": [
         "audiobook",
         "faster-whisper",
@@ -8690,7 +8742,7 @@
         "productivity-apps"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:06:30Z",
+      "updatedAt": "2026-08-13T11:47:46Z",
       "topics": [
         "database",
         "editor",
@@ -8709,7 +8761,7 @@
       "description": "RAG-Anything: All-in-One RAG Framework",
       "url": "https://github.com/HKUDS/RAG-Anything",
       "language": "Python",
-      "stars": 22891,
+      "stars": 22896,
       "forks": 2656,
       "category": "ai-ml",
       "categoryScore": 8,
@@ -8719,7 +8771,7 @@
         "full-stack-frameworks"
       ],
       "displayCategory": "rag-search",
-      "updatedAt": "2026-08-13T07:41:32Z",
+      "updatedAt": "2026-08-13T13:52:48Z",
       "topics": [
         "multi-modal-rag",
         "retrieval-augmented-generation"
@@ -8733,8 +8785,8 @@
       "description": "Build Real-Time Knowledge Graphs for AI Agents",
       "url": "https://github.com/getzep/graphiti",
       "language": "Python",
-      "stars": 29873,
-      "forks": 3024,
+      "stars": 29885,
+      "forks": 3026,
       "category": "ai-ml",
       "categoryScore": 21,
       "secondaryCategories": [
@@ -8744,7 +8796,7 @@
         "ai-models"
       ],
       "displayCategory": "ai-agents",
-      "updatedAt": "2026-08-13T06:50:52Z",
+      "updatedAt": "2026-08-13T12:54:04Z",
       "topics": [
         "agents",
         "graph",
@@ -8760,8 +8812,8 @@
       "description": "Model Context Protocol Servers",
       "url": "https://github.com/modelcontextprotocol/servers",
       "language": "TypeScript",
-      "stars": 89519,
-      "forks": 11437,
+      "stars": 89531,
+      "forks": 11439,
       "category": "networking",
       "categoryScore": 5,
       "secondaryCategories": [
@@ -8769,7 +8821,7 @@
         "networking"
       ],
       "displayCategory": "backend-api",
-      "updatedAt": "2026-08-13T07:54:47Z",
+      "updatedAt": "2026-08-13T12:17:04Z",
       "topics": []
     },
     {
@@ -8780,7 +8832,7 @@
       "description": "🔥 Official Firecrawl MCP Server - Adds powerful web scraping and search to Cursor, Claude and any other LLM clients.",
       "url": "https://github.com/firecrawl/firecrawl-mcp-server",
       "language": "JavaScript",
-      "stars": 7224,
+      "stars": 7225,
       "forks": 845,
       "category": "ai-ml",
       "categoryScore": 46,
@@ -8791,7 +8843,7 @@
         "docs-reference"
       ],
       "displayCategory": "ai-models",
-      "updatedAt": "2026-08-13T07:30:59Z",
+      "updatedAt": "2026-08-13T08:50:54Z",
       "topics": [
         "batch-processing",
         "claude",
@@ -8857,7 +8909,7 @@
       "url": "https://github.com/BishopFox/unredacter",
       "language": "TypeScript",
       "stars": 8371,
-      "forks": 808,
+      "forks": 807,
       "category": "other",
       "categoryScore": 4,
       "secondaryCategories": [
@@ -8903,7 +8955,7 @@
       "description": "Pixel art animation and drawing web app powered by React",
       "url": "https://github.com/jvalen/pixel-art-react",
       "language": "JavaScript",
-      "stars": 5982,
+      "stars": 5983,
       "forks": 333,
       "category": "web-dev",
       "categoryScore": 30,
@@ -8911,7 +8963,7 @@
         "frontend"
       ],
       "displayCategory": "frontend",
-      "updatedAt": "2026-08-12T08:47:04Z",
+      "updatedAt": "2026-08-13T11:17:59Z",
       "topics": [
         "animation",
         "css",
@@ -9046,8 +9098,8 @@
       "description": "Open-source Windows and Office activator featuring HWID, Ohook, TSforge, and Online KMS activation methods, along with advanced troubleshooting.",
       "url": "https://github.com/massgravel/Microsoft-Activation-Scripts",
       "language": "Batchfile",
-      "stars": 186873,
-      "forks": 17883,
+      "stars": 186898,
+      "forks": 17887,
       "category": "other",
       "categoryScore": 4,
       "secondaryCategories": [
@@ -9055,7 +9107,7 @@
         "other"
       ],
       "displayCategory": "developer-tools",
-      "updatedAt": "2026-08-13T07:56:45Z",
+      "updatedAt": "2026-08-13T13:46:46Z",
       "topics": [
         "activator",
         "hwid",
@@ -9102,7 +9154,7 @@
       "description": "Free, open source crypto trading bot",
       "url": "https://github.com/freqtrade/freqtrade",
       "language": "Python",
-      "stars": 53240,
+      "stars": 53247,
       "forks": 11064,
       "category": "blockchain",
       "categoryScore": 18,
@@ -9110,7 +9162,7 @@
         "blockchain"
       ],
       "displayCategory": "blockchain",
-      "updatedAt": "2026-08-13T07:32:46Z",
+      "updatedAt": "2026-08-13T13:24:52Z",
       "topics": [
         "algorithmic-trading",
         "bitcoin",
@@ -9131,7 +9183,7 @@
       "description": "We have made you a wrapper you can't refuse",
       "url": "https://github.com/python-telegram-bot/python-telegram-bot",
       "language": "Python",
-      "stars": 29404,
+      "stars": 29405,
       "forks": 6126,
       "category": "python",
       "categoryScore": 16,
@@ -9140,7 +9192,7 @@
         "python"
       ],
       "displayCategory": "full-stack-frameworks",
-      "updatedAt": "2026-08-13T07:41:10Z",
+      "updatedAt": "2026-08-13T12:48:19Z",
       "topics": [
         "bot",
         "chatbot",
@@ -9182,14 +9234,14 @@
       ]
     }
   ],
-  "lastUpdated": "2026-08-13T07:59:20.288Z",
-  "totalCount": 315,
+  "lastUpdated": "2026-08-13T13:53:53.786Z",
+  "totalCount": 317,
   "categoryStats": {
+    "other": 29,
+    "web-dev": 33,
     "ai-ml": 148,
     "python": 27,
-    "other": 28,
     "ui-ux": 13,
-    "web-dev": 32,
     "learning": 22,
     "api": 2,
     "mobile": 12,
@@ -9206,15 +9258,16 @@
     "blockchain": 6
   },
   "secondaryCategoryStats": {
+    "frontend": 70,
+    "other": 29,
+    "self-hosted": 10,
     "ai-agents": 112,
     "llm-apps": 49,
     "ai-models": 144,
     "python": 27,
     "ai-learning": 24,
     "systems-low-level": 19,
-    "other": 28,
     "developer-tools": 59,
-    "frontend": 68,
     "full-stack-frameworks": 38,
     "docs-reference": 45,
     "backend-api": 52,
@@ -9223,7 +9276,6 @@
     "devops": 5,
     "productivity-apps": 13,
     "ui-ux": 10,
-    "self-hosted": 9,
     "system-design": 5,
     "career-interview": 6,
     "cloud": 2,
@@ -9236,10 +9288,10 @@
     "blockchain": 6
   },
   "languageStats": {
+    "TypeScript": 92,
     "JavaScript": 38,
     "Python": 90,
     "Rust": 11,
-    "TypeScript": 90,
     "Jupyter Notebook": 7,
     "Unknown": 30,
     "Vue": 1,
@@ -9260,7 +9312,7 @@
     "Batchfile": 1
   },
   "metadata": {
-    "fetchedAt": "2026-08-13T07:59:20.289Z",
+    "fetchedAt": "2026-08-13T13:53:53.787Z",
     "username": "axelior",
     "version": "2.2"
   }
